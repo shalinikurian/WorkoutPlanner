@@ -1,0 +1,446 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		79376BA2147B7E540059579A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79376BA1147B7E540059579A /* UIKit.framework */; };
+		79376BA4147B7E540059579A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79376BA3147B7E540059579A /* Foundation.framework */; };
+		79376BA6147B7E540059579A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79376BA5147B7E540059579A /* CoreGraphics.framework */; };
+		79376BAC147B7E540059579A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 79376BAA147B7E540059579A /* InfoPlist.strings */; };
+		79376BAE147B7E540059579A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376BAD147B7E540059579A /* main.m */; };
+		79376BB2147B7E540059579A /* WorkoutPlannerAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376BB1147B7E540059579A /* WorkoutPlannerAppDelegate.m */; };
+		79376BB5147B7E540059579A /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79376BB3147B7E540059579A /* MainStoryboard.storyboard */; };
+		79376BC0147B7E760059579A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79376BBE147B7E760059579A /* Model.xcdatamodeld */; };
+		79376BC3147CA7710059579A /* WorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376BC2147CA7710059579A /* WorkoutViewController.m */; };
+		79376BC6147CA86E0059579A /* AddWorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376BC5147CA86E0059579A /* AddWorkoutViewController.m */; };
+		79376BE8147CAFE90059579A /* Workout+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376BE7147CAFE90059579A /* Workout+Create.m */; };
+		79376BEB147CB0D50059579A /* WorkoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376BEA147CB0D50059579A /* WorkoutHelper.m */; };
+		79376BED147CB4190059579A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79376BEC147CB4190059579A /* CoreData.framework */; };
+		79376BFB147CBFA10059579A /* Exercise+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376BFA147CBFA10059579A /* Exercise+Create.m */; };
+		79376C84147E11030059579A /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376C83147E11030059579A /* CoreDataTableViewController.m */; };
+		79376C8A147EC9680059579A /* ShowExistingExercisesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376C89147EC9680059579A /* ShowExistingExercisesViewController.m */; };
+		79376C8D147F1F7B0059579A /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376C8C147F1F7B0059579A /* CustomButton.m */; };
+		79376C90147F229E0059579A /* create.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 79376C8F147F229E0059579A /* create.jpeg */; };
+		79376C96147F38110059579A /* AddNewExerciseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376C95147F38100059579A /* AddNewExerciseViewController.m */; };
+		79376CA2148011E80059579A /* minusImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 79376CA1148011E80059579A /* minusImage.png */; };
+		79376CA6148013980059579A /* addImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 79376CA5148013980059579A /* addImage.png */; };
+		79376CAD148060CF0059579A /* AddNewWorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376CAC148060CF0059579A /* AddNewWorkoutViewController.m */; };
+		79376CB0148071580059579A /* Set+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376CAF148071570059579A /* Set+Create.m */; };
+		79376CEC14807D0A0059579A /* Exercise.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376CEB14807D0A0059579A /* Exercise.m */; };
+		79376CEF14807D0A0059579A /* ExerciseOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376CEE14807D0A0059579A /* ExerciseOrder.m */; };
+		79376CF214807D0C0059579A /* ActualWorkout.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376CF114807D0C0059579A /* ActualWorkout.m */; };
+		79376CF514807D0D0059579A /* Set.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376CF414807D0D0059579A /* Set.m */; };
+		79376CF814807D0D0059579A /* Workout.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376CF714807D0D0059579A /* Workout.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		79376B9D147B7E540059579A /* WorkoutPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkoutPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		79376BA1147B7E540059579A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		79376BA3147B7E540059579A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		79376BA5147B7E540059579A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		79376BA9147B7E540059579A /* WorkoutPlanner-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WorkoutPlanner-Info.plist"; sourceTree = "<group>"; };
+		79376BAB147B7E540059579A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		79376BAD147B7E540059579A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		79376BAF147B7E540059579A /* WorkoutPlanner-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WorkoutPlanner-Prefix.pch"; sourceTree = "<group>"; };
+		79376BB0147B7E540059579A /* WorkoutPlannerAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkoutPlannerAppDelegate.h; sourceTree = "<group>"; };
+		79376BB1147B7E540059579A /* WorkoutPlannerAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WorkoutPlannerAppDelegate.m; sourceTree = "<group>"; };
+		79376BB4147B7E540059579A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		79376BBF147B7E760059579A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		79376BC1147CA7710059579A /* WorkoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WorkoutViewController.h; path = ../WorkoutViewController.h; sourceTree = "<group>"; };
+		79376BC2147CA7710059579A /* WorkoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WorkoutViewController.m; path = ../WorkoutViewController.m; sourceTree = "<group>"; };
+		79376BC4147CA86E0059579A /* AddWorkoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddWorkoutViewController.h; sourceTree = "<group>"; };
+		79376BC5147CA86E0059579A /* AddWorkoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddWorkoutViewController.m; sourceTree = "<group>"; };
+		79376BE6147CAFE90059579A /* Workout+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Workout+Create.h"; sourceTree = "<group>"; };
+		79376BE7147CAFE90059579A /* Workout+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Workout+Create.m"; sourceTree = "<group>"; };
+		79376BE9147CB0D50059579A /* WorkoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutHelper.h; sourceTree = "<group>"; };
+		79376BEA147CB0D50059579A /* WorkoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutHelper.m; sourceTree = "<group>"; };
+		79376BEC147CB4190059579A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		79376BF9147CBFA00059579A /* Exercise+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Exercise+Create.h"; sourceTree = "<group>"; };
+		79376BFA147CBFA10059579A /* Exercise+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Exercise+Create.m"; sourceTree = "<group>"; };
+		79376C82147E11020059579A /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
+		79376C83147E11030059579A /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
+		79376C88147EC9680059579A /* ShowExistingExercisesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowExistingExercisesViewController.h; sourceTree = "<group>"; };
+		79376C89147EC9680059579A /* ShowExistingExercisesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowExistingExercisesViewController.m; sourceTree = "<group>"; };
+		79376C8B147F1F7B0059579A /* CustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomButton.h; path = helperClasses/CustomButton.h; sourceTree = "<group>"; };
+		79376C8C147F1F7B0059579A /* CustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomButton.m; path = helperClasses/CustomButton.m; sourceTree = "<group>"; };
+		79376C8F147F229E0059579A /* create.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = create.jpeg; sourceTree = "<group>"; };
+		79376C94147F38100059579A /* AddNewExerciseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNewExerciseViewController.h; sourceTree = "<group>"; };
+		79376C95147F38100059579A /* AddNewExerciseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewExerciseViewController.m; sourceTree = "<group>"; };
+		79376CA1148011E80059579A /* minusImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minusImage.png; sourceTree = "<group>"; };
+		79376CA5148013980059579A /* addImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addImage.png; sourceTree = "<group>"; };
+		79376CAB148060CF0059579A /* AddNewWorkoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNewWorkoutViewController.h; sourceTree = "<group>"; };
+		79376CAC148060CF0059579A /* AddNewWorkoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewWorkoutViewController.m; sourceTree = "<group>"; };
+		79376CAE148071560059579A /* Set+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Set+Create.h"; sourceTree = "<group>"; };
+		79376CAF148071570059579A /* Set+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Set+Create.m"; sourceTree = "<group>"; };
+		79376CEA14807D0A0059579A /* Exercise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exercise.h; sourceTree = "<group>"; };
+		79376CEB14807D0A0059579A /* Exercise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exercise.m; sourceTree = "<group>"; };
+		79376CED14807D0A0059579A /* ExerciseOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExerciseOrder.h; sourceTree = "<group>"; };
+		79376CEE14807D0A0059579A /* ExerciseOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExerciseOrder.m; sourceTree = "<group>"; };
+		79376CF014807D0C0059579A /* ActualWorkout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualWorkout.h; sourceTree = "<group>"; };
+		79376CF114807D0C0059579A /* ActualWorkout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActualWorkout.m; sourceTree = "<group>"; };
+		79376CF314807D0D0059579A /* Set.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Set.h; sourceTree = "<group>"; };
+		79376CF414807D0D0059579A /* Set.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Set.m; sourceTree = "<group>"; };
+		79376CF614807D0D0059579A /* Workout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Workout.h; sourceTree = "<group>"; };
+		79376CF714807D0D0059579A /* Workout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Workout.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		79376B9A147B7E540059579A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79376BED147CB4190059579A /* CoreData.framework in Frameworks */,
+				79376BA2147B7E540059579A /* UIKit.framework in Frameworks */,
+				79376BA4147B7E540059579A /* Foundation.framework in Frameworks */,
+				79376BA6147B7E540059579A /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		79376B92147B7E540059579A = {
+			isa = PBXGroup;
+			children = (
+				79376BEC147CB4190059579A /* CoreData.framework */,
+				79376BA7147B7E540059579A /* WorkoutPlanner */,
+				79376BA0147B7E540059579A /* Frameworks */,
+				79376B9E147B7E540059579A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		79376B9E147B7E540059579A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				79376B9D147B7E540059579A /* WorkoutPlanner.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		79376BA0147B7E540059579A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				79376BA1147B7E540059579A /* UIKit.framework */,
+				79376BA3147B7E540059579A /* Foundation.framework */,
+				79376BA5147B7E540059579A /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		79376BA7147B7E540059579A /* WorkoutPlanner */ = {
+			isa = PBXGroup;
+			children = (
+				79376C8E147F1FC30059579A /* helperClasses */,
+				79376BC8147CAF1F0059579A /* CoreData */,
+				79376BC7147CAF0E0059579A /* workout */,
+				79376BB0147B7E540059579A /* WorkoutPlannerAppDelegate.h */,
+				79376BC1147CA7710059579A /* WorkoutViewController.h */,
+				79376BC2147CA7710059579A /* WorkoutViewController.m */,
+				79376C82147E11020059579A /* CoreDataTableViewController.h */,
+				79376C83147E11030059579A /* CoreDataTableViewController.m */,
+				79376BB1147B7E540059579A /* WorkoutPlannerAppDelegate.m */,
+				79376BB3147B7E540059579A /* MainStoryboard.storyboard */,
+				79376BBE147B7E760059579A /* Model.xcdatamodeld */,
+				79376BA8147B7E540059579A /* Supporting Files */,
+			);
+			path = WorkoutPlanner;
+			sourceTree = "<group>";
+		};
+		79376BA8147B7E540059579A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				79376BA9147B7E540059579A /* WorkoutPlanner-Info.plist */,
+				79376BAA147B7E540059579A /* InfoPlist.strings */,
+				79376BAD147B7E540059579A /* main.m */,
+				79376BAF147B7E540059579A /* WorkoutPlanner-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		79376BC7147CAF0E0059579A /* workout */ = {
+			isa = PBXGroup;
+			children = (
+				79376BC4147CA86E0059579A /* AddWorkoutViewController.h */,
+				79376BC5147CA86E0059579A /* AddWorkoutViewController.m */,
+				79376CAB148060CF0059579A /* AddNewWorkoutViewController.h */,
+				79376CAC148060CF0059579A /* AddNewWorkoutViewController.m */,
+				79376C94147F38100059579A /* AddNewExerciseViewController.h */,
+				79376C95147F38100059579A /* AddNewExerciseViewController.m */,
+				79376C88147EC9680059579A /* ShowExistingExercisesViewController.h */,
+				79376C89147EC9680059579A /* ShowExistingExercisesViewController.m */,
+			);
+			name = workout;
+			sourceTree = "<group>";
+		};
+		79376BC8147CAF1F0059579A /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				79376BE5147CAFAC0059579A /* categories */,
+				79376BE4147CAF960059579A /* models */,
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
+		79376BE4147CAF960059579A /* models */ = {
+			isa = PBXGroup;
+			children = (
+				79376CF614807D0D0059579A /* Workout.h */,
+				79376CF714807D0D0059579A /* Workout.m */,
+				79376CF314807D0D0059579A /* Set.h */,
+				79376CF414807D0D0059579A /* Set.m */,
+				79376CF014807D0C0059579A /* ActualWorkout.h */,
+				79376CF114807D0C0059579A /* ActualWorkout.m */,
+				79376CED14807D0A0059579A /* ExerciseOrder.h */,
+				79376CEE14807D0A0059579A /* ExerciseOrder.m */,
+				79376CEA14807D0A0059579A /* Exercise.h */,
+				79376CEB14807D0A0059579A /* Exercise.m */,
+			);
+			name = models;
+			sourceTree = "<group>";
+		};
+		79376BE5147CAFAC0059579A /* categories */ = {
+			isa = PBXGroup;
+			children = (
+				79376CAE148071560059579A /* Set+Create.h */,
+				79376CAF148071570059579A /* Set+Create.m */,
+				79376BE6147CAFE90059579A /* Workout+Create.h */,
+				79376BE7147CAFE90059579A /* Workout+Create.m */,
+				79376BF9147CBFA00059579A /* Exercise+Create.h */,
+				79376BFA147CBFA10059579A /* Exercise+Create.m */,
+			);
+			name = categories;
+			sourceTree = "<group>";
+		};
+		79376C8E147F1FC30059579A /* helperClasses */ = {
+			isa = PBXGroup;
+			children = (
+				79376C8C147F1F7B0059579A /* CustomButton.m */,
+				79376CA1148011E80059579A /* minusImage.png */,
+				79376CA5148013980059579A /* addImage.png */,
+				79376BE9147CB0D50059579A /* WorkoutHelper.h */,
+				79376BEA147CB0D50059579A /* WorkoutHelper.m */,
+				79376C8F147F229E0059579A /* create.jpeg */,
+				79376C8B147F1F7B0059579A /* CustomButton.h */,
+			);
+			name = helperClasses;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		79376B9C147B7E540059579A /* WorkoutPlanner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 79376BBB147B7E540059579A /* Build configuration list for PBXNativeTarget "WorkoutPlanner" */;
+			buildPhases = (
+				79376B99147B7E540059579A /* Sources */,
+				79376B9A147B7E540059579A /* Frameworks */,
+				79376B9B147B7E540059579A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WorkoutPlanner;
+			productName = WorkoutPlanner;
+			productReference = 79376B9D147B7E540059579A /* WorkoutPlanner.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		79376B94147B7E540059579A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "Stanford ";
+			};
+			buildConfigurationList = 79376B97147B7E540059579A /* Build configuration list for PBXProject "WorkoutPlanner" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 79376B92147B7E540059579A;
+			productRefGroup = 79376B9E147B7E540059579A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				79376B9C147B7E540059579A /* WorkoutPlanner */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		79376B9B147B7E540059579A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79376BAC147B7E540059579A /* InfoPlist.strings in Resources */,
+				79376BB5147B7E540059579A /* MainStoryboard.storyboard in Resources */,
+				79376C90147F229E0059579A /* create.jpeg in Resources */,
+				79376CA2148011E80059579A /* minusImage.png in Resources */,
+				79376CA6148013980059579A /* addImage.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		79376B99147B7E540059579A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79376BAE147B7E540059579A /* main.m in Sources */,
+				79376BB2147B7E540059579A /* WorkoutPlannerAppDelegate.m in Sources */,
+				79376BC0147B7E760059579A /* Model.xcdatamodeld in Sources */,
+				79376BC3147CA7710059579A /* WorkoutViewController.m in Sources */,
+				79376BC6147CA86E0059579A /* AddWorkoutViewController.m in Sources */,
+				79376BE8147CAFE90059579A /* Workout+Create.m in Sources */,
+				79376BEB147CB0D50059579A /* WorkoutHelper.m in Sources */,
+				79376BFB147CBFA10059579A /* Exercise+Create.m in Sources */,
+				79376C84147E11030059579A /* CoreDataTableViewController.m in Sources */,
+				79376C8A147EC9680059579A /* ShowExistingExercisesViewController.m in Sources */,
+				79376C8D147F1F7B0059579A /* CustomButton.m in Sources */,
+				79376C96147F38110059579A /* AddNewExerciseViewController.m in Sources */,
+				79376CAD148060CF0059579A /* AddNewWorkoutViewController.m in Sources */,
+				79376CB0148071580059579A /* Set+Create.m in Sources */,
+				79376CEC14807D0A0059579A /* Exercise.m in Sources */,
+				79376CEF14807D0A0059579A /* ExerciseOrder.m in Sources */,
+				79376CF214807D0C0059579A /* ActualWorkout.m in Sources */,
+				79376CF514807D0D0059579A /* Set.m in Sources */,
+				79376CF814807D0D0059579A /* Workout.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		79376BAA147B7E540059579A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				79376BAB147B7E540059579A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		79376BB3147B7E540059579A /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				79376BB4147B7E540059579A /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		79376BB9147B7E540059579A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		79376BBA147B7E540059579A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		79376BBC147B7E540059579A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WorkoutPlanner/WorkoutPlanner-Prefix.pch";
+				INFOPLIST_FILE = "WorkoutPlanner/WorkoutPlanner-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		79376BBD147B7E540059579A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WorkoutPlanner/WorkoutPlanner-Prefix.pch";
+				INFOPLIST_FILE = "WorkoutPlanner/WorkoutPlanner-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		79376B97147B7E540059579A /* Build configuration list for PBXProject "WorkoutPlanner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				79376BB9147B7E540059579A /* Debug */,
+				79376BBA147B7E540059579A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		79376BBB147B7E540059579A /* Build configuration list for PBXNativeTarget "WorkoutPlanner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				79376BBC147B7E540059579A /* Debug */,
+				79376BBD147B7E540059579A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		79376BBE147B7E760059579A /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				79376BBF147B7E760059579A /* Model.xcdatamodel */,
+			);
+			currentVersion = 79376BBF147B7E760059579A /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 79376B94147B7E540059579A /* Project object */;
+}

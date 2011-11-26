@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.0" toolsVersion="1934" systemVersion="11C74" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="8ur-Lq-qd2">
+    <dependencies>
+        <development defaultVersion="4200" identifier="xcode"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="931"/>
+    </dependencies>
+    <scenes>
+        <scene sceneID="b4k-A4-nvf">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mw6-w8-lUf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="kxf-PX-vPe" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Workouts" id="xvG-kh-nCq"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Bql-Vo-dqg">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Ubm-Gu-NmP" kind="relationship" relationship="rootViewController" id="CzO-ip-9zZ"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="427" y="281"/>
+        </scene>
+        <scene sceneID="aMT-Wk-hgP">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FiF-HD-Xtx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="Ubm-Gu-NmP" customClass="WorkoutViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="nOm-fD-Zq0">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="workout" textLabel="4AL-IQ-Hx1" style="IBUITableViewCellStyleDefault" id="mCQ-o3-o8z">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4AL-IQ-Hx1">
+                                            <rect key="frame" x="10" y="0.0" width="280" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Ubm-Gu-NmP" id="YkL-Lx-zNl"/>
+                            <outlet property="delegate" destination="Ubm-Gu-NmP" id="Ex8-tT-Q0w"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="QAa-3W-nUL">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="KDn-zK-pWP">
+                            <connections>
+                                <segue destination="F3L-cb-pdZ" kind="push" id="8vV-Ke-R3e"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="799" y="281"/>
+        </scene>
+        <scene sceneID="qGL-Oq-ocI">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XyV-tf-Itr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="F3L-cb-pdZ" customClass="AddNewWorkoutViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Zmc-XH-twK">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="sRc-6D-RYc">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="52" sectionHeaderHeight="10" sectionFooterHeight="10" id="nuw-Fc-6dV">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="145"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="workoutDetails" rowHeight="52" id="u6o-lN-gjN">
+                                                <rect key="frame" x="0.0" y="46" width="320" height="54"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="10" y="1" width="300" height="51"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OxR-uB-8r0">
+                                        <rect key="frame" x="51" y="146" width="219" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Add an Exercise">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="DJp-52-jSH" kind="push" id="NhY-SZ-tUs"/>
+                                        </connections>
+                                    </button>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="aaP-el-jnU">
+                                        <rect key="frame" x="0.0" y="199" width="320" height="170"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="exercise" id="R5r-we-NKG">
+                                                <rect key="frame" x="0.0" y="46" width="320" height="46"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="10" y="1" width="280" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Q0b-gr-QHr">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Igy-Lq-w0q">
+                            <connections>
+                                <action selector="cancelWorkout:" destination="F3L-cb-pdZ" id="w6Y-ne-xue"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="mUj-ii-8OK">
+                            <connections>
+                                <action selector="saveWorkout:" destination="F3L-cb-pdZ" id="MLe-b6-UiI"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="addExerciseTable" destination="aaP-el-jnU" id="jcH-2C-2ul"/>
+                        <outlet property="scrollView" destination="sRc-6D-RYc" id="Vjr-xf-DTt"/>
+                        <outlet property="workoutDetailsTable" destination="nuw-Fc-6dV" id="Qhm-lV-wLm"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1176" y="287"/>
+        </scene>
+        <scene sceneID="TFb-8f-JsT">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BMF-7f-k8J" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="DJp-52-jSH" customClass="AddNewExerciseViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Jtd-RA-ia4">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="bon-o6-Q0Q">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="367"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="52" sectionHeaderHeight="10" sectionFooterHeight="10" id="Gz3-vI-tul">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="145"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="exerciseDetails" rowHeight="52" id="RCY-2v-LQu">
+                                                <rect key="frame" x="0.0" y="46" width="320" height="54"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="10" y="1" width="300" height="51"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Hfm-ZR-H6S">
+                                        <rect key="frame" x="74" y="146" width="246" height="104"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="add a set" textLabel="LYE-Jy-xne" style="IBUITableViewCellStyleDefault" id="CbW-cL-x4u">
+                                                <rect key="frame" x="0.0" y="46" width="246" height="46"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="10" y="1" width="226" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LYE-Jy-xne">
+                                                            <rect key="frame" x="10" y="0.0" width="206" height="43"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="MOq-eO-ipp">
+                                        <rect key="frame" x="0.0" y="252" width="320" height="115"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="set" id="3Tx-xG-XJJ">
+                                                <rect key="frame" x="0.0" y="46" width="320" height="46"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                </subviews>
+                                <gestureRecognizers/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="PWQ-TQ-FrP">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="7vL-nM-zta">
+                            <connections>
+                                <action selector="cancelExercise:" destination="DJp-52-jSH" id="7g1-ji-AJJ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="dSe-P3-n1a">
+                            <connections>
+                                <action selector="exerciseAdded:" destination="DJp-52-jSH" id="nHn-hT-Cvf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="addSetTableView" destination="Hfm-ZR-H6S" id="nDM-rw-Cg8"/>
+                        <outlet property="exerciseDetailsTableView" destination="Gz3-vI-tul" id="qGO-SL-bAH"/>
+                        <outlet property="scrollView" destination="bon-o6-Q0Q" id="OCJ-da-Cw5"/>
+                        <outlet property="showSetsTableView" destination="MOq-eO-ipp" id="FPW-rp-XB8"/>
+                        <segue destination="KhR-bx-INe" kind="push" identifier="show existing exercise" id="95V-cg-QK3"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1580" y="281"/>
+        </scene>
+        <scene sceneID="iEh-Dg-aO9">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="msb-jZ-8Td" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="KhR-bx-INe" customClass="ShowExistingExercisesViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Y3e-9M-7e2">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Existing Exercises" id="7IB-Qc-lMm">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="KhR-bx-INe" id="GPK-3h-vO3"/>
+                            <outlet property="delegate" destination="KhR-bx-INe" id="e2Y-6I-yaA"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="a1u-sX-3Yg"/>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="1950" y="281"/>
+        </scene>
+        <scene sceneID="gVl-qa-CNf">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vb2-0C-Pli" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tabBarController id="8ur-Lq-qd2" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="tFX-cy-x49">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="kxf-PX-vPe" kind="relationship" relationship="viewControllers" id="evL-RU-ZGr"/>
+                        <segue destination="BG1-3X-xaU" kind="relationship" relationship="viewControllers" id="hxR-CO-Cw3"/>
+                        <segue destination="QvZ-tg-TTP" kind="relationship" relationship="viewControllers" id="rF8-WW-040"/>
+                    </connections>
+                </tabBarController>
+            </objects>
+            <point key="canvasLocation" x="-88" y="856"/>
+        </scene>
+        <scene sceneID="07o-q2-2E4">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XRm-9h-IR2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="BG1-3X-xaU" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Log a Workout" id="FOq-bP-3WL"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="UVk-gQ-DeP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="435" y="848"/>
+        </scene>
+        <scene sceneID="83X-CE-69a">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ba9-Uz-ZYR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="QvZ-tg-TTP" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="View Progress" id="luN-VS-GWV"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="XbK-Fq-aiL">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="435" y="1413"/>
+        </scene>
+    </scenes>
+    <classes>
+        <class className="AddNewExerciseViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddNewExerciseViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="addSetTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="exerciseDetailsTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="showSetsTableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="AddNewWorkoutViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddNewWorkoutViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="addExerciseTable" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="workoutDetailsTable" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="CoreDataTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
+        </class>
+        <class className="ShowExistingExercisesViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShowExistingExercisesViewController.h"/>
+        </class>
+        <class className="WorkoutViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WorkoutViewController.h"/>
+        </class>
+    </classes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination"/>
+    </simulatedMetricsContainer>
+</document>

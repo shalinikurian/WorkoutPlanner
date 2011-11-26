@@ -1,0 +1,377 @@
+//
+//  AddNewExerciseViewController.m
+//  WorkoutPlanner
+//
+//  Created by Shalini Kurian on 11/24/11.
+//  Copyright (c) 2011 Stanford . All rights reserved.
+//
+
+#import "AddNewExerciseViewController.h"
+#import "ShowExistingExercisesViewController.h"
+
+@interface AddNewExerciseViewController() <ShowExistingExercisesViewControllerProtocol>
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UITableView *showSetsTableView;
+@property (strong, nonatomic) IBOutlet UITableView *addSetTableView;
+@property (nonatomic, strong) UIManagedDocument *database;
+@property (strong, nonatomic) IBOutlet UITableView *exerciseDetailsTableView;
+@property (strong, nonatomic) Exercise * exerciseToAdd;
+@property (nonatomic) bool chosenFromExisitingExercises;
+@property (nonatomic) bool expandCell;
+@property (nonatomic, strong) NSMutableArray *arrayOfSets;
+@property (nonatomic, strong) UITextField * reps;
+@property (nonatomic, strong) UITextField * weight;
+@property (nonatomic, strong) UITextField *currentFirstResponder;
+@property (nonatomic, strong) UIButton *addCancelSetButton;
+@end
+@implementation AddNewExerciseViewController 
+@synthesize delegate = _delegate;
+@synthesize scrollView = _scrollView;
+@synthesize showSetsTableView = _showSetsTableView;
+@synthesize addSetTableView = _addSetTableView;
+@synthesize database = _database;
+@synthesize exerciseDetailsTableView = _exerciseDetailsTableView;
+@synthesize exerciseName = _exerciseName;
+@synthesize exerciseDescription = _exerciseDescription;
+@synthesize chosenFromExisitingExercises = _chosenFromExisitingExercises;
+@synthesize exerciseToAdd = _exerciseToAdd;
+@synthesize expandCell = _expandCell;
+@synthesize arrayOfSets = _arrayOfSets;
+@synthesize reps = _reps;
+@synthesize weight= _weight;
+@synthesize currentFirstResponder = _currentFirstResponder;
+@synthesize addCancelSetButton = _addCancelSetButton;
+
+- (NSMutableArray *) arrayOfSets{
+    if(!_arrayOfSets){
+        _arrayOfSets = [[NSMutableArray alloc] init];
+    }
+    return _arrayOfSets;
+}
+- (void) setExercise:(Exercise *)exercise{
+    self.exerciseToAdd = exercise;
+    self.exerciseName.text = exercise.name;
+    self.exerciseDescription.text = exercise.exerciseDescription;
+    self.exerciseName.enabled = NO;
+    self.exerciseDescription.editable = NO;
+    self.chosenFromExisitingExercises = YES;
+}
+
+- (IBAction)exerciseAdded:(id)sender {
+    if (!self.chosenFromExisitingExercises) {
+        
+       self.exerciseToAdd = [Exercise createExerciseWithName:[self.exerciseName text]
+                                          withDescription:[self.exerciseDescription text] 
+                                                withImage:nil 
+                                   inManagedObjectContext:self.database.managedObjectContext];
+    }
+    //add the exercise to the workout
+    [self.delegate addExercise:self.exerciseToAdd
+                       withSet:self.arrayOfSets];
+    NSMutableArray *allControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
+    [self.navigationController popToViewController:[allControllers objectAtIndex:[allControllers count]-2] animated:YES];
+}
+- (IBAction)cancelExercise:(id)sender {
+    NSMutableArray *allControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
+    [self.navigationController popToViewController:[allControllers objectAtIndex:[allControllers count]-2] animated:YES];
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc that aren't in use.
+}
+
+- (void) viewDidLoad{
+    [super viewDidLoad];
+    [self.exerciseDetailsTableView setDelegate:self];
+    [self.exerciseDetailsTableView  setDataSource:self];
+    [self.addSetTableView setDelegate:self];
+    [self.addSetTableView setDataSource:self];
+    [self.showSetsTableView setDelegate:self];
+    [self.showSetsTableView setDataSource:self];
+    //for textfields
+    [self.reps setDelegate:self];
+    [self.weight setDelegate:self];
+    [self.exerciseName setDelegate:self];
+    
+    
+    }
+- (void) changeAddMinusSetIcon {
+    if (self.expandCell) {
+        self.expandCell = false;
+        UIImage *img = [UIImage imageNamed:@"addImage.png"];
+        [self.addCancelSetButton setImage:img forState:UIControlStateNormal];
+    }
+    else {
+        self.expandCell = true;
+        [self.reps resignFirstResponder];
+        [self.weight resignFirstResponder];
+        UIImage *img = [UIImage imageNamed:@"minusImage.png"];
+        [self.addCancelSetButton setImage:img forState:UIControlStateNormal];
+    }
+
+}
+
+
+- (void) textFieldDidEndEditing:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+}
+- (void) addSetClicked :(id) sender {
+    
+    [self changeAddMinusSetIcon];
+    [self.reps resignFirstResponder];
+    [self.weight resignFirstResponder];
+    [self.addSetTableView reloadData];
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    CGRect frame = self.addSetTableView.frame;
+    self.addCancelSetButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *img = [UIImage imageNamed:@"addImage.png"];
+    
+
+    [self.addCancelSetButton setImage:img forState:UIControlStateNormal];
+    [self.addCancelSetButton addTarget:self action:@selector(addSetClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.addCancelSetButton setFrame:CGRectMake(frame.origin.x-30, frame.origin.y+20, 30, 30)];
+
+    [self.scrollView addSubview:self.addCancelSetButton];
+    
+    self.addSetTableView.scrollEnabled = NO;
+    self.exerciseDetailsTableView.scrollEnabled = NO;
+    self.scrollView.delegate = self;
+    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width,
+                               self.view.frame.size.height)];
+}
+- (void)viewDidUnload
+{
+    [self setAddSetTableView:nil];
+    [self setShowSetsTableView:nil];
+    [self setScrollView:nil];
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+    return YES;
+}
+
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger) tableView: (UITableView *) tableView numberOfRowsInSection:(NSInteger)section  
+{
+    if (tableView == self.exerciseDetailsTableView) return 2;
+    if (tableView == self.addSetTableView) {
+        return 1;
+    }
+    return [self.arrayOfSets count]; //sets table
+}
+
+
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.exerciseDetailsTableView == tableView && indexPath.row  == 1) return 80;
+    return 50;
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"show existing exercise"]){
+        [segue.destinationViewController setDelegate:self];
+        [segue.destinationViewController setDatabase:self.database];
+
+    }
+}
+
+- (BOOL) textFieldShouldReturn:(UITextField *)textField
+{
+    NSLog(@"here");
+    if (textField == self.reps || textField == self.weight ){
+        if ([textField.text isEqualToString:@""]) return NO;
+    }
+    return YES;
+}
+- (void) addExercise: (id) sender
+{
+    [self performSegueWithIdentifier:@"show existing exercise" sender:self];
+}
+- (UITableViewCell *) configureCellForExercise: (UITableViewCell *) cell
+                                   atIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0) //exercisename field
+    {
+        self.exerciseName = [[UITextField alloc] initWithFrame:CGRectMake(20,10,200,21)];
+        self.exerciseName.placeholder = @"Exercise Name";
+        UIButton *addFromExistingExercise = [UIButton buttonWithType:UIButtonTypeContactAdd];
+        [addFromExistingExercise addTarget:self action:@selector(addExercise:) forControlEvents:UIControlEventTouchUpInside];
+        [cell setAccessoryView:addFromExistingExercise];
+        [cell addSubview:self.exerciseName];
+    }
+    
+    if (indexPath.row == 1) //exercisedescription field
+    {
+        self.exerciseDescription = [[UITextView alloc] initWithFrame:CGRectMake(20,10,cell.bounds.size.width-30,50)];
+        self.exerciseDescription.text = @"Exercise Description";
+        [cell addSubview:self.exerciseDescription];
+    }
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+}
+
+- (void) doneAddingSetClicked :(id) sender {
+    NSLog(@"reps for sets %@",self.reps.text);
+    [self changeAddMinusSetIcon];
+    self.expandCell = NO;
+    NSDictionary *setDictionary =  [NSDictionary dictionaryWithObjectsAndKeys:
+                                    self.reps.text, @"reps",
+                                    self.weight.text, @"weight",
+                                    nil]; 
+    [self.arrayOfSets addObject:setDictionary];
+    [self.addSetTableView reloadData];
+    [self.showSetsTableView reloadData];
+    
+}
+
+- (UITextField *) reps {
+    if (!_reps){
+        _reps = [[UITextField alloc] initWithFrame:CGRectMake(20,10,50,21)];
+    }
+    return _reps;
+}
+
+- (UITextField *) weight {
+    if (!_weight){
+        _weight = [[UITextField alloc] initWithFrame:CGRectMake(80,10,50,21)];
+    }
+    return _weight;
+}
+
+- (UITableViewCell *) configureCellForAddSet: (UITableViewCell*) cell 
+{
+   
+    self.reps.text = @"";
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(60,10,10,21)];     
+    label.backgroundColor =[UIColor clearColor];
+    label.text = @"X";
+    self.weight.text = @"";
+    self.reps.placeholder = @"reps";
+    self.weight.placeholder = @"weight";
+    cell.textLabel.text =@"";
+    self.reps.keyboardType = UIKeyboardTypeNumberPad;
+    self.weight.keyboardType = UIKeyboardTypeNumberPad;
+    UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [doneButton addTarget:self action:@selector(doneAddingSetClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [doneButton setTitle:@"Done" forState:UIControlStateNormal];
+    [doneButton setFrame:CGRectMake(0, 0, 50, 35)];
+    [cell setAccessoryView:doneButton];
+    [cell.contentView addSubview:self.reps];
+    [cell.contentView addSubview:label];
+    [cell.contentView addSubview:self.weight];
+    return cell;
+    
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableView == self.exerciseDetailsTableView) {
+        static NSString *CellIdentifier = @"exerciseDetails";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            cell.editing = NO;
+        }
+        
+        
+        cell = [self configureCellForExercise:cell atIndexPath:indexPath];
+        return cell;
+    }
+    if (tableView == self.addSetTableView) {
+        static NSString *CellIdentifier = @"add a set";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            cell.editing = NO;
+        }
+        if(self.expandCell){
+            //set uitextlabels and configure keyboard
+            cell = [self configureCellForAddSet:cell];
+        }else {
+            cell.textLabel.text = @"Add a set";
+            cell.textLabel.textAlignment = UITextAlignmentCenter;
+            cell.accessoryView = nil;
+        }
+        return cell;
+    }
+    //sets table view
+    static NSString *CellIdentifier = @"set";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    NSDictionary *set = [self.arrayOfSets objectAtIndex:indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ reps X %@ lb", [set objectForKey:@"reps"],[set objectForKey:@"weight"]];
+    return cell;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (tableView == self.showSetsTableView && [self.arrayOfSets count]>0) return @"Sets Added";
+    return @"";
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0 && indexPath.row == 0 && tableView == self.exerciseDetailsTableView) //name text field
+    {
+        [self.exerciseName becomeFirstResponder];
+    }else if(indexPath.section == 0 && indexPath.row == 1 && tableView == self.exerciseDetailsTableView)//description
+    {
+        [self.exerciseDescription becomeFirstResponder];
+    }
+}
+ 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView 
+           editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == self.showSetsTableView) {
+        return UITableViewCellEditingStyleDelete;
+    }
+    return UITableViewCellEditingStyleNone;
+    
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+
+{
+   
+}
+
+- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.arrayOfSets removeObjectAtIndex:indexPath.row];
+    [tableView reloadData];
+}
+
+@end
