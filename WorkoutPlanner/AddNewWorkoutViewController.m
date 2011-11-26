@@ -13,7 +13,6 @@
 @interface AddNewWorkoutViewController()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UITableView *workoutDetailsTable;
 @property (strong, nonatomic) IBOutlet UITableView *addExerciseTable;
-
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic,strong) NSMutableArray * exercises;
 @property (nonatomic,strong) NSMutableArray *setsForExercises;
@@ -28,8 +27,11 @@
 @synthesize workoutDescription = _workoutDescription;
 
 - (IBAction)saveWorkout:(id)sender {
-    NSLog(@"dict %@",self.setsForExercises);
-    [Workout createAWorkoutWithName:self.workoutNameTextField.text withDescription:self.workoutDescription.text withExercises:self.exercises withSets:self.setsForExercises inManagedObjectContext:self.database.managedObjectContext];
+    [Workout createAWorkoutWithName:self.workoutNameTextField.text 
+                    withDescription:self.workoutDescription.text 
+                      withExercises:self.exercises 
+                           withSets:self.setsForExercises 
+             inManagedObjectContext:self.database.managedObjectContext];
     //pop after saving
     [self.navigationController popViewControllerAnimated:YES];
     
@@ -55,15 +57,30 @@
 
 - (void) addExercise:(Exercise *)exercise 
              withSet:(NSArray *)set
+editingExistingExercise:(bool)flag
 {
-    [self.setsForExercises addObject:set];
-    [self.exercises addObject:exercise];
+    if (flag){//edit existing exercise
+        NSInteger exercisePos = [self.exercises indexOfObject:exercise];
+        [self.setsForExercises replaceObjectAtIndex:exercisePos withObject:set];
+    } else {
+        [self.setsForExercises addObject:set];
+        [self.exercises addObject:exercise];
+    }
     //reload to show exercises
 }
 
 #pragma mark - Table view delegate
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    if ([segue.identifier isEqualToString:@"edit exercise added"]){ //pre populate name , desc, sets
+        [segue.destinationViewController setEditAddedExercise:YES];
+         NSIndexPath *indexPath = [self.addExerciseTable indexPathForCell:sender];
+        //get exercise
+        Exercise * exercise = [self.exercises objectAtIndex:indexPath.row];
+        [segue.destinationViewController setExerciseToAdd:exercise];
+        [segue.destinationViewController setArrayOfSets:[self.setsForExercises objectAtIndex:indexPath.row]];
+    }
+    
     [segue.destinationViewController setDelegate:self];
     [segue.destinationViewController setDatabase:self.database];
 }
@@ -73,7 +90,7 @@
     if (indexPath.section == 0 && indexPath.row == 0 && tableView == self.workoutDetailsTable) //name text field
     {
         [self.workoutNameTextField becomeFirstResponder];
-    }else if(indexPath.section == 0 && indexPath.row == 1 && self.workoutDetailsTable)//description
+    }else if(indexPath.section == 0 && indexPath.row == 1 && tableView == self.workoutDetailsTable)//description
     {
         [self.workoutDescription becomeFirstResponder];
     }
@@ -108,13 +125,13 @@
 - (UITableViewCell *) configureCellForWorkout: (UITableViewCell *) cell
                                    atIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) //workoutname field
+    if (indexPath.row == 0 && self.workoutDetailsTable) //workoutname field
     {
         self.workoutNameTextField.placeholder = @"Workout Name";
         [cell addSubview:self.workoutNameTextField];
     }
     
-    if (indexPath.row == 1) //workoutdescription field
+    if (indexPath.row == 1 && self.workoutDetailsTable) //workoutdescription field
     {
         self.workoutDescription = [[UITextView alloc] initWithFrame:CGRectMake(20,10,cell.bounds.size.width-30,50)];
         self.workoutDescription.text = @"Workout Description";
@@ -145,10 +162,35 @@
         }
         Exercise *exercise = [self.exercises objectAtIndex:indexPath.row];
         cell.textLabel.text = exercise.name;
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d sets",[[self.setsForExercises objectAtIndex:indexPath.row] count]];
+        
         return cell;
     }
     return nil;
 }
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView 
+           editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == self.addExerciseTable) {
+        return UITableViewCellEditingStyleDelete;
+    }
+    return UITableViewCellEditingStyleNone;
+    
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+
+{
+    
+}
+
+- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.exercises removeObjectAtIndex:indexPath.row];
+    [tableView reloadData];
+}
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

@@ -15,15 +15,14 @@
 @property (strong, nonatomic) IBOutlet UITableView *addSetTableView;
 @property (nonatomic, strong) UIManagedDocument *database;
 @property (strong, nonatomic) IBOutlet UITableView *exerciseDetailsTableView;
-@property (strong, nonatomic) Exercise * exerciseToAdd;
 @property (nonatomic) bool chosenFromExisitingExercises;
 @property (nonatomic) bool expandCell;
-@property (nonatomic, strong) NSMutableArray *arrayOfSets;
 @property (nonatomic, strong) UITextField * reps;
 @property (nonatomic, strong) UITextField * weight;
 @property (nonatomic, strong) UITextField *currentFirstResponder;
 @property (nonatomic, strong) UIButton *addCancelSetButton;
 @end
+
 @implementation AddNewExerciseViewController 
 @synthesize delegate = _delegate;
 @synthesize scrollView = _scrollView;
@@ -41,7 +40,7 @@
 @synthesize weight= _weight;
 @synthesize currentFirstResponder = _currentFirstResponder;
 @synthesize addCancelSetButton = _addCancelSetButton;
-
+@synthesize editAddedExercise = _editAddedExercise;
 - (NSMutableArray *) arrayOfSets{
     if(!_arrayOfSets){
         _arrayOfSets = [[NSMutableArray alloc] init];
@@ -58,16 +57,21 @@
 }
 
 - (IBAction)exerciseAdded:(id)sender {
-    if (!self.chosenFromExisitingExercises) {
+    //if not chosen from existing exercises or not editing already added exercise add exercise in database
+    if (!self.chosenFromExisitingExercises && !self.editAddedExercise) {
         
+        NSLog(@"add this exercise");
        self.exerciseToAdd = [Exercise createExerciseWithName:[self.exerciseName text]
                                           withDescription:[self.exerciseDescription text] 
                                                 withImage:nil 
                                    inManagedObjectContext:self.database.managedObjectContext];
     }
-    //add the exercise to the workout
+    
+    //add the exercise to the workout if new exercise is being added
     [self.delegate addExercise:self.exerciseToAdd
-                       withSet:self.arrayOfSets];
+                       withSet:self.arrayOfSets
+                        editingExistingExercise:self.editAddedExercise];
+
     NSMutableArray *allControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
     [self.navigationController popToViewController:[allControllers objectAtIndex:[allControllers count]-2] animated:YES];
 }
@@ -105,8 +109,6 @@
     [self.reps setDelegate:self];
     [self.weight setDelegate:self];
     [self.exerciseName setDelegate:self];
-    
-    
     }
 - (void) changeAddMinusSetIcon {
     if (self.expandCell) {
@@ -137,25 +139,41 @@
     [self.addSetTableView reloadData];
 }
 
-- (void) viewWillAppear:(BOOL)animated
+- (void) prePopulateFields
 {
-    [super viewWillAppear:YES];
+    self.exerciseName.enabled = NO;
+    self.exerciseName.text = self.exerciseToAdd.name;
+    self.exerciseDescription.text = self.exerciseToAdd.exerciseDescription;
+    self.exerciseDescription.editable = NO;
+}
+
+- (void) addButtonForAddingSetInUI
+{
     CGRect frame = self.addSetTableView.frame;
     self.addCancelSetButton = [UIButton buttonWithType:UIButtonTypeCustom];
     UIImage *img = [UIImage imageNamed:@"addImage.png"];
-    
-
     [self.addCancelSetButton setImage:img forState:UIControlStateNormal];
     [self.addCancelSetButton addTarget:self action:@selector(addSetClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.addCancelSetButton setFrame:CGRectMake(frame.origin.x-30, frame.origin.y+20, 30, 30)];
-
-    [self.scrollView addSubview:self.addCancelSetButton];
     
+    [self.scrollView addSubview:self.addCancelSetButton];
+}
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    [self addButtonForAddingSetInUI];
     self.addSetTableView.scrollEnabled = NO;
     self.exerciseDetailsTableView.scrollEnabled = NO;
     self.scrollView.delegate = self;
     [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width,
                                self.view.frame.size.height)];
+    
+}
+- (void) viewDidAppear:(BOOL)animated
+{
+    if (self.editAddedExercise) {
+        [self prePopulateFields];
+    }
 }
 - (void)viewDidUnload
 {
@@ -215,6 +233,7 @@
 {
     [self performSegueWithIdentifier:@"show existing exercise" sender:self];
 }
+
 - (UITableViewCell *) configureCellForExercise: (UITableViewCell *) cell
                                    atIndexPath:(NSIndexPath *)indexPath
 {
@@ -222,9 +241,14 @@
     {
         self.exerciseName = [[UITextField alloc] initWithFrame:CGRectMake(20,10,200,21)];
         self.exerciseName.placeholder = @"Exercise Name";
-        UIButton *addFromExistingExercise = [UIButton buttonWithType:UIButtonTypeContactAdd];
-        [addFromExistingExercise addTarget:self action:@selector(addExercise:) forControlEvents:UIControlEventTouchUpInside];
-        [cell setAccessoryView:addFromExistingExercise];
+        
+        //do not allow to choose from existing exercises if self.editAddedExercise is YES . In that case
+        //user is editing already added exercise
+        if (!self.editAddedExercise){
+            UIButton *addFromExistingExercise = [UIButton buttonWithType:UIButtonTypeContactAdd];
+            [addFromExistingExercise addTarget:self action:@selector(addExercise:) forControlEvents:UIControlEventTouchUpInside];
+            [cell setAccessoryView:addFromExistingExercise];
+        }
         [cell addSubview:self.exerciseName];
     }
     
@@ -240,7 +264,6 @@
 }
 
 - (void) doneAddingSetClicked :(id) sender {
-    NSLog(@"reps for sets %@",self.reps.text);
     [self changeAddMinusSetIcon];
     self.expandCell = NO;
     NSDictionary *setDictionary =  [NSDictionary dictionaryWithObjectsAndKeys:
@@ -367,6 +390,7 @@
 {
    
 }
+
 
 - (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath
 {

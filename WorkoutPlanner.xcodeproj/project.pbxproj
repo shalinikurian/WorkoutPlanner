@@ -16,7 +16,6 @@
 		79376BB5147B7E540059579A /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79376BB3147B7E540059579A /* MainStoryboard.storyboard */; };
 		79376BC0147B7E760059579A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79376BBE147B7E760059579A /* Model.xcdatamodeld */; };
 		79376BC3147CA7710059579A /* WorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376BC2147CA7710059579A /* WorkoutViewController.m */; };
-		79376BC6147CA86E0059579A /* AddWorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376BC5147CA86E0059579A /* AddWorkoutViewController.m */; };
 		79376BE8147CAFE90059579A /* Workout+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376BE7147CAFE90059579A /* Workout+Create.m */; };
 		79376BEB147CB0D50059579A /* WorkoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376BEA147CB0D50059579A /* WorkoutHelper.m */; };
 		79376BED147CB4190059579A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79376BEC147CB4190059579A /* CoreData.framework */; };
@@ -35,6 +34,9 @@
 		79376CF214807D0C0059579A /* ActualWorkout.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376CF114807D0C0059579A /* ActualWorkout.m */; };
 		79376CF514807D0D0059579A /* Set.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376CF414807D0D0059579A /* Set.m */; };
 		79376CF814807D0D0059579A /* Workout.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376CF714807D0D0059579A /* Workout.m */; };
+		79376CFB1480A9600059579A /* Workout+Delete.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376CFA1480A9600059579A /* Workout+Delete.m */; };
+		79376CFE1481743D0059579A /* ShowExistingWorkout.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376CFD1481743B0059579A /* ShowExistingWorkout.m */; };
+		79376D0414819E440059579A /* Exercise+Details.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376D0314819E430059579A /* Exercise+Details.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,8 +54,6 @@
 		79376BBF147B7E760059579A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		79376BC1147CA7710059579A /* WorkoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WorkoutViewController.h; path = ../WorkoutViewController.h; sourceTree = "<group>"; };
 		79376BC2147CA7710059579A /* WorkoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WorkoutViewController.m; path = ../WorkoutViewController.m; sourceTree = "<group>"; };
-		79376BC4147CA86E0059579A /* AddWorkoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddWorkoutViewController.h; sourceTree = "<group>"; };
-		79376BC5147CA86E0059579A /* AddWorkoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddWorkoutViewController.m; sourceTree = "<group>"; };
 		79376BE6147CAFE90059579A /* Workout+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Workout+Create.h"; sourceTree = "<group>"; };
 		79376BE7147CAFE90059579A /* Workout+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Workout+Create.m"; sourceTree = "<group>"; };
 		79376BE9147CB0D50059579A /* WorkoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutHelper.h; sourceTree = "<group>"; };
@@ -86,6 +86,12 @@
 		79376CF414807D0D0059579A /* Set.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Set.m; sourceTree = "<group>"; };
 		79376CF614807D0D0059579A /* Workout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Workout.h; sourceTree = "<group>"; };
 		79376CF714807D0D0059579A /* Workout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Workout.m; sourceTree = "<group>"; };
+		79376CF91480A95F0059579A /* Workout+Delete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Workout+Delete.h"; sourceTree = "<group>"; };
+		79376CFA1480A9600059579A /* Workout+Delete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Workout+Delete.m"; sourceTree = "<group>"; };
+		79376CFC148174380059579A /* ShowExistingWorkout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowExistingWorkout.h; sourceTree = "<group>"; };
+		79376CFD1481743B0059579A /* ShowExistingWorkout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowExistingWorkout.m; sourceTree = "<group>"; };
+		79376D0214819E430059579A /* Exercise+Details.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Exercise+Details.h"; sourceTree = "<group>"; };
+		79376D0314819E430059579A /* Exercise+Details.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Exercise+Details.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,8 +144,6 @@
 				79376BC8147CAF1F0059579A /* CoreData */,
 				79376BC7147CAF0E0059579A /* workout */,
 				79376BB0147B7E540059579A /* WorkoutPlannerAppDelegate.h */,
-				79376BC1147CA7710059579A /* WorkoutViewController.h */,
-				79376BC2147CA7710059579A /* WorkoutViewController.m */,
 				79376C82147E11020059579A /* CoreDataTableViewController.h */,
 				79376C83147E11030059579A /* CoreDataTableViewController.m */,
 				79376BB1147B7E540059579A /* WorkoutPlannerAppDelegate.m */,
@@ -164,8 +168,10 @@
 		79376BC7147CAF0E0059579A /* workout */ = {
 			isa = PBXGroup;
 			children = (
-				79376BC4147CA86E0059579A /* AddWorkoutViewController.h */,
-				79376BC5147CA86E0059579A /* AddWorkoutViewController.m */,
+				79376BC1147CA7710059579A /* WorkoutViewController.h */,
+				79376BC2147CA7710059579A /* WorkoutViewController.m */,
+				79376CFC148174380059579A /* ShowExistingWorkout.h */,
+				79376CFD1481743B0059579A /* ShowExistingWorkout.m */,
 				79376CAB148060CF0059579A /* AddNewWorkoutViewController.h */,
 				79376CAC148060CF0059579A /* AddNewWorkoutViewController.m */,
 				79376C94147F38100059579A /* AddNewExerciseViewController.h */,
@@ -211,6 +217,10 @@
 				79376BE7147CAFE90059579A /* Workout+Create.m */,
 				79376BF9147CBFA00059579A /* Exercise+Create.h */,
 				79376BFA147CBFA10059579A /* Exercise+Create.m */,
+				79376CF91480A95F0059579A /* Workout+Delete.h */,
+				79376CFA1480A9600059579A /* Workout+Delete.m */,
+				79376D0214819E430059579A /* Exercise+Details.h */,
+				79376D0314819E430059579A /* Exercise+Details.m */,
 			);
 			name = categories;
 			sourceTree = "<group>";
@@ -299,7 +309,6 @@
 				79376BB2147B7E540059579A /* WorkoutPlannerAppDelegate.m in Sources */,
 				79376BC0147B7E760059579A /* Model.xcdatamodeld in Sources */,
 				79376BC3147CA7710059579A /* WorkoutViewController.m in Sources */,
-				79376BC6147CA86E0059579A /* AddWorkoutViewController.m in Sources */,
 				79376BE8147CAFE90059579A /* Workout+Create.m in Sources */,
 				79376BEB147CB0D50059579A /* WorkoutHelper.m in Sources */,
 				79376BFB147CBFA10059579A /* Exercise+Create.m in Sources */,
@@ -314,6 +323,9 @@
 				79376CF214807D0C0059579A /* ActualWorkout.m in Sources */,
 				79376CF514807D0D0059579A /* Set.m in Sources */,
 				79376CF814807D0D0059579A /* Workout.m in Sources */,
+				79376CFB1480A9600059579A /* Workout+Delete.m in Sources */,
+				79376CFE1481743D0059579A /* ShowExistingWorkout.m in Sources */,
+				79376D0414819E440059579A /* Exercise+Details.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

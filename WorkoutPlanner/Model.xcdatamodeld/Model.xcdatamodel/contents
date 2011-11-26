@@ -38,7 +38,7 @@
         <element name="ActualWorkout" positionX="-164" positionY="-117" width="128" height="90"/>
         <element name="Exercise" positionX="-173" positionY="-531" width="128" height="120"/>
         <element name="Set" positionX="-173" positionY="-378" width="128" height="150"/>
-        <element name="Workout" positionX="-558" positionY="-333" width="128" height="150"/>
-        <element name="ExerciseOrder" positionX="-180" positionY="-738" width="128" height="90"/>
+        <element name="Workout" positionX="-558" positionY="-333" width="128" height="135"/>
+        <element name="ExerciseOrder" positionX="-180" positionY="-657" width="128" height="90"/>
     </elements>
 </model>

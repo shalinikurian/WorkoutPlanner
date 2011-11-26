@@ -32,8 +32,13 @@
         idForWorkout = [workoutWithHighestId.workoutId intValue];
         idForWorkout = idForWorkout + 1;
    }
-    //add the exercise to the database
-
+    //add the workout to the database
+    if ([name isEqualToString:@""]){
+        name=@"Unknown";
+    }
+    if ([desc isEqualToString:@""]){
+        desc=@"Unknown";
+    }
     newWorkout = [NSEntityDescription insertNewObjectForEntityForName:@"Workout"
                                                 inManagedObjectContext:context];
     newWorkout.workoutId = [NSNumber numberWithInt:idForWorkout];
@@ -80,6 +85,7 @@
         }
     }
     newWorkout.setsForExercises = setForExercises;
+    NSLog(@"saving workout %@",newWorkout);
     [context save:&error];
 
 }

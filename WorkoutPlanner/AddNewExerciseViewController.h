@@ -13,12 +13,15 @@
 
 @protocol AddNewExerciseViewController <NSObject>
 - (void) addExercise:(Exercise *)exercise
-             withSet:(NSArray*) set;
+             withSet:(NSArray*) set
+editingExistingExercise:(bool) flag;
 @end
 
 @interface AddNewExerciseViewController : UIViewController <UITableViewDelegate,UITableViewDataSource, UITextFieldDelegate>
 @property (nonatomic, weak) id<AddNewExerciseViewController>delegate;
 @property (strong, nonatomic) UITextField * exerciseName;
 @property (strong, nonatomic) UITextView *exerciseDescription;
-
+@property (nonatomic) bool editAddedExercise;
+@property (strong, nonatomic) Exercise * exerciseToAdd;
+@property (nonatomic, strong) NSMutableArray *arrayOfSets;
 @end

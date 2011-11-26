@@ -9,6 +9,9 @@
 #import "WorkoutViewController.h"
 #import "WorkoutHelper.h"
 #import "Workout.h"
+#import "Workout+Delete.h"
+#import "AddNewWorkoutViewController.h"
+#import "ShowExistingWorkout.h"
 
 @interface WorkoutViewController()
 @property (nonatomic,strong) UIManagedDocument *database;
@@ -89,6 +92,12 @@
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     [segue.destinationViewController setDatabase:self.database];
+    if ([segue.identifier isEqualToString:@"see existing workout"]){
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        Workout *workout = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        //show exisiting workout
+        [segue.destinationViewController setWorkout:workout];
+    }
 }
 #pragma mark - Table view data source
 
@@ -107,18 +116,24 @@
     return cell;
 }
 
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView 
+           editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;    
 }
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+
+{
+
+    Workout *workout = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [Workout deleteWorkout:workout inManagedObjectContext:self.database.managedObjectContext];
+    [tableView reloadData];   
+}
+
+- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView reloadData];
+}
+
 
 @end
