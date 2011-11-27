@@ -11,4 +11,5 @@
 
 @interface ShowExerciseInWorkout : UIViewController
 @property (nonatomic, strong) Exercise *exercise;
+@property (nonatomic, strong) NSArray *setsForExercise;
 @end

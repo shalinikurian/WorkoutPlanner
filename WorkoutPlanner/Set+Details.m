@@ -14,6 +14,8 @@
                   andWorkout:(Workout *)workout 
       inManagedObjectContext:(NSManagedObjectContext *)context {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Set"];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"order" ascending:YES];
+    request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     //search by workout id
     NSString *workoutId = [NSString stringWithFormat:@"%d", [workout.workoutId intValue]];
     NSString *exerciseId = [NSString stringWithFormat:@"%d", [exercise.exerciseId intValue]];

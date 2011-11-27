@@ -88,8 +88,10 @@
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if([segue.identifier isEqualToString:@"view exercise"]){ //destination is ShowExerciseInWorkout
-        Exercise *exercise = (Exercise *) sender;
-        [segue.destinationViewController setExercise:exercise];
+        NSNumber *rowFromTable = (NSNumber *)sender;
+        NSLog(@"row %@",rowFromTable);
+        [segue.destinationViewController setExercise:[self.exercises objectAtIndex:[rowFromTable intValue]]];
+        [segue.destinationViewController setSetsForExercise:[self.setsForExercises objectAtIndex:[rowFromTable intValue]]];
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -103,7 +105,7 @@
     }
     
     if (tableView == self.exerciseList && !self.editWorkout){ //only show workoutlist
-        [self performSegueWithIdentifier:@"view exercise" sender:[self.exercises objectAtIndex:indexPath.row]];
+        [self performSegueWithIdentifier:@"view exercise" sender:[NSNumber numberWithInt:indexPath.row]];
     }
 }
 

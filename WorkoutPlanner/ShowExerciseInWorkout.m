@@ -7,9 +7,11 @@
 //
 
 #import "ShowExerciseInWorkout.h"
+#import "Set.h"
 @interface ShowExerciseInWorkout()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UITableView *exerciseDetailsTableView;
+@property (strong, nonatomic) IBOutlet UITableView *showSetsTableView;
 @property (nonatomic, strong) UITextField * reps;
 @property (nonatomic, strong) UITextField * weight;
 @property (strong, nonatomic) UITextField * exerciseName;
@@ -18,11 +20,21 @@
 @implementation ShowExerciseInWorkout
 @synthesize scrollView;
 @synthesize exerciseDetailsTableView;
+@synthesize showSetsTableView = _showSetsTableView;
 @synthesize reps = _reps;
 @synthesize weight = _weight;
 @synthesize exerciseName = _exerciseName;
 @synthesize exerciseDescription = _exerciseDescription;
 @synthesize exercise = _exercise;
+@synthesize setsForExercise = _setsForExercise;
+
+- (NSArray *) setsForExercise
+{
+    if(!_setsForExercise){
+        _setsForExercise = [[NSArray alloc] init];
+    }
+    return _setsForExercise;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -72,8 +84,8 @@
 {
     [self.exerciseDetailsTableView setDelegate:self];
     [self.exerciseDetailsTableView  setDataSource:self];
-    /*[self.showSetsTableView setDelegate:self];
-    [self.showSetsTableView setDataSource:self];*/
+    [self.showSetsTableView setDelegate:self];
+    [self.showSetsTableView setDataSource:self];
     //for textfields
     [self.reps setDelegate:self];
     [self.weight setDelegate:self];
@@ -83,6 +95,7 @@
 {
     [self setScrollView:nil];
     [self setExerciseDetailsTableView:nil];
+    [self setShowSetsTableView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -96,8 +109,7 @@
 - (NSInteger) tableView: (UITableView *) tableView numberOfRowsInSection:(NSInteger)section  
 {
     if (tableView == self.exerciseDetailsTableView) return 2;
-    return 0;
-    //return [self.arrayOfSets count]; //sets table
+    return [self.setsForExercise count];
 }
 
 
@@ -159,7 +171,17 @@
         cell = [self configureCellForExercise:cell atIndexPath:indexPath];
         return cell;
     }
-    return nil;
+    //sets table view
+    static NSString *CellIdentifier = @"set";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    Set *set = [self.setsForExercise objectAtIndex:indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ reps X %@ lb", set.rep,set.weight];
+    return cell;
+
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
