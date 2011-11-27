@@ -8,7 +8,6 @@
 
 #import "Workout+Create.h"
 #import "Set+Create.h"
-#import "ExerciseOrder.h"
 
 @implementation Workout (Create)
 
@@ -33,20 +32,22 @@
         idForWorkout = idForWorkout + 1;
    }
     //add the workout to the database
-    if ([name isEqualToString:@""]){
-        name=@"Unknown";
-    }
-    if ([desc isEqualToString:@""]){
-        desc=@"Unknown";
-    }
     newWorkout = [NSEntityDescription insertNewObjectForEntityForName:@"Workout"
                                                 inManagedObjectContext:context];
+    if ([name length] == 0){
+        name=@"Unknown";
+    }
+    if ([desc length] == 0){
+        desc=@"Unknown";
+    }
     newWorkout.workoutId = [NSNumber numberWithInt:idForWorkout];
     newWorkout.name = name;
     newWorkout.workoutDescription = desc;
-    newWorkout.hasExercises = [NSSet setWithArray:exercises];
-    
-    //set order for exercises
+   
+    NSLog(@"workout name %@",name);
+   
+    newWorkout.hasExercises = [NSOrderedSet orderedSetWithArray:exercises];    
+    /*//set order for exercises
     NSMutableSet *exerciseOrders = [[NSMutableSet alloc] init];
     for (int order=0; order< [exercises count]; order++){
         ExerciseOrder *exerciseOrder = [NSEntityDescription insertNewObjectForEntityForName:@"ExerciseOrder"
@@ -56,10 +57,10 @@
         exerciseOrder.exerciseId = exercise.exerciseId;
         [exerciseOrders addObject:exerciseOrder];
     }
-    newWorkout.hasExerciseOrder = exerciseOrders;
+    newWorkout.hasExerciseOrder = exerciseOrders;*/
     
     //store exercisesets
-    NSMutableSet *setForExercises =[[NSMutableSet alloc] init];
+    NSMutableOrderedSet *setForExercises =[[NSMutableOrderedSet alloc] init];
     //form sets
     for (int i = 0 ;i<[sets count];i++){
         //set is a nsarray of set for exercise at same position in exercises array

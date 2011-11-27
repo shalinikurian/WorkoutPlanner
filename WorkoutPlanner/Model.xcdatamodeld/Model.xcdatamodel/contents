@@ -11,11 +11,6 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="belongsToWorkout" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Workout" inverseName="hasExercises" inverseEntity="Workout" syncable="YES"/>
     </entity>
-    <entity name="ExerciseOrder" representedClassName="ExerciseOrder" syncable="YES">
-        <attribute name="exerciseId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <relationship name="belongsToWorkout" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="hasExerciseOrder" inverseEntity="Workout" syncable="YES"/>
-    </entity>
     <entity name="Set" representedClassName="Set" syncable="YES">
         <attribute name="exerciseId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -29,16 +24,14 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="workoutDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="workoutId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <relationship name="hasExerciseOrder" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ExerciseOrder" inverseName="belongsToWorkout" inverseEntity="ExerciseOrder" syncable="YES"/>
-        <relationship name="hasExercises" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Exercise" inverseName="belongsToWorkout" inverseEntity="Exercise" syncable="YES"/>
+        <relationship name="hasExercises" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Exercise" inverseName="belongsToWorkout" inverseEntity="Exercise" syncable="YES"/>
         <relationship name="hasLoggedWorkouts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ActualWorkout" inverseName="belongsToWorkout" inverseEntity="ActualWorkout" syncable="YES"/>
-        <relationship name="setsForExercises" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Set" inverseName="belongsToWorkout" inverseEntity="Set" syncable="YES"/>
+        <relationship name="setsForExercises" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Set" inverseName="belongsToWorkout" inverseEntity="Set" syncable="YES"/>
     </entity>
     <elements>
         <element name="ActualWorkout" positionX="-164" positionY="-117" width="128" height="90"/>
         <element name="Exercise" positionX="-173" positionY="-531" width="128" height="120"/>
         <element name="Set" positionX="-173" positionY="-378" width="128" height="150"/>
         <element name="Workout" positionX="-558" positionY="-333" width="128" height="135"/>
-        <element name="ExerciseOrder" positionX="-180" positionY="-657" width="128" height="90"/>
     </elements>
 </model>

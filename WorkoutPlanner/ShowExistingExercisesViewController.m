@@ -58,7 +58,7 @@
     NSFetchRequest *request =[NSFetchRequest   fetchRequestWithEntityName:@"Exercise"];
     NSSortDescriptor *sortDecriptor = [NSSortDescriptor sortDescriptorWithKey:@"exerciseId" ascending:YES];
     request.sortDescriptors = [NSArray arrayWithObject:sortDecriptor];
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.database.managedObjectContext sectionNameKeyPath:@"name" cacheName:nil];
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.database.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     [self.tableView reloadData];
     NSLog(@"no of exercises in database %d",[[self.fetchedResultsController fetchedObjects] count]);
 }

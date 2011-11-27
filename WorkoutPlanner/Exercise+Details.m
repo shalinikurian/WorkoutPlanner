@@ -8,7 +8,6 @@
 
 #import "Exercise+Details.h"
 #import "Workout.h"
-
 @implementation Exercise (Details)
 + (NSArray *) fetchExericesForWorkout : (Workout *) workout 
               inManagedObjectContext:(NSManagedObjectContext *)context{
@@ -21,15 +20,14 @@
     NSArray *matches = [context executeFetchRequest:request
                                               error:&error];
     if ([matches count] > 0 ) {
-        
         /*Exercise *exercise = nil;
         exercise = [matches lastObject];
         NSLog(@"all exercises %@",matches);
         NSSet *workouts = exercise.belongsToWorkout;
         NSArray *wks = [workouts allObjects];
         Workout *wk = (Workout *)[wks lastObject];
-        NSLog(@"belongs to workout %@",wk);*/
-        NSLog(@"count %d",[matches count]);
+        NSLog(@"belongs to workout %@",wk);
+        NSLog(@"count %d",[matches count]);*/
     }
     return matches;
 }

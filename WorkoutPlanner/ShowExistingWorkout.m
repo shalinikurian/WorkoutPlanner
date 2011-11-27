@@ -8,6 +8,8 @@
 
 #import "ShowExistingWorkout.h"
 #import "Exercise+Details.h"
+#import "Set+Details.h"
+#import "ShowExerciseInWorkout.h"
 
 @interface ShowExistingWorkout ()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate>
 @property (strong, nonatomic) IBOutlet UIButton *addExerciseButton;
@@ -19,6 +21,7 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *backAndCancelButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *editAndDoneButton;
 @property (strong, nonatomic) NSMutableArray *exercises;
+@property (strong, nonatomic) NSMutableArray *setsForExercises;
 @end
 @implementation ShowExistingWorkout
 @synthesize database = _database;
@@ -32,6 +35,7 @@
 @synthesize editAndDoneButton = _editAndDoneButton;
 @synthesize workout = _workout;
 @synthesize exercises = _exercises;
+@synthesize setsForExercises = _setsForExercises;
 
 - (NSMutableArray *) exercises {
     if (!_exercises)
@@ -39,6 +43,14 @@
         _exercises = [[NSMutableArray alloc] init];
     }
     return _exercises;
+}
+
+- (NSMutableArray *) setsForExercises {
+    if (!_setsForExercises)
+    {
+        _setsForExercises  = [[NSMutableArray alloc] init];
+    }
+    return _setsForExercises ;
 }
 
 - (IBAction)EditDoneButtonClicked:(UIBarButtonItem *)sender {
@@ -73,6 +85,13 @@
     [self.workOutDetails reloadData];
 }
 
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([segue.identifier isEqualToString:@"view exercise"]){ //destination is ShowExerciseInWorkout
+        Exercise *exercise = (Exercise *) sender;
+        [segue.destinationViewController setExercise:exercise];
+    }
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0 && indexPath.row == 0 && tableView == self.workOutDetails && self.editWorkout) //name text field
@@ -81,6 +100,10 @@
     }else if(indexPath.section == 0 && indexPath.row == 1 && tableView == self.workOutDetails && self.editWorkout)//description
     {
         [self.workoutDescription becomeFirstResponder];
+    }
+    
+    if (tableView == self.exerciseList && !self.editWorkout){ //only show workoutlist
+        [self performSegueWithIdentifier:@"view exercise" sender:[self.exercises objectAtIndex:indexPath.row]];
     }
 }
 
@@ -154,11 +177,13 @@
         
         Exercise *exercise = [self.exercises objectAtIndex:indexPath.row];
         cell.textLabel.text = exercise.name;
-        //cell.detailTextLabel.text = [NSString stringWithFormat:@"%d sets",[[self.setsForExercises objectAtIndex:indexPath.row] count]];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d sets",[[self.setsForExercises objectAtIndex:indexPath.row] count]];
         return cell;
     }
     return nil;
 }
+
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -188,7 +213,15 @@
     //fetch exercises
     self.exercises= [[Exercise fetchExericesForWorkout:self.workout
                          inManagedObjectContext:self.database.managedObjectContext] mutableCopy];
+    //fetch sets for exercises
+    for (Exercise *exercise in self.exercises){
+        NSMutableArray *sets = [[Set setsForExercise:exercise 
+                                          andWorkout:self.workout 
+                              inManagedObjectContext:self.database.managedObjectContext] mutableCopy];
+        [self.setsForExercises addObject:sets];
+    }
 }
+
 
 -(void) viewDidLoad
 {

@@ -35,10 +35,10 @@
     newExercise = [NSEntityDescription insertNewObjectForEntityForName:@"Exercise"
                                                 inManagedObjectContext:context];
     newExercise.exerciseId = [NSNumber numberWithInt:idForExercise];
-    if ([name isEqualToString:@""]){
+    if ([name length] == 0){
         name=@"Unknown";
     }
-    if ([desc isEqualToString:@""]){
+    if ([desc length] == 0){
         desc=@"Unknown";
     }
     newExercise.name = name;
