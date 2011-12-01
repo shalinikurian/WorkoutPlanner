@@ -13,8 +13,7 @@
 + (void) deleteWorkout:(Workout *)workout 
 inManagedObjectContext:(NSManagedObjectContext *)context
 {
-    NSLog(@"deleting a workout");
-    NSLog(@"workout %@",workout);
+
     Workout *obj = nil;
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Workout"];
     request.predicate = [NSPredicate predicateWithFormat:@"workoutId = %@",workout.workoutId];

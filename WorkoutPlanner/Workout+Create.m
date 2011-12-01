@@ -15,8 +15,12 @@
                 withDescription:(NSString *)desc 
                   withExercises:(NSArray *)exercises 
                        withSets:(NSArray *)sets 
-         inManagedObjectContext:(NSManagedObjectContext *)context{
+         inManagedObjectContext:(NSManagedObjectContext *)context
+managedDocutment:(UIManagedDocument *)doc
+callBlock:(completion_block_t)completion_block{
     
+    NSLog(@"context %@",context);
+   //[context reset];
    NSFetchRequest *requestWorkout = [NSFetchRequest fetchRequestWithEntityName:@"Workout"];
    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"workoutId" ascending:NO];
    requestWorkout.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
@@ -24,7 +28,6 @@
    NSArray *result = [context executeFetchRequest:requestWorkout error:&error];
    int idForWorkout = 1;
    Workout *newWorkout = nil;
-   NSLog(@"all workout count %d",[result count]);
 
    if([result count] > 0){//not the first workout in the database
         Workout * workoutWithHighestId = [result objectAtIndex:0];
@@ -43,24 +46,16 @@
     newWorkout.workoutId = [NSNumber numberWithInt:idForWorkout];
     newWorkout.name = name;
     newWorkout.workoutDescription = desc;
-   
-    NSLog(@"workout name %@",name);
-   
-    newWorkout.hasExercises = [NSOrderedSet orderedSetWithArray:exercises];    
-    /*//set order for exercises
-    NSMutableSet *exerciseOrders = [[NSMutableSet alloc] init];
-    for (int order=0; order< [exercises count]; order++){
-        ExerciseOrder *exerciseOrder = [NSEntityDescription insertNewObjectForEntityForName:@"ExerciseOrder"
-                                                                     inManagedObjectContext:context];
-        Exercise *exercise = (Exercise*)[exercises objectAtIndex:order];
-        exerciseOrder.order = [NSNumber numberWithInt:order];
-        exerciseOrder.exerciseId = exercise.exerciseId;
-        [exerciseOrders addObject:exerciseOrder];
+
+    NSMutableOrderedSet *exerciseList = [newWorkout mutableOrderedSetValueForKey:@"hasExercises"];
+    for (Exercise *exercise in exercises){
+        [exerciseList addObject:exercise];
     }
-    newWorkout.hasExerciseOrder = exerciseOrders;*/
+    newWorkout.hasExercises = [NSOrderedSet orderedSetWithArray:exercises];    
     
     //store exercisesets
-    NSMutableOrderedSet *setForExercises =[[NSMutableOrderedSet alloc] init];
+    //NSMutableOrderedSet *setForExercises =[[NSMutableOrderedSet alloc] init];
+    NSMutableOrderedSet *setForExercises = [newWorkout mutableOrderedSetValueForKey:@"setsForExercises"];
     //form sets
     for (int i = 0 ;i<[sets count];i++){
         //set is a nsarray of set for exercise at same position in exercises array
@@ -85,9 +80,18 @@
           [setForExercises addObject:set];
         }
     }
-    newWorkout.setsForExercises = setForExercises;
+    //newWorkout.setsForExercises = setForExercises;
     NSLog(@"saving workout %@",newWorkout);
     [context save:&error];
+    //save document
+    NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    url = [url URLByAppendingPathComponent:@"My Workout Planner"];
+    [doc saveToURL:url forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success){
+        if (!success) {
+            // Handle the error.
+        }
+        completion_block();
+    }];
 
 }
 @end

@@ -33,7 +33,6 @@
     //add the exercise to the database
     set = [NSEntityDescription insertNewObjectForEntityForName:@"Set"
                                                 inManagedObjectContext:context];
-    NSLog(@"making set from reps and weight %d %d",reps, weight);
     set.setId = [NSNumber numberWithInt:idForSet];
     set.rep =[NSNumber numberWithInt:reps];
     set.weight = [NSNumber numberWithInt:weight];

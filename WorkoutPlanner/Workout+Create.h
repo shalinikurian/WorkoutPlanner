@@ -8,10 +8,13 @@
 
 #import "Workout.h"
 
+typedef void (^completion_block_t)();
 @interface Workout (Create)
 + (void) createAWorkoutWithName:(NSString *) name
                withDescription:(NSString *)desc
                  withExercises:(NSArray *)exercises
                       withSets:(NSArray *)sets
-        inManagedObjectContext:(NSManagedObjectContext *) context;
+        inManagedObjectContext:(NSManagedObjectContext *) context
+managedDocutment:(UIManagedDocument *)doc
+callBlock:(completion_block_t) completion_block;
 @end

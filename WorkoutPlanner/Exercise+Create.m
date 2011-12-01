@@ -15,7 +15,7 @@
                 withDescription:(NSString *)desc 
                       withImage:(NSURL *)imageURL 
          inManagedObjectContext:(NSManagedObjectContext *)context{
-    
+    NSLog(@"context %@",context);
     NSFetchRequest *requestExercise = [NSFetchRequest fetchRequestWithEntityName:@"Exercise"];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"exerciseId" ascending:NO];
     requestExercise.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];

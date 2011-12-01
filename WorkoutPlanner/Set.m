@@ -2,7 +2,7 @@
 //  Set.m
 //  WorkoutPlanner
 //
-//  Created by Shalini Kurian on 11/26/11.
+//  Created by Shalini Kurian on 11/30/11.
 //  Copyright (c) 2011 Stanford . All rights reserved.
 //
 
@@ -14,10 +14,10 @@
 @implementation Set
 
 @dynamic exerciseId;
-@dynamic setId;
-@dynamic rep;
-@dynamic weight;
 @dynamic order;
+@dynamic rep;
+@dynamic setId;
+@dynamic weight;
 @dynamic belongsToAcutalWorkout;
 @dynamic belongsToWorkout;
 

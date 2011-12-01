@@ -59,8 +59,6 @@
 - (IBAction)exerciseAdded:(id)sender {
     //if not chosen from existing exercises or not editing already added exercise add exercise in database
     if (!self.chosenFromExisitingExercises && !self.editAddedExercise) {
-        
-        NSLog(@"add this exercise");
        self.exerciseToAdd = [Exercise createExerciseWithName:[self.exerciseName text]
                                           withDescription:[self.exerciseDescription text] 
                                                 withImage:nil 
@@ -223,7 +221,6 @@
 
 - (BOOL) textFieldShouldReturn:(UITextField *)textField
 {
-    NSLog(@"here");
     if (textField == self.reps || textField == self.weight ){
         if ([textField.text isEqualToString:@""]) return NO;
     }

@@ -2,7 +2,7 @@
 //  ActualWorkout.h
 //  WorkoutPlanner
 //
-//  Created by Shalini Kurian on 11/26/11.
+//  Created by Shalini Kurian on 11/30/11.
 //  Copyright (c) 2011 Stanford . All rights reserved.
 //
 
@@ -14,6 +14,7 @@
 @interface ActualWorkout : NSManagedObject
 
 @property (nonatomic, retain) NSDate * date;
+@property (nonatomic, retain) NSNumber * duration;
 @property (nonatomic, retain) Workout *belongsToWorkout;
 @property (nonatomic, retain) NSSet *setForExercises;
 @end

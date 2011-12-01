@@ -2,6 +2,7 @@
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="870" systemVersion="11C74" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="ActualWorkout" representedClassName="ActualWorkout" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="duration" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="belongsToWorkout" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="hasLoggedWorkouts" inverseEntity="Workout" syncable="YES"/>
         <relationship name="setForExercises" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Set" inverseName="belongsToAcutalWorkout" inverseEntity="Set" syncable="YES"/>
     </entity>
@@ -29,7 +30,7 @@
         <relationship name="setsForExercises" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Set" inverseName="belongsToWorkout" inverseEntity="Set" syncable="YES"/>
     </entity>
     <elements>
-        <element name="ActualWorkout" positionX="-164" positionY="-117" width="128" height="90"/>
+        <element name="ActualWorkout" positionX="-164" positionY="-117" width="128" height="105"/>
         <element name="Exercise" positionX="-173" positionY="-531" width="128" height="120"/>
         <element name="Set" positionX="-173" positionY="-378" width="128" height="150"/>
         <element name="Workout" positionX="-558" positionY="-333" width="128" height="135"/>

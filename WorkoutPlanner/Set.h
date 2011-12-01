@@ -2,7 +2,7 @@
 //  Set.h
 //  WorkoutPlanner
 //
-//  Created by Shalini Kurian on 11/26/11.
+//  Created by Shalini Kurian on 11/30/11.
 //  Copyright (c) 2011 Stanford . All rights reserved.
 //
 
@@ -14,10 +14,10 @@
 @interface Set : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * exerciseId;
-@property (nonatomic, retain) NSNumber * setId;
-@property (nonatomic, retain) NSNumber * rep;
-@property (nonatomic, retain) NSNumber * weight;
 @property (nonatomic, retain) NSNumber * order;
+@property (nonatomic, retain) NSNumber * rep;
+@property (nonatomic, retain) NSNumber * setId;
+@property (nonatomic, retain) NSNumber * weight;
 @property (nonatomic, retain) ActualWorkout *belongsToAcutalWorkout;
 @property (nonatomic, retain) Workout *belongsToWorkout;
 

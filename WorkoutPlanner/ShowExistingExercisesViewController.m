@@ -37,6 +37,7 @@
 {
     [super viewDidLoad];
 
+    //if in edit mode add a navigation item for save
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -60,7 +61,6 @@
     request.sortDescriptors = [NSArray arrayWithObject:sortDecriptor];
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.database.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     [self.tableView reloadData];
-    NSLog(@"no of exercises in database %d",[[self.fetchedResultsController fetchedObjects] count]);
 }
 
 - (void)viewDidAppear:(BOOL)animated

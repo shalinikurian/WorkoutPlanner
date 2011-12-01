@@ -9,7 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "Exercise.h"
 
+@protocol ShowExistingExercisesInWorkoutProtocol <NSObject>
+- (void) editExercise:(Exercise *)exercise
+              withSet:(NSArray*) set;
+@end
+
 @interface ShowExerciseInWorkout : UIViewController
 @property (nonatomic, strong) Exercise *exercise;
-@property (nonatomic, strong) NSArray *setsForExercise;
+@property (nonatomic, strong) NSMutableArray *setsForExercise;
+@property (nonatomic) bool editExercise;
+@property (nonatomic, weak) id<ShowExistingExercisesInWorkoutProtocol>delegate;
 @end
+

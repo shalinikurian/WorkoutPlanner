@@ -11,6 +11,7 @@
 @implementation Exercise (Details)
 + (NSArray *) fetchExericesForWorkout : (Workout *) workout 
               inManagedObjectContext:(NSManagedObjectContext *)context{
+    NSLog(@"context %@",context);
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Exercise"];
     //search by workout id
     NSString *workoutId = [NSString stringWithFormat:@"%d", [workout.workoutId intValue]];

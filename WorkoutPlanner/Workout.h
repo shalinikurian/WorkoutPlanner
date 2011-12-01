@@ -2,7 +2,7 @@
 //  Workout.h
 //  WorkoutPlanner
 //
-//  Created by Shalini Kurian on 11/26/11.
+//  Created by Shalini Kurian on 11/30/11.
 //  Copyright (c) 2011 Stanford . All rights reserved.
 //
 
@@ -13,9 +13,9 @@
 
 @interface Workout : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * workoutId;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * workoutDescription;
+@property (nonatomic, retain) NSNumber * workoutId;
 @property (nonatomic, retain) NSOrderedSet *hasExercises;
 @property (nonatomic, retain) NSSet *hasLoggedWorkouts;
 @property (nonatomic, retain) NSOrderedSet *setsForExercises;

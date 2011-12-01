@@ -31,10 +31,12 @@
                     withDescription:self.workoutDescription.text 
                       withExercises:self.exercises 
                            withSets:self.setsForExercises 
-             inManagedObjectContext:self.database.managedObjectContext];
-    //pop after saving
-    [self.navigationController popViewControllerAnimated:YES];
-    
+             inManagedObjectContext:self.database.managedObjectContext
+     managedDocutment:self.database
+                          callBlock:^{
+                              NSLog(@"finished saving doc");
+                              [self.navigationController popViewControllerAnimated:YES];
+                          }];
 }
 - (IBAction)cancelWorkout:(id)sender {
     NSMutableArray *allControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];

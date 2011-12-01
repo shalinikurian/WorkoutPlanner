@@ -12,8 +12,9 @@
 #import "Workout+Delete.h"
 #import "AddNewWorkoutViewController.h"
 #import "ShowExistingWorkout.h"
+#import "MessageUI/MessageUI.h"
 
-@interface WorkoutViewController()
+@interface WorkoutViewController()<MFMailComposeViewControllerDelegate>
 @property (nonatomic,strong) UIManagedDocument *database;
 @end
 @implementation WorkoutViewController
@@ -26,6 +27,13 @@
     }
     return self;
 }
+- (IBAction)emailPressed:(id)sender {
+    MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
+    controller.mailComposeDelegate = self;
+    [controller setSubject:@"workout"];
+    [controller setMessageBody:@"...bla bla" isHTML:NO];
+    [self presentModalViewController:controller animated:YES];
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -35,12 +43,16 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    [self becomeFirstResponder];
+    [self dismissModalViewControllerAnimated:YES];
+}
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -85,7 +97,7 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    [self.view setNeedsDisplay];
+    NSLog(@"rotating");
     return YES;
 }
 
