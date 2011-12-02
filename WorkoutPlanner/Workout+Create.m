@@ -8,6 +8,7 @@
 
 #import "Workout+Create.h"
 #import "Set+Create.h"
+#import "Exercise.h"
 
 @implementation Workout (Create)
 
@@ -50,8 +51,13 @@ callBlock:(completion_block_t)completion_block{
     NSMutableOrderedSet *exerciseList = [newWorkout mutableOrderedSetValueForKey:@"hasExercises"];
     for (Exercise *exercise in exercises){
         [exerciseList addObject:exercise];
+        requestWorkout = [NSFetchRequest fetchRequestWithEntityName:@"Workout"];
+        requestWorkout.predicate = [NSPredicate predicateWithFormat:@"workoutId = %@",newWorkout.workoutId];
+        NSError *error = nil;
+        NSArray *result = [context executeFetchRequest:requestWorkout error:&error];    
+        NSLog(@"workout after adding exercise %@",[result lastObject]);
     }
-    newWorkout.hasExercises = [NSOrderedSet orderedSetWithArray:exercises];    
+    //newWorkout.hasExercises = [NSOrderedSet orderedSetWithArray:exercises];    
     
     //store exercisesets
     //NSMutableOrderedSet *setForExercises =[[NSMutableOrderedSet alloc] init];

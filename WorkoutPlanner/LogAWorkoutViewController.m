@@ -8,7 +8,10 @@
 
 #import "LogAWorkoutViewController.h"
 #import "Exercise.h"
-@interface LogAWorkoutViewController()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+#import "GetSetForExerciseFromUserViewController.h"
+#import <MobileCoreServices/MobileCoreServices.h>
+
+@interface LogAWorkoutViewController()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *workoutDetails;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) UITextView *workoutDescription;
@@ -17,6 +20,9 @@
 @property (strong, nonatomic) NSDate *startDate;
 @property (nonatomic) bool expandCell;
 @property (strong, nonatomic) IBOutlet UITableView *exercisesTable;
+@property (strong, nonatomic) NSFileManager *fileManager;
+@property (strong, nonatomic) UIButton *photoButton;
+@property (nonatomic) bool threadStarted;
 
 @end
 @implementation LogAWorkoutViewController
@@ -32,6 +38,9 @@
 @synthesize startDate = _startDate;
 @synthesize exercises = _exercises;
 @synthesize setsInExercises = _setsInExercises;
+@synthesize photoButton = _photoButton;
+@synthesize threadStarted = _threadStarted;
+@synthesize fileManager = _fileManager;
 
 
 - (NSMutableArray*) exercises
@@ -87,6 +96,17 @@
     [self.workoutDetails setDataSource:self];
     [self.exercisesTable setDataSource:self];
     [self.exercisesTable setDelegate:self];
+    //file manager
+    //make file manager
+    self.fileManager = [NSFileManager defaultManager];
+    NSArray *pathList = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *dataPath    = [pathList  objectAtIndex:0];
+    dataPath = [NSString stringWithFormat:@"%@/%@",dataPath,@"WorkoutPlannerPhotos"];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath]){
+        //create folder
+        [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil]; 
+    } 
+
 }
 
 - (void) startTimer: (NSTimer *) timer
@@ -116,11 +136,82 @@
     [runLoop addTimer:timer forMode:NSDefaultRunLoopMode];
     [runLoop run];
 }
+
+- (void) clickPhoto: (id) sender
+{
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        NSArray *mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+        if ([mediaTypes containsObject:(NSString *)kUTTypeImage]) {
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            picker.delegate = self;
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            picker.allowsEditing = YES;
+            [self presentModalViewController:picker animated:YES];
+        }
+    }
+}
+
+- (void)dismissImagePicker
+{
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+
+- (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    if (!image) image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    if (image) {
+        //store in core data
+        NSLog(@"got the image");
+        dispatch_queue_t photoQueue = dispatch_queue_create("write picture to file", NULL);
+        dispatch_async(photoQueue, ^{
+            //save the image 
+            NSData * data = UIImagePNGRepresentation(image);
+            NSArray *pathList = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *dataPath    = [pathList  objectAtIndex:0];
+            dataPath = [NSString stringWithFormat:@"%@/%@",dataPath,@"WorkoutPlannerPhotos"];
+            //give unique name to image
+            NSString * imageName =  @"a";
+            NSString *imagePath = [NSString stringWithFormat:@"%@/%@",dataPath,imageName];
+            if (![self.fileManager fileExistsAtPath:imagePath]) {
+                [data writeToFile:imagePath atomically:YES];
+            } else {
+                NSLog(@"exists");
+            }
+        });
+        dispatch_release(photoQueue);
+    }
+    [self dismissImagePicker];
+}
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
+    //add photo icon
+    self.photoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.photoButton.backgroundColor = [UIColor clearColor];
+    UIImage *img = [UIImage imageNamed:@"camera.jpeg"];
+    [self.photoButton setImage:img forState:UIControlStateNormal];
+    [self.photoButton addTarget:self action:@selector(clickPhoto:) forControlEvents:UIControlEventTouchUpInside];
+    [self.photoButton setFrame:CGRectMake(0, 8, 50, 50)];
+    [self.scrollView addSubview:self.photoButton];
+
+}
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self dismissImagePicker];
+}
+
+
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(setupTimerThread) object:nil];
-    [thread start];
+    if (!self.threadStarted) {
+        self.threadStarted = YES;
+        NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(setupTimerThread) object:nil];
+        [thread start];
+    }
 }
 - (void)viewDidUnload
 {
@@ -143,7 +234,7 @@
 {
     if (tableView == self.workoutDetails) return 1; 
     if (tableView == self.exercisesTable) {
-        return [[self.setsInExercises objectAtIndex:section] count];
+        return MAX([[self.setsInExercises objectAtIndex:section] count], 1);
     }
     return 0;
 }
@@ -211,12 +302,15 @@
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.editing = NO;
     }
+
     NSMutableArray *sets = [[self.setsInExercises objectAtIndex:indexPath.section] mutableCopy];
-    NSDictionary *set = (NSDictionary *) [sets objectAtIndex:indexPath.row];
-    cell.detailTextLabel.text =  cell.textLabel.text = [NSString stringWithFormat:@"%@ reps X %@ lb", [set objectForKey:@"reps"],[set objectForKey:@"weight"]];
-    
+    if ([sets count] > 0){
+        NSDictionary *set = (NSDictionary *) [sets objectAtIndex:indexPath.row];
+        cell.textLabel.text =  cell.textLabel.text = [NSString stringWithFormat:@"%@ reps X %@ lb", [set objectForKey:@"reps"],[set objectForKey:@"weight"]];
+    } else {
+        cell.textLabel.text = @"No sets";
+    }
     return cell;
 }
 
@@ -228,6 +322,13 @@
         [self.workoutDetails reloadRowsAtIndexPaths: array
                                   withRowAnimation: UITableViewRowAnimationAutomatic];
     }
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    NSIndexPath *indexPath = [self.exercisesTable indexPathForCell:sender];
+    //TODO from here
+    
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

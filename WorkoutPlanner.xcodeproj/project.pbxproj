@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		791488D214880FBA000653DC /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 791488D114880FBA000653DC /* camera.png */; };
+		791488D414881061000653DC /* camera.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 791488D314881061000653DC /* camera.jpeg */; };
+		791488DA14882576000653DC /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 791488D914882576000653DC /* MobileCoreServices.framework */; };
+		791488E114888523000653DC /* GetSetForExerciseFromUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 791488E014888523000653DC /* GetSetForExerciseFromUserViewController.m */; };
 		79376BA2147B7E540059579A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79376BA1147B7E540059579A /* UIKit.framework */; };
 		79376BA4147B7E540059579A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79376BA3147B7E540059579A /* Foundation.framework */; };
 		79376BA6147B7E540059579A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79376BA5147B7E540059579A /* CoreGraphics.framework */; };
@@ -46,6 +50,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		791488D114880FBA000653DC /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
+		791488D314881061000653DC /* camera.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = camera.jpeg; sourceTree = "<group>"; };
+		791488D914882576000653DC /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		791488DF14888523000653DC /* GetSetForExerciseFromUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetSetForExerciseFromUserViewController.h; sourceTree = "<group>"; };
+		791488E014888523000653DC /* GetSetForExerciseFromUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSetForExerciseFromUserViewController.m; sourceTree = "<group>"; };
 		79376B9D147B7E540059579A /* WorkoutPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkoutPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79376BA1147B7E540059579A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		79376BA3147B7E540059579A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -115,6 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				791488DA14882576000653DC /* MobileCoreServices.framework in Frameworks */,
 				79459C7E14849C1200722163 /* MessageUI.framework in Frameworks */,
 				79376BED147CB4190059579A /* CoreData.framework in Frameworks */,
 				79376BA2147B7E540059579A /* UIKit.framework in Frameworks */,
@@ -129,6 +139,7 @@
 		79376B92147B7E540059579A = {
 			isa = PBXGroup;
 			children = (
+				791488D914882576000653DC /* MobileCoreServices.framework */,
 				79459C7D14849C1200722163 /* MessageUI.framework */,
 				79376BEC147CB4190059579A /* CoreData.framework */,
 				79376BA7147B7E540059579A /* WorkoutPlanner */,
@@ -202,6 +213,8 @@
 				79376C89147EC9680059579A /* ShowExistingExercisesViewController.m */,
 				79AA8089148317540026B9A2 /* EditExerciseInWorkoutViewController.h */,
 				79AA808A148317540026B9A2 /* EditExerciseInWorkoutViewController.m */,
+				791488DF14888523000653DC /* GetSetForExerciseFromUserViewController.h */,
+				791488E014888523000653DC /* GetSetForExerciseFromUserViewController.m */,
 			);
 			name = workout;
 			sourceTree = "<group>";
@@ -258,6 +271,8 @@
 				79376CA1148011E80059579A /* minusImage.png */,
 				79376CA5148013980059579A /* addImage.png */,
 				79459C811484CAC700722163 /* bk.png */,
+				791488D114880FBA000653DC /* camera.png */,
+				791488D314881061000653DC /* camera.jpeg */,
 				79376BE9147CB0D50059579A /* WorkoutHelper.h */,
 				79376BEA147CB0D50059579A /* WorkoutHelper.m */,
 				79376C8F147F229E0059579A /* create.jpeg */,
@@ -323,6 +338,8 @@
 				79376CA2148011E80059579A /* minusImage.png in Resources */,
 				79376CA6148013980059579A /* addImage.png in Resources */,
 				79459C821484CAC700722163 /* bk.png in Resources */,
+				791488D214880FBA000653DC /* camera.png in Resources */,
+				791488D414881061000653DC /* camera.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +375,7 @@
 				79459CA31487255300722163 /* ActualWorkout.m in Sources */,
 				79459CA61487255300722163 /* Set.m in Sources */,
 				79459CA91487255300722163 /* Exercise.m in Sources */,
+				791488E114888523000653DC /* GetSetForExerciseFromUserViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

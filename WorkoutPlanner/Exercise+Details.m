@@ -21,10 +21,10 @@
     NSArray *matches = [context executeFetchRequest:request
                                               error:&error];
     if ([matches count] > 0 ) {
-        /*Exercise *exercise = nil;
+        Exercise *exercise = nil;
         exercise = [matches lastObject];
         NSLog(@"all exercises %@",matches);
-        NSSet *workouts = exercise.belongsToWorkout;
+        /*NSSet *workouts = exercise.belongsToWorkout;
         NSArray *wks = [workouts allObjects];
         Workout *wk = (Workout *)[wks lastObject];
         NSLog(@"belongs to workout %@",wk);
