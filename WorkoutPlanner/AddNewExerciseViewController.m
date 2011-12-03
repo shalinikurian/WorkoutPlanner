@@ -59,10 +59,14 @@
 - (IBAction)exerciseAdded:(id)sender {
     //if not chosen from existing exercises or not editing already added exercise add exercise in database
     if (!self.chosenFromExisitingExercises && !self.editAddedExercise) {
-       self.exerciseToAdd = [Exercise createExerciseWithName:[self.exerciseName text]
-                                          withDescription:[self.exerciseDescription text] 
-                                                withImage:nil 
-                                   inManagedObjectContext:self.database.managedObjectContext];
+        [Exercise createExerciseWithName:[self.exerciseName text]
+                         withDescription:[self.exerciseDescription text]
+                               withImage:nil
+                  inManagedObjectContext:self.database.managedObjectContext
+                         managedDocument:self.database
+                               callBlock:^(Exercise *exercise){
+                                   self.exerciseToAdd = exercise;
+                               }];
     }
     
     //add the exercise to the workout if new exercise is being added

@@ -18,7 +18,7 @@
                        withSets:(NSArray *)sets 
          inManagedObjectContext:(NSManagedObjectContext *)context
 managedDocutment:(UIManagedDocument *)doc
-callBlock:(completion_block_t)completion_block{
+callBlock:(completion_block_workout)completion_block{
     
     NSLog(@"context %@",context);
    //[context reset];
@@ -60,7 +60,6 @@ callBlock:(completion_block_t)completion_block{
     //newWorkout.hasExercises = [NSOrderedSet orderedSetWithArray:exercises];    
     
     //store exercisesets
-    //NSMutableOrderedSet *setForExercises =[[NSMutableOrderedSet alloc] init];
     NSMutableOrderedSet *setForExercises = [newWorkout mutableOrderedSetValueForKey:@"setsForExercises"];
     //form sets
     for (int i = 0 ;i<[sets count];i++){

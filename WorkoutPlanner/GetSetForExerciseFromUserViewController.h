@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 @protocol GetSetForExerciseFromUserViewController <NSObject>
-- (void) weightForExercise: (NSInteger) weight
-            repForExercise: (NSInteger) rep
+- (void) weightForExercise: (NSString *) weight
+            repForExercise: (NSString *) rep
                   forSetNo: (NSInteger) setNo
              forExerciseNo: (NSInteger) exerciseNo;
 @end

@@ -1,24 +1,18 @@
 //
-//  Set.m
+//  ImageForWorkout.m
 //  WorkoutPlanner
 //
 //  Created by Shalini Kurian on 12/2/11.
 //  Copyright (c) 2011 Stanford . All rights reserved.
 //
 
-#import "Set.h"
+#import "ImageForWorkout.h"
 #import "ActualWorkout.h"
-#import "Workout.h"
 
 
-@implementation Set
+@implementation ImageForWorkout
 
-@dynamic exerciseId;
-@dynamic order;
-@dynamic rep;
-@dynamic setId;
-@dynamic weight;
-@dynamic belongsToAcutalWorkout;
+@dynamic image_url;
 @dynamic belongsToWorkout;
 
 @end

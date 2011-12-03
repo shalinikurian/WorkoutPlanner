@@ -9,9 +9,10 @@
 #import "LogAWorkoutViewController.h"
 #import "Exercise.h"
 #import "GetSetForExerciseFromUserViewController.h"
+#import "ActualWorkout+Create.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
-@interface LogAWorkoutViewController()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface LogAWorkoutViewController()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, GetSetForExerciseFromUserViewController>
 @property (strong, nonatomic) IBOutlet UITableView *workoutDetails;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) UITextView *workoutDescription;
@@ -22,8 +23,10 @@
 @property (strong, nonatomic) IBOutlet UITableView *exercisesTable;
 @property (strong, nonatomic) NSFileManager *fileManager;
 @property (strong, nonatomic) UIButton *photoButton;
+@property (strong, nonatomic) NSMutableArray *logForSets;
 @property (nonatomic) bool threadStarted;
-
+@property (strong, nonatomic) NSMutableArray *imageUrls;
+@property (nonatomic) int imageNo;
 @end
 @implementation LogAWorkoutViewController
 @synthesize workoutDetails = _workoutDetails;
@@ -41,7 +44,47 @@
 @synthesize photoButton = _photoButton;
 @synthesize threadStarted = _threadStarted;
 @synthesize fileManager = _fileManager;
+@synthesize logForSets = _logForSets;
+@synthesize imageUrls = _imageUrls;
+@synthesize imageNo = _imageNo;
 
+- (int) imageNo
+{
+    if (!_imageNo){
+        return 0;
+    }        
+    return _imageNo;
+}
+
+- (NSMutableArray *) imageUrls
+{
+    if (!_imageUrls){
+        _imageUrls = [[NSMutableArray alloc] init];
+    }
+    return _imageUrls;
+}
+- (NSMutableArray *) logForSets
+{
+    if (!_logForSets){
+        _logForSets = [[NSMutableArray alloc] initWithCapacity:[self.exercises count]];
+        //initialize with zeros
+        for (int i = 0; i< [self.exercises count] ; i++ ){
+            //store a nsmutablearray for sets
+            NSInteger countOfSet = [[self.setsInExercises objectAtIndex:i] count];
+            NSMutableArray *sets = [[NSMutableArray alloc] initWithCapacity:countOfSet];
+            for (int j = 0; j <countOfSet ; j++){
+            //each set is a nsdictionary of reps and weight          
+                NSDictionary *setDictionary =  [NSDictionary dictionaryWithObjectsAndKeys:
+                                                [NSNumber numberWithInt:0], @"reps",
+                                                [NSNumber numberWithInt:0], @"weight",
+                                                nil];  
+                [sets addObject:setDictionary];
+            }
+            [_logForSets addObject:sets];
+        }
+    }
+    return _logForSets;
+}
 
 - (NSMutableArray*) exercises
 {
@@ -77,6 +120,24 @@
 
 - (IBAction)saveLog:(UIBarButtonItem *)sender {
     //stop timer, get duration , other data and store in acutal workout
+    //stop the timer loop
+    CFRunLoopStop([[NSRunLoop currentRunLoop] getCFRunLoop]);
+    //get current time and date
+    NSDate *currDateTime = [NSDate date];
+    NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
+    [timeFormat setDateFormat:@"yy/mm/dd hh:mm:ss"];
+    NSTimeInterval diff = [currDateTime timeIntervalSinceDate:self.startDate]; //duration for current workout
+    NSInteger secs = (NSInteger) diff;
+    [ActualWorkout createLogForWorkout:self.workout
+                  withSetsForExercises:self.setsInExercises 
+                          forExercises:self.exercises
+                 withDurationInSeconds:secs
+                              withDate:currDateTime
+                            withImages:self.imageUrls
+                inManagedObjectContext:self.database.managedObjectContext];
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    
 }
 
 - (IBAction)cancelLogClicked:(UIBarButtonItem *)sender
@@ -171,11 +232,13 @@
             NSArray *pathList = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
             NSString *dataPath    = [pathList  objectAtIndex:0];
             dataPath = [NSString stringWithFormat:@"%@/%@",dataPath,@"WorkoutPlannerPhotos"];
-            //give unique name to image
-            NSString * imageName =  @"a";
+            //give unique name to image workout_id + autoincrement number
+            self.imageNo = self.imageNo + 1;
+            NSString * imageName =  [NSString stringWithFormat:@"%d_%d",self.workout.workoutId,self.imageNo];
             NSString *imagePath = [NSString stringWithFormat:@"%@/%@",dataPath,imageName];
             if (![self.fileManager fileExistsAtPath:imagePath]) {
                 [data writeToFile:imagePath atomically:YES];
+                [self.imageUrls addObject:imagePath];
             } else {
                 NSLog(@"exists");
             }
@@ -310,6 +373,8 @@
         cell.textLabel.text =  cell.textLabel.text = [NSString stringWithFormat:@"%@ reps X %@ lb", [set objectForKey:@"reps"],[set objectForKey:@"weight"]];
     } else {
         cell.textLabel.text = @"No sets";
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell.accessoryView removeFromSuperview];
     }
     return cell;
 }
@@ -322,12 +387,32 @@
         [self.workoutDetails reloadRowsAtIndexPaths: array
                                   withRowAnimation: UITableViewRowAnimationAutomatic];
     }
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    NSMutableArray *sets = [[self.setsInExercises objectAtIndex:indexPath.section] mutableCopy];
+    if ([sets count] >0 ){
+        [self performSegueWithIdentifier:@"enter set" sender:cell];
+    }
 }
 
+- (void) weightForExercise:(NSString *)weight
+            repForExercise:(NSString *)rep 
+                  forSetNo:(NSInteger)setNo 
+             forExerciseNo:(NSInteger)exerciseNo
+{
+    NSLog(@"exercise no set no rep weight %d,%d,%@,%@",exerciseNo,setNo,rep,weight);
+    NSDictionary *setDictionary =  [NSDictionary dictionaryWithObjectsAndKeys:
+                                     rep, @"reps",
+                                     weight, @"weight",
+                                     nil];  
+    [[self.logForSets objectAtIndex:exerciseNo] replaceObjectAtIndex:setNo withObject:setDictionary];
+}
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     NSIndexPath *indexPath = [self.exercisesTable indexPathForCell:sender];
-    //TODO from here
+    GetSetForExerciseFromUserViewController *destination = (GetSetForExerciseFromUserViewController*) segue.destinationViewController;
+    [destination setDelegate:self];
+    [destination setSetNo:indexPath.row];
+    [destination setExerciseNo:indexPath.section];
     
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

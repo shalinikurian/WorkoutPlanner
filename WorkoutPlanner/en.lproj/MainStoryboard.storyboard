@@ -84,7 +84,7 @@
                     </navigationItem>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="799" y="281"/>
+            <point key="canvasLocation" x="761" y="281"/>
         </scene>
         <scene sceneID="qGL-Oq-ocI">
             <objects>
@@ -410,14 +410,14 @@
                                         </prototypes>
                                     </tableView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" id="6SH-5e-jhN">
-                                        <rect key="frame" x="90" y="12" width="230" height="29"/>
+                                        <rect key="frame" x="52" y="12" width="268" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="2om-pu-1Zp">
-                                        <rect key="frame" x="0.0" y="231" width="327" height="136"/>
+                                        <rect key="frame" x="0.0" y="211" width="327" height="156"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
@@ -429,9 +429,6 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
-                                                <connections>
-                                                    <segue destination="gTb-B9-bsW" kind="push" identifier="enter set " id="V4L-gr-2Pr"/>
-                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
@@ -457,10 +454,11 @@
                         <outlet property="scrollView" destination="bnz-nB-1CU" id="huE-LM-0JB"/>
                         <outlet property="timerLabel" destination="6SH-5e-jhN" id="hzn-y0-v0c"/>
                         <outlet property="workoutDetails" destination="eL5-lN-F0A" id="bW4-TU-Psz"/>
+                        <segue destination="gTb-B9-bsW" kind="push" identifier="enter set" id="tP5-Zf-XsJ"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1256" y="1502"/>
+            <point key="canvasLocation" x="1242" y="1511"/>
         </scene>
         <scene sceneID="Xj9-pv-zE5">
             <objects>
@@ -522,7 +520,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1849" y="1441"/>
+            <point key="canvasLocation" x="1653" y="1511"/>
         </scene>
         <scene sceneID="TFb-8f-JsT">
             <objects>
@@ -663,7 +661,6 @@
                     <connections>
                         <segue destination="kxf-PX-vPe" kind="relationship" relationship="viewControllers" id="evL-RU-ZGr"/>
                         <segue destination="BG1-3X-xaU" kind="relationship" relationship="viewControllers" id="hxR-CO-Cw3"/>
-                        <segue destination="QvZ-tg-TTP" kind="relationship" relationship="viewControllers" id="rF8-WW-040"/>
                     </connections>
                 </tabBarController>
             </objects>
@@ -673,7 +670,7 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XRm-9h-IR2" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="BG1-3X-xaU" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Log a Workout" id="FOq-bP-3WL"/>
+                    <tabBarItem key="tabBarItem" title="Performance" id="FOq-bP-3WL"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="UVk-gQ-DeP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -682,24 +679,73 @@
                     <nil name="viewControllers"/>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="435" y="848"/>
-        </scene>
-        <scene sceneID="83X-CE-69a">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ba9-Uz-ZYR" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController id="QvZ-tg-TTP" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="View Progress" id="luN-VS-GWV"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="XbK-Fq-aiL">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                </navigationController>
-            </objects>
-            <point key="canvasLocation" x="435" y="1413"/>
+            <point key="canvasLocation" x="487" y="2098"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="AddNewExerciseViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddNewExerciseViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="addSetTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="exerciseDetailsTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="showSetsTableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="AddNewWorkoutViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddNewWorkoutViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="addExerciseTable" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="workoutDetailsTable" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="CoreDataTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
+        </class>
+        <class className="GetSetForExerciseFromUserViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GetSetForExerciseFromUserViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="repsPicker" candidateClass="UIPickerView"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="weightPicker" candidateClass="UIPickerView"/>
+            </relationships>
+        </class>
+        <class className="LogAWorkoutViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LogAWorkoutViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="exercisesTable" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="timerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="workoutDetails" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="ShowExerciseInWorkout" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShowExerciseInWorkout.h"/>
+            <relationships>
+                <relationship kind="outlet" name="addSetTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="exerciseDetailsTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="showSetsTableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="ShowExistingExercisesViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShowExistingExercisesViewController.h"/>
+        </class>
+        <class className="ShowExistingWorkout" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShowExistingWorkout.h"/>
+            <relationships>
+                <relationship kind="outlet" name="addExerciseButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="backAndCancelButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="editAndDoneButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="exerciseList" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="workOutDetails" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="WorkoutViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WorkoutViewController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

@@ -4,6 +4,7 @@
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="duration" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="belongsToWorkout" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="hasLoggedWorkouts" inverseEntity="Workout" syncable="YES"/>
+        <relationship name="hasImage" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="ImageForWorkout" inverseName="belongsToWorkout" inverseEntity="ImageForWorkout" syncable="YES"/>
         <relationship name="setForExercises" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Set" inverseName="belongsToAcutalWorkout" inverseEntity="Set" syncable="YES"/>
     </entity>
     <entity name="Exercise" representedClassName="Exercise" syncable="YES">
@@ -11,6 +12,10 @@
         <attribute name="exerciseId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="belongsToWorkout" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Workout" inverseName="hasExercises" inverseEntity="Workout" syncable="YES"/>
+    </entity>
+    <entity name="ImageForWorkout" representedClassName="ImageForWorkout" syncable="YES">
+        <attribute name="image_url" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="belongsToWorkout" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ActualWorkout" inverseName="hasImage" inverseEntity="ActualWorkout" syncable="YES"/>
     </entity>
     <entity name="Set" representedClassName="Set" syncable="YES">
         <attribute name="exerciseId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -34,5 +39,6 @@
         <element name="Exercise" positionX="-173" positionY="-531" width="128" height="120"/>
         <element name="Set" positionX="-173" positionY="-378" width="128" height="150"/>
         <element name="Workout" positionX="-558" positionY="-333" width="128" height="135"/>
+        <element name="ImageForWorkout" positionX="-0" positionY="-117" width="128" height="75"/>
     </elements>
 </model>

@@ -46,9 +46,10 @@
 }
 - (IBAction)savePressed:(id)sender {
     NSInteger indexOfRepSelected = [self.repsPicker selectedRowInComponent:0];
-    NSInteger selectedRep = (NSInteger)[self.reps objectAtIndex:indexOfRepSelected];
-    NSInteger selectedWeight = (NSInteger)[self.weight objectAtIndex:[self.weightPicker selectedRowInComponent:0]];
+    NSString *selectedRep = (NSString *)[self.reps objectAtIndex:indexOfRepSelected];
+    NSString *selectedWeight = (NSString *)[self.weight objectAtIndex:[self.weightPicker selectedRowInComponent:0]];
     [self.delegate weightForExercise:selectedWeight repForExercise:selectedRep forSetNo:self.setNo forExerciseNo:self.exerciseNo];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
