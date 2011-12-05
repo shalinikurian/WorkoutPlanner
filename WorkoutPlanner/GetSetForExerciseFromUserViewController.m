@@ -36,7 +36,7 @@
 - (NSArray *) weight 
 {
     if (!_weight){
-        _weight = [[NSArray alloc] initWithObjects:@"5",@"10",@"15",@"20",@"25",@"30",@"35",@"40",@"45",@"50",@"75",@"100",@"200",@"300",@"400", nil];
+        _weight = [[NSArray alloc] initWithObjects:@"0",@"5",@"10",@"15",@"20",@"25",@"30",@"35",@"40",@"45",@"50",@"75",@"100",@"200",@"300",@"400", nil];
     }
     return _weight;
 }

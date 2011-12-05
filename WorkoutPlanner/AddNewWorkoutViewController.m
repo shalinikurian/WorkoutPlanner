@@ -37,6 +37,7 @@
                               NSLog(@"finished saving doc");
                               [self.navigationController popViewControllerAnimated:YES];
                           }];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)cancelWorkout:(id)sender {
     NSMutableArray *allControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
@@ -61,6 +62,7 @@
              withSet:(NSArray *)set
 editingExistingExercise:(bool)flag
 {
+    NSLog(@"going to add exercise %@ with set %@",exercise, set);
     if (flag){//edit existing exercise
         NSInteger exercisePos = [self.exercises indexOfObject:exercise];
         [self.setsForExercises replaceObjectAtIndex:exercisePos withObject:set];

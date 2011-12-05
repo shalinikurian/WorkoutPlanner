@@ -89,14 +89,14 @@ callBlock:(completion_block_workout)completion_block{
     NSLog(@"saving workout %@",newWorkout);
     [context save:&error];
     //save document
-    NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    /*NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     url = [url URLByAppendingPathComponent:@"My Workout Planner"];
     [doc saveToURL:url forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success){
         if (!success) {
             // Handle the error.
         }
         completion_block();
-    }];
+    }];*/
 
 }
 @end

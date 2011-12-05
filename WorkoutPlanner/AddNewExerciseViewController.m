@@ -8,8 +8,8 @@
 
 #import "AddNewExerciseViewController.h"
 #import "ShowExistingExercisesViewController.h"
-
-@interface AddNewExerciseViewController() <ShowExistingExercisesViewControllerProtocol>
+#import "GetSetForExerciseFromUserViewController.h"
+@interface AddNewExerciseViewController() <ShowExistingExercisesViewControllerProtocol, GetSetForExerciseFromUserViewController>
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UITableView *showSetsTableView;
 @property (strong, nonatomic) IBOutlet UITableView *addSetTableView;
@@ -41,6 +41,22 @@
 @synthesize currentFirstResponder = _currentFirstResponder;
 @synthesize addCancelSetButton = _addCancelSetButton;
 @synthesize editAddedExercise = _editAddedExercise;
+
+- (void) weightForExercise:(NSString *)weight 
+            repForExercise:(NSString *)rep 
+                  forSetNo:(NSInteger)setNo 
+             forExerciseNo:(NSInteger)exerciseNo
+{
+    NSDictionary *setDictionary =  [NSDictionary dictionaryWithObjectsAndKeys:
+                                    rep, @"reps",
+                                    weight, @"weight",
+                                    nil]; 
+    [self.arrayOfSets addObject:setDictionary];
+    [self.addSetTableView reloadData];
+    [self.showSetsTableView reloadData];
+    
+}
+
 - (NSMutableArray *) arrayOfSets{
     if(!_arrayOfSets){
         _arrayOfSets = [[NSMutableArray alloc] init];
@@ -56,9 +72,22 @@
     self.chosenFromExisitingExercises = YES;
 }
 
+- (void) addExerciseAndDismissController
+{
+    NSLog(@"sets %@",self.arrayOfSets);
+    [self.delegate addExercise:self.exerciseToAdd
+                       withSet:self.arrayOfSets
+       editingExistingExercise:self.editAddedExercise];
+    
+    NSLog(@"popping controllers");
+    NSMutableArray *allControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
+    [self.navigationController popToViewController:[allControllers objectAtIndex:[allControllers count]-2] animated:YES];
+}
 - (IBAction)exerciseAdded:(id)sender {
+    NSLog(@"came to exercise added");
     //if not chosen from existing exercises or not editing already added exercise add exercise in database
     if (!self.chosenFromExisitingExercises && !self.editAddedExercise) {
+        NSLog(@"added a new exercise");
         [Exercise createExerciseWithName:[self.exerciseName text]
                          withDescription:[self.exerciseDescription text]
                                withImage:nil
@@ -66,16 +95,11 @@
                          managedDocument:self.database
                                callBlock:^(Exercise *exercise){
                                    self.exerciseToAdd = exercise;
+                                   [self addExerciseAndDismissController];
                                }];
+    } else {
+        [self addExerciseAndDismissController];
     }
-    
-    //add the exercise to the workout if new exercise is being added
-    [self.delegate addExercise:self.exerciseToAdd
-                       withSet:self.arrayOfSets
-                        editingExistingExercise:self.editAddedExercise];
-
-    NSMutableArray *allControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
-    [self.navigationController popToViewController:[allControllers objectAtIndex:[allControllers count]-2] animated:YES];
 }
 - (IBAction)cancelExercise:(id)sender {
     NSMutableArray *allControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
@@ -124,6 +148,7 @@
         [self.weight resignFirstResponder];
         UIImage *img = [UIImage imageNamed:@"minusImage.png"];
         [self.addCancelSetButton setImage:img forState:UIControlStateNormal];
+        [self performSegueWithIdentifier:@"add set" sender:self];
     }
 
 }
@@ -220,6 +245,10 @@
         [segue.destinationViewController setDelegate:self];
         [segue.destinationViewController setDatabase:self.database];
 
+    }else if ([segue.identifier isEqualToString:@"add set"]){
+        
+        GetSetForExerciseFromUserViewController *destination = (GetSetForExerciseFromUserViewController *)segue.destinationViewController;
+        [destination setDelegate:self];
     }
 }
 
@@ -340,7 +369,7 @@
         }
         if(self.expandCell){
             //set uitextlabels and configure keyboard
-            cell = [self configureCellForAddSet:cell];
+            //cell = [self configureCellForAddSet:cell];
         }else {
             cell.textLabel.text = @"Add a set";
             cell.textLabel.textAlignment = UITextAlignmentCenter;
@@ -375,6 +404,7 @@
     {
         [self.exerciseDescription becomeFirstResponder];
     }
+    
 }
  
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView 

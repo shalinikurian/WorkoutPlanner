@@ -17,6 +17,10 @@
 		7914891F1489F341000653DC /* Workout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7914891E1489F341000653DC /* Workout.m */; };
 		791489221489F341000653DC /* ImageForWorkout.m in Sources */ = {isa = PBXBuildFile; fileRef = 791489211489F341000653DC /* ImageForWorkout.m */; };
 		791489251489F341000653DC /* Exercise.m in Sources */ = {isa = PBXBuildFile; fileRef = 791489241489F341000653DC /* Exercise.m */; };
+		79148933148C1703000653DC /* ChooseExerciseToViewPerformanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79148932148C1702000653DC /* ChooseExerciseToViewPerformanceViewController.m */; };
+		79148936148C18B4000653DC /* PlotPerformance.m in Sources */ = {isa = PBXBuildFile; fileRef = 79148935148C18B3000653DC /* PlotPerformance.m */; };
+		79148943148C1C0D000653DC /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79148942148C1C0C000653DC /* GraphView.m */; };
+		79148945148C2826000653DC /* graphBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 79148944148C2826000653DC /* graphBackground.png */; };
 		79376BA2147B7E540059579A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79376BA1147B7E540059579A /* UIKit.framework */; };
 		79376BA4147B7E540059579A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79376BA3147B7E540059579A /* Foundation.framework */; };
 		79376BA6147B7E540059579A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79376BA5147B7E540059579A /* CoreGraphics.framework */; };
@@ -69,6 +73,13 @@
 		791489211489F341000653DC /* ImageForWorkout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageForWorkout.m; sourceTree = "<group>"; };
 		791489231489F341000653DC /* Exercise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exercise.h; sourceTree = "<group>"; };
 		791489241489F341000653DC /* Exercise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exercise.m; sourceTree = "<group>"; };
+		79148931148C1702000653DC /* ChooseExerciseToViewPerformanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseExerciseToViewPerformanceViewController.h; sourceTree = "<group>"; };
+		79148932148C1702000653DC /* ChooseExerciseToViewPerformanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseExerciseToViewPerformanceViewController.m; sourceTree = "<group>"; };
+		79148934148C18B2000653DC /* PlotPerformance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlotPerformance.h; sourceTree = "<group>"; };
+		79148935148C18B3000653DC /* PlotPerformance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlotPerformance.m; sourceTree = "<group>"; };
+		79148941148C1C0B000653DC /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
+		79148942148C1C0C000653DC /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
+		79148944148C2826000653DC /* graphBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = graphBackground.png; sourceTree = "<group>"; };
 		79376B9D147B7E540059579A /* WorkoutPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkoutPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79376BA1147B7E540059579A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		79376BA3147B7E540059579A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -203,6 +214,12 @@
 		79376BC7147CAF0E0059579A /* workout */ = {
 			isa = PBXGroup;
 			children = (
+				79148941148C1C0B000653DC /* GraphView.h */,
+				79148942148C1C0C000653DC /* GraphView.m */,
+				79148934148C18B2000653DC /* PlotPerformance.h */,
+				79148935148C18B3000653DC /* PlotPerformance.m */,
+				79148931148C1702000653DC /* ChooseExerciseToViewPerformanceViewController.h */,
+				79148932148C1702000653DC /* ChooseExerciseToViewPerformanceViewController.m */,
 				79459C831484CDB600722163 /* LogAWorkoutViewController.h */,
 				79459C841484CDB600722163 /* LogAWorkoutViewController.m */,
 				79376D2014820C810059579A /* ShowExerciseInWorkout.h */,
@@ -282,6 +299,7 @@
 				79376CA5148013980059579A /* addImage.png */,
 				79459C811484CAC700722163 /* bk.png */,
 				791488D114880FBA000653DC /* camera.png */,
+				79148944148C2826000653DC /* graphBackground.png */,
 				791488D314881061000653DC /* camera.jpeg */,
 				79376BE9147CB0D50059579A /* WorkoutHelper.h */,
 				79376BEA147CB0D50059579A /* WorkoutHelper.m */,
@@ -350,6 +368,7 @@
 				79459C821484CAC700722163 /* bk.png in Resources */,
 				791488D214880FBA000653DC /* camera.png in Resources */,
 				791488D414881061000653DC /* camera.jpeg in Resources */,
+				79148945148C2826000653DC /* graphBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,6 +407,9 @@
 				7914891F1489F341000653DC /* Workout.m in Sources */,
 				791489221489F341000653DC /* ImageForWorkout.m in Sources */,
 				791489251489F341000653DC /* Exercise.m in Sources */,
+				79148933148C1703000653DC /* ChooseExerciseToViewPerformanceViewController.m in Sources */,
+				79148936148C18B4000653DC /* PlotPerformance.m in Sources */,
+				79148943148C1C0D000653DC /* GraphView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

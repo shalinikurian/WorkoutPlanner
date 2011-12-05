@@ -14,10 +14,12 @@
 #import "ShowExistingWorkout.h"
 #import "MessageUI/MessageUI.h"
 
-@interface WorkoutViewController()<MFMailComposeViewControllerDelegate>
+@interface WorkoutViewController()<MFMailComposeViewControllerDelegate, UISearchBarDelegate>
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (nonatomic,strong) UIManagedDocument *database;
 @end
 @implementation WorkoutViewController
+@synthesize searchBar = _searchBar;
 @synthesize database = _database;
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -53,6 +55,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.searchBar setDelegate:self];
+    self.searchBar.showsCancelButton = YES;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -62,6 +66,7 @@
 
 - (void)viewDidUnload
 {
+    [self setSearchBar:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -145,6 +150,28 @@
 - (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView reloadData];
+}
+
+//search bar
+- (void) searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+
+{
+      NSFetchRequest * request = [NSFetchRequest   fetchRequestWithEntityName:@"Workout"];
+      if (![searchText isEqualToString:@""])//search text has non empty string 
+      {
+          request.predicate = [NSPredicate predicateWithFormat:@"name BEGINSWITH %@ ",searchText];
+      } 
+      NSSortDescriptor *sortDecriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+      
+      request.sortDescriptors = [NSArray arrayWithObject:sortDecriptor];
+      self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.database.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+                          
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [self.searchBar resignFirstResponder];
+    
 }
 
 
