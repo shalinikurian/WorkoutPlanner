@@ -8,16 +8,62 @@
 
 #import "PlotPerformance.h"
 #import "GraphView.h"
-
+#import "ActualWorkout+Performance.h"
 @interface PlotPerformance()<UIScrollViewDelegate>
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet GraphView *graphView;
+@property (strong, nonatomic) IBOutlet UIView *optionsView;
 
 @end
 @implementation PlotPerformance
 @synthesize scrollView = _scrollView;
 @synthesize graphView = _graphView;
+@synthesize optionsView = _optionsView;
+@synthesize performance = _performance;
+@synthesize exerciseName = _exerciseName;
+@synthesize toDate = _toDate;
+@synthesize exercise = _exercise;
+@synthesize database = _database;
 
+- (void) getPerformanceForDays:(int) days{
+    self.performance = [ActualWorkout perfomanceOfExercise:  self.exercise                                                                                                                                   forDays:days
+                                                    toDate:self.toDate
+                                    inManagedObjectContext:self.database.managedObjectContext];
+    
+
+}
+
+- (IBAction)showOptions:(id)sender {
+    if (self.optionsView.hidden){
+        [self.optionsView setHidden:NO];
+    } else{
+        [self.optionsView setHidden:YES];
+    }
+}
+- (IBAction)weekOrMonthPlot:(UISegmentedControl *)sender {
+    if( [[sender titleForSegmentAtIndex:[sender selectedSegmentIndex]] isEqualToString:@"Week"])
+    {
+       //get performance for week
+        [self getPerformanceForDays:7];
+        self.graphView.noOfDays = 7;
+    }else {
+        [self getPerformanceForDays:30];
+       //get performance for month
+        self.graphView.noOfDays = 30;
+    }
+    self.graphView.performance = self.performance;
+    [self.graphView setNeedsDisplay];
+    
+
+}
+
+- (NSArray *) performance
+{
+    if(!_performance){
+        _performance = [[NSArray alloc] init];
+    }
+    return _performance;
+}
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -41,7 +87,16 @@
 {
     [super viewWillAppear:animated];
     self.scrollView.contentSize = CGSizeMake(kDefaultGraphWidth, kGraphHeight + 50);
-
+    
+    //get performance
+    self.toDate = [NSDate date];
+    [self getPerformanceForDays:7];
+    self.graphView.performance = self.performance;
+    self.graphView.toDate = self.toDate;
+    self.graphView.noOfDays = 7;//by default a week
+    self.navigationItem.title = self.exerciseName;
+    [self.optionsView setHidden:YES];    
+    
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -49,6 +104,7 @@
 {
     [super viewDidLoad];
     [self.scrollView setDelegate:self];
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.2 green:0.5 blue:0.2 alpha:1.0] ; 
     
 }
 
@@ -56,6 +112,7 @@
 {
     [self setScrollView:nil];
     [self setGraphView:nil];
+    [self setOptionsView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -63,6 +120,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
+    //[self.graphView setNeedsDisplay];
     return YES;
 }
 

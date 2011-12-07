@@ -129,7 +129,7 @@
     NSTimeInterval diff = [currDateTime timeIntervalSinceDate:self.startDate]; //duration for current workout
     NSInteger secs = (NSInteger) diff;
     [ActualWorkout createLogForWorkout:self.workout
-                  withSetsForExercises:self.setsInExercises 
+                  withSetsForExercises:self.logForSets
                           forExercises:self.exercises
                  withDurationInSeconds:secs
                               withDate:currDateTime

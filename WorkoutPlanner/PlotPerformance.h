@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Exercise.h"
 
 @interface PlotPerformance : UIViewController
-
+@property (nonatomic, strong) NSArray *performance;
+@property (nonatomic, strong) NSString *exerciseName;
+@property (nonatomic, strong) NSDate *toDate ;
+@property (nonatomic, strong) Exercise *exercise;
+@property (nonatomic, strong) UIManagedDocument *database;
 @end

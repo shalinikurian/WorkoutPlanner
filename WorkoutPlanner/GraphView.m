@@ -14,6 +14,19 @@
 @end
 @implementation GraphView
 @synthesize kStepX = _kStepX;
+@synthesize performance = _performance;
+@synthesize toDate = _toDate;
+@synthesize noOfDays = _noOfDays;
+
++ (NSDate *) getPreviousDayFromDate: (NSDate *) currDate{
+    NSDate *prevDate;
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *components = [[NSDateComponents alloc] init];  
+    [components setDay:-1];
+    prevDate  = [cal dateByAddingComponents:components toDate:currDate options:0];
+    return prevDate;
+}
+
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -24,52 +37,89 @@
     return self;
 }
 
+- (NSArray *) getDataPoints
+{
+    //reverse data points
+    NSMutableArray * dataPts = [[NSMutableArray alloc] init];
+    for ( int i = [self.performance count]-1; i >=0; i--){
+        NSDictionary *perDay = [self.performance objectAtIndex:i];
+        NSNumber *wtPerRep = [perDay objectForKey:@"weightPerRep"];
+        [dataPts addObject:wtPerRep];
+    }
+    //append zeros if needed
+    for (int i = [dataPts count] ; i < self.noOfDays; i++){
+        [dataPts addObject:[NSNumber numberWithFloat:0.0]];
+    }
+    NSLog(@"data pts %@",dataPts);
+    return dataPts;
+}
+
+- (float) getMaxValueFromData
+{
+    float highest = 0;
+    for (int i = 0; i < [self.performance count]; i++){
+        NSDictionary *perDay = [self.performance objectAtIndex:i];
+        float wtPerRep = [[perDay objectForKey:@"weightPerRep"] floatValue];
+        if (wtPerRep > highest) highest = wtPerRep;
+    }
+    return highest;
+}
 
 - (void) drawPerformanceLineGraph
 {
-    float data[] = {0.7, 0.4, 0.9, 1.0, 0.2, 0.85, 0.11, 0.75, 0.53, 0.44, 0.88, 0.77, 0.99, 0.55};
+ 
+    NSArray *dataValues = [self getDataPoints];
+    
+    int maxGraphHeight = kGraphHeight - kOffsetY;
+    int stepX = (kDefaultGraphWidth - kOffsetX) / self.noOfDays + 1;
+    float yPlot;
+    
+
     
     //make gradient
     size_t num_of_locations = 2;
     CGFloat locations[2] = {0.0 , 1.0};
-    CGFloat components[8] = {0.6, 0.2, 0.9, 0.3 ,0.2 ,0.5 , 0.0, 0.9};
+    CGFloat components[8] = {0.2, 0.5, 0.7, 0.2 ,0.1 ,0.4 , 0.0, 0.8};
     CGColorSpaceRef cSpace = CGColorSpaceCreateDeviceRGB();
     CGGradientRef grad =  CGGradientCreateWithColorComponents(cSpace, components, locations, num_of_locations);
     CGPoint startAt, endAt;
-    startAt = CGPointMake(kOffsetX, kGraphHeight);
-    endAt = CGPointMake(kOffsetX, kOffsetY);
+    startAt = CGPointMake(kOffsetX +stepX, kGraphHeight);
+    endAt = CGPointMake(kOffsetX + stepX, kOffsetY);
     
     
     
     //fill in the graph
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, 2.0);
-    CGContextSetStrokeColorWithColor(context, [[UIColor colorWithRed:0.6 green:0.2 blue:1.0 alpha:1.0] CGColor]);
-    CGContextSetFillColorWithColor(context, [[UIColor colorWithRed:0.6 green:0.2 blue:1.0 alpha:0.4] CGColor]);
+    CGContextSetStrokeColorWithColor(context, [[UIColor colorWithRed:0.2 green:0.5 blue:0.2 alpha:1.0] CGColor]);
+    CGContextSetFillColorWithColor(context, [[UIColor colorWithRed:0.2 green:0.5 blue:0.2 alpha:0.2] CGColor]);
     
     
    
-    int maxGraphHeight = kGraphHeight - kOffsetY;
-    int verticleLinesNo = 7;
-    int stepX = (kDefaultGraphWidth - kOffsetX) / verticleLinesNo;
-    
-    
-    //draw gradient
+       //draw gradient
     CGContextBeginPath(context);
-    CGContextMoveToPoint(context, kOffsetX, kGraphHeight);
-    CGContextAddLineToPoint(context, kOffsetX, kGraphHeight - maxGraphHeight * data[0]);
-    for (int i = 1; i < sizeof(data); i++)
+    CGContextMoveToPoint(context, kOffsetX + stepX, kGraphHeight);
+    NSNumber *firstValue = [dataValues objectAtIndex:0];
+    float maxValue = [self getMaxValueFromData];
+    for (int i = 0; i < [dataValues count]; i++)
     {
-        CGContextAddLineToPoint(context, kOffsetX + i * stepX, kGraphHeight - maxGraphHeight * data[i]);
+        NSNumber *value = [dataValues objectAtIndex:i];
+        yPlot = MIN(kGraphHeight - (float)maxGraphHeight / maxValue * [value floatValue], maxGraphHeight);
+        CGContextAddLineToPoint(context, kOffsetX + (i+1) * stepX, yPlot);
     }
+    
+    yPlot = MIN(kGraphHeight - (float)maxGraphHeight / maxValue * [firstValue floatValue], maxGraphHeight);
     CGContextBeginPath(context);
-    CGContextMoveToPoint(context, kOffsetX, kGraphHeight);
-    CGContextAddLineToPoint(context, kOffsetX, kGraphHeight - maxGraphHeight * data[0]);
-    for (int i = 1; i < sizeof(data); i++)
+    CGContextMoveToPoint(context, kOffsetX + stepX, kGraphHeight - kOffsetY);
+    
+    for (int i = 0; i < [dataValues count]; i++)
     {
-        CGContextAddLineToPoint(context, kOffsetX + i * stepX, kGraphHeight - maxGraphHeight * data[i]);
+        NSNumber *value = [dataValues objectAtIndex:i];
+        yPlot = MIN(kGraphHeight - (float)maxGraphHeight / maxValue * [value floatValue], maxGraphHeight);
+        CGContextAddLineToPoint(context, kOffsetX + (i+1) * stepX, yPlot);
     }
-    CGContextAddLineToPoint(context, kOffsetX + (sizeof(data) - 1) * stepX, kGraphHeight);
+    CGContextAddLineToPoint(context, kOffsetX + (self.noOfDays) * stepX, kGraphHeight - kOffsetY);
+    
     CGContextClosePath(context);
     CGContextSaveGState(context);
     CGContextClip(context);
@@ -81,24 +131,28 @@
     CGGradientRelease(grad);
     
     
-    //draw line graoh
+    //draw line graph
+
     CGContextBeginPath(context);
-    CGContextMoveToPoint(context, kOffsetX, kGraphHeight);
-    CGContextAddLineToPoint(context, kOffsetX, kGraphHeight - maxGraphHeight * data[0]);
-    for (int i = 1; i < sizeof(data); i++)
+    CGContextMoveToPoint(context, kOffsetX + stepX, kGraphHeight - kOffsetY);
+
+    for (int i = 0; i < [dataValues count]; i++)
     {
-        CGContextAddLineToPoint(context, kOffsetX + i * stepX, kGraphHeight - maxGraphHeight * data[i]);
+        NSNumber *value = [dataValues objectAtIndex:i];
+        yPlot = MIN(kGraphHeight - (float)maxGraphHeight / maxValue * [value floatValue], maxGraphHeight);
+        CGContextAddLineToPoint(context, kOffsetX + (i+1) * stepX, yPlot);
     }
-    CGContextAddLineToPoint(context, kOffsetX + (sizeof(data) - 1) * stepX, kGraphHeight);
+    CGContextAddLineToPoint(context, kOffsetX + (self.noOfDays) * stepX, kGraphHeight - kOffsetY);
     CGContextClosePath(context);
     CGContextDrawPath(context, kCGPathFillStroke);
     
     
     //draw data points
     CGContextSetFillColorWithColor(context, [[UIColor colorWithRed:0.5 green:0.51 blue:0.5 alpha:1.0] CGColor]);
-    for (int i = 0; i <sizeof(data);i ++){
-        float x = kOffsetX + i * stepX;
-        float y = kGraphHeight - maxGraphHeight * data[i];
+    for (int i = 0; i <[dataValues count];i ++){
+        float x = kOffsetX + (i+1) * stepX;
+        NSNumber *value = [dataValues objectAtIndex:i];
+        float y = MIN(kGraphHeight - (float)maxGraphHeight / maxValue * [value floatValue], maxGraphHeight);
         CGRect dataPoint = CGRectMake(x - dataPointThickness,y - dataPointThickness , dataPointThickness * 3, dataPointThickness*3);
         CGContextAddEllipseInRect(context, dataPoint);
     }
@@ -106,9 +160,9 @@
     
     
 }
+
 - (void)drawRect:(CGRect)rect
 {
-    float data[] = {0.7, 0.4, 0.9, 1.0, 0.2, 0.85, 0.11, 0.75, 0.53, 0.44, 0.88, 0.77, 0.99, 0.55};
     CGContextRef context = UIGraphicsGetCurrentContext();
     /*UIImage *image =[UIImage imageNamed:@"graphBackground.png"];
     CGRect imageFrame = CGRectMake(0, 0, image.size.width, image.size.height);
@@ -123,39 +177,65 @@
     CGFloat dash[] = {1.0,1.0};
     CGContextSetLineDash(context, 0.0, dash, 2);
     
-    //draw vertical lines
     //for a month 30 , for a week 7
-    int verticleLinesNo = 7;
-    NSLog(@"no of vertical lines %d",verticleLinesNo);
-    int stepX = (kDefaultGraphWidth - kOffsetX) / verticleLinesNo;
-    for (int i =0 ;i < verticleLinesNo ; i++)
-    {
-        CGContextMoveToPoint(context, kOffsetX + i * stepX, kGraphTop);
-        CGContextAddLineToPoint(context, kOffsetX + i * stepX, kGraphBottom);
-        CGContextStrokePath(context);
-    }
+    int stepX = (kDefaultGraphWidth - kOffsetX) / self.noOfDays+1;
     
-    //draw horizontal lines TODO depending on datea
-    int horizontalLinesNo = (kGraphBottom - kGraphTop - kOffsetX) / kStepY;
-    for (int i = 0 ;i <= horizontalLinesNo; i++){
-        CGContextMoveToPoint(context, kOffsetX, kGraphBottom - kOffsetY - i * kStepY);
+    //draw horizontal lines 
+    for (int i = 0 ;i <= noOFHorizontalLines; i++){
+        CGContextMoveToPoint(context, kOffsetX + stepX, kGraphBottom - kOffsetY - i * kStepY);
         CGContextAddLineToPoint(context, kDefaultGraphWidth, kGraphBottom - kOffsetY - i * kStepY);
         CGContextStrokePath(context);
     }
+    
+    //draw vertical lines
+    
+    for (int i =1 ;i <= self.noOfDays ; i++)
+    {
+        CGContextMoveToPoint(context, kOffsetX + i * stepX, kGraphTop);
+        CGContextAddLineToPoint(context, kOffsetX + i * stepX, kGraphBottom - kOffsetY);
+        CGContextStrokePath(context);
+    }
+    
     
     //disable dash for future drawing
     CGContextSetLineDash(context, 0.0, NULL, 0);   
     
     //draw graph labels
-    //support rotation of text
-    CGContextSetTextMatrix(context, CGAffineTransformRotate(CGAffineTransformMake(1.0, 0.0, 0.0, -1.0, 0.0, 0.0), M_PI / 2));
-    CGContextSelectFont(context, "Helvetica", 10, kCGEncodingMacRoman);
+    CGContextSetTextMatrix (context, CGAffineTransformMake(1.0, 0.0, 0.0, -1.0, 0.0, 0.0));
+    CGContextSelectFont(context, "Helvetica", 15, kCGEncodingMacRoman);
     CGContextSetTextDrawingMode(context, kCGTextFill);
     CGContextSetFillColorWithColor(context, [[UIColor colorWithRed:0 green:0 blue:0 alpha:1.0] CGColor]);
-    for ( int i = 1 ; i <sizeof(data); i ++){
+    NSString * xAxisLabel = @"Date";
+    CGContextShowTextAtPoint(context, kDefaultGraphWidth/2  , kGraphBottom + kOffsetY, [xAxisLabel cStringUsingEncoding:NSUTF8StringEncoding], [xAxisLabel length]);
+    
+    // y axis labels
+    CGContextSelectFont(context, "Helvetica", 10, kCGEncodingMacRoman);
+    float highestDataValue = [self getMaxValueFromData];
+    if (highestDataValue == 0) highestDataValue = 1;
+    float yUnit =highestDataValue/noOFHorizontalLines;
+    float label = 0;
+    for (int i = 0 ; i <= noOFHorizontalLines; i++){
+        NSString * labelY = [NSString stringWithFormat:@"%.02f" , label];
+        label+=yUnit;
+        CGContextShowTextAtPoint(context, kOffsetX+5, kGraphBottom - kOffsetY - i * kStepY, [labelY cStringUsingEncoding:NSUTF8StringEncoding], [labelY length]);
+    }
+    
+    CGContextSetTextMatrix(context, CGAffineTransformRotate(CGAffineTransformMake(1.0, 0.0, 0.0, -1.0, 0.0, 0.0), M_PI / 2));
+    NSString * yAxisLabel = @"lbs/rep";
+    CGContextShowTextAtPoint(context, kOffsetX, kGraphHeight/2, [yAxisLabel cStringUsingEncoding:NSUTF8StringEncoding], [yAxisLabel length]);
+    //x axis labels
+    CGContextSelectFont(context, "Helvetica", 10, kCGEncodingMacRoman);
+    NSDate *currDate = self.toDate;
+    for ( int i = self.noOfDays-1; i >= 0; i--){
         //plot date 
-        NSString * label = [NSString stringWithFormat:@"%d" , i];
-        CGContextShowTextAtPoint(context, kOffsetX + i *stepX, kGraphBottom - 10, [label cStringUsingEncoding:NSUTF8StringEncoding], [label length]);
+        NSDate *date = [[GraphView class] getPreviousDayFromDate:currDate];
+        NSString *formatString = [NSDateFormatter dateFormatFromTemplate:@"MMMd" options:0
+                                                                  locale:[NSLocale currentLocale]];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:formatString];
+        
+        NSString * labelX = [dateFormatter stringFromDate:date];      CGContextShowTextAtPoint(context, kOffsetX + (i+1) *stepX, kGraphBottom +30, [labelX cStringUsingEncoding:NSUTF8StringEncoding], [labelX length]);
+        currDate = date;
     }
 }
 

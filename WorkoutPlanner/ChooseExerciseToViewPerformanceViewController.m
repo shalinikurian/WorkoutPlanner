@@ -9,6 +9,8 @@
 #import "ChooseExerciseToViewPerformanceViewController.h"
 #import "WorkoutHelper.h"
 #import "Exercise.h"
+#import "PlotPerformance.h"
+#import "ActualWorkout+Performance.h"
 
 @interface ChooseExerciseToViewPerformanceViewController()
 @property (nonatomic,strong) UIManagedDocument *database;
@@ -102,6 +104,24 @@
     return cell;
 }
 
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"show graph"]) {
+        NSIndexPath * indexPath = [self.tableView indexPathForCell:sender];
+        PlotPerformance *destination = (PlotPerformance *) segue.destinationViewController;
+        Exercise *exercise = [self.fetchedResultsController objectAtIndexPath:indexPath]
+        ;
+        /*NSDate *date = [NSDate date];
+        NSArray * performance = [ActualWorkout perfomanceOfExercise:  exercise                                                                                                                                      forDays:7
+            toDate:(NSDate *) date
+            inManagedObjectContext:self.database.managedObjectContext];
+        [destination setPerformance:performance];*/
+        [destination setExercise:exercise];
+        [destination setExerciseName:exercise.name];
+        [destination setDatabase:self.database];
+        //[destination setToDate:date];
+    }
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -141,17 +161,6 @@
 }
 */
 
-#pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
-}
 
 @end
