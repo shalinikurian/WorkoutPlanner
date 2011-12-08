@@ -7,6 +7,8 @@
 //
 
 #import "ShowImageViewController.h"
+#import "ImageForWorkout+DeleteImage.h"
+
 @interface ShowImageViewController()<UIScrollViewDelegate>
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 
@@ -23,7 +25,7 @@
 - (IBAction)deletePhoto:(UIBarButtonItem *)sender {
     
     //delete image from core data
-    
+    [ImageForWorkout deleteImageWithURL:self.url inManagedObjectContext:self.database.managedObjectContext];
     //pop controller
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -37,10 +39,49 @@
     return self;
 }
 
+-(void) resizeView
+{
+    CGFloat scale = 1;
+    self.scrollView.delegate = self;
+    if (self.scrollView.contentSize.width > self.scrollView.contentSize.height)
+    {
+        //scale = self.scrollView.bounds.size.height / self.scrollView.contentSize.height;
+        scale = self.view.frame.size.height/self.scrollView.contentSize.height;
+    } else {
+        
+       // scale = self.scrollView.bounds.size.width / self.scrollView.contentSize.width;
+        scale = self.view.frame.size.width / self.scrollView.contentSize.width;
+    }
+    
+    NSLog(@"scale %f",scale);
+    [self.scrollView setZoomScale:scale];
+}
+
+
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+    self.imageView.image = self.image;
+    self.scrollView.contentSize = self.imageView.image.size;
+    self.imageView.frame = CGRectMake(0, 0, self.imageView.image.size.width, self.imageView.image.size.height);
+}
 
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.imageView;
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    self.scrollView.delegate = self;
+    self.scrollView.minimumZoomScale=0.5;
+    self.scrollView.maximumZoomScale=6.0;
+    [self resizeView];
+}
+- (void) viewDidLoad:(BOOL)animated
+{
+    [self viewDidLoad:YES];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -78,6 +119,8 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
+    [self.view setNeedsDisplay];
+    [self resizeView];
     return YES;
 }
 

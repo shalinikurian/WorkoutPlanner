@@ -12,6 +12,8 @@
 @synthesize indexPath = _indexPath;
 @synthesize position = _position;
 @synthesize url = _url;
+@synthesize image = _image;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

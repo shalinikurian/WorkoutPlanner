@@ -40,7 +40,6 @@
 		79376C8D147F1F7B0059579A /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376C8C147F1F7B0059579A /* CustomButton.m */; };
 		79376C90147F229E0059579A /* create.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 79376C8F147F229E0059579A /* create.jpeg */; };
 		79376C96147F38110059579A /* AddNewExerciseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376C95147F38100059579A /* AddNewExerciseViewController.m */; };
-		79376CA2148011E80059579A /* minusImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 79376CA1148011E80059579A /* minusImage.png */; };
 		79376CA6148013980059579A /* addImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 79376CA5148013980059579A /* addImage.png */; };
 		79376CAD148060CF0059579A /* AddNewWorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376CAC148060CF0059579A /* AddNewWorkoutViewController.m */; };
 		79376CB0148071580059579A /* Set+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376CAF148071570059579A /* Set+Create.m */; };
@@ -118,7 +117,6 @@
 		79376C8F147F229E0059579A /* create.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = create.jpeg; sourceTree = "<group>"; };
 		79376C94147F38100059579A /* AddNewExerciseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNewExerciseViewController.h; sourceTree = "<group>"; };
 		79376C95147F38100059579A /* AddNewExerciseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewExerciseViewController.m; sourceTree = "<group>"; };
-		79376CA1148011E80059579A /* minusImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minusImage.png; sourceTree = "<group>"; };
 		79376CA5148013980059579A /* addImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addImage.png; sourceTree = "<group>"; };
 		79376CAB148060CF0059579A /* AddNewWorkoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNewWorkoutViewController.h; sourceTree = "<group>"; };
 		79376CAC148060CF0059579A /* AddNewWorkoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewWorkoutViewController.m; sourceTree = "<group>"; };
@@ -326,7 +324,6 @@
 			isa = PBXGroup;
 			children = (
 				79376C8C147F1F7B0059579A /* CustomButton.m */,
-				79376CA1148011E80059579A /* minusImage.png */,
 				79376CA5148013980059579A /* addImage.png */,
 				791488D114880FBA000653DC /* camera.png */,
 				79148944148C2826000653DC /* graphBackground.png */,
@@ -395,7 +392,6 @@
 				79376BAC147B7E540059579A /* InfoPlist.strings in Resources */,
 				79376BB5147B7E540059579A /* MainStoryboard.storyboard in Resources */,
 				79376C90147F229E0059579A /* create.jpeg in Resources */,
-				79376CA2148011E80059579A /* minusImage.png in Resources */,
 				79376CA6148013980059579A /* addImage.png in Resources */,
 				791488D214880FBA000653DC /* camera.png in Resources */,
 				791488D414881061000653DC /* camera.jpeg in Resources */,

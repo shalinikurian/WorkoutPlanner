@@ -82,6 +82,8 @@
         self.database = workoutPlanner; 
         //get photos
         self.datesAndPhotos = [[ActualWorkout photosByDateinManagedObjectContext:self.database.managedObjectContext] mutableCopy];
+        [self.tableView reloadData];
+        NSLog(@"i finished reloading data");
         //fake data
         /*NSDictionary *dict = [NSDictionary dictionaryWithObject:[NSArray arrayWithObjects:@"abc",@"bc",@"a",@"g",nil] forKey:@"Nov 2011"];
          [self.datesAndPhotos insertObject:dict atIndex:0];
@@ -161,9 +163,19 @@
 - (void) photoClicked: (id) sender
 {
     PhotoButtonInCell * button = (PhotoButtonInCell *) sender;
-    NSLog(@"touched");
+    [self performSegueWithIdentifier:@"show image" sender:button];
 }
 
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    PhotoButtonInCell *button = (PhotoButtonInCell *) sender;
+    //get url of image
+    ShowImageViewController *destination = (ShowImageViewController *) segue.destinationViewController;
+    [destination setUrl:button.url];
+    [destination setDatabase:self.database];
+    [destination setImage:button.image];
+    //destination.hidesBottomBarWhenPushed = YES;
+}
 - (UITableViewCell *) addPhotosToCell : (UITableViewCell *) cell
                         withIndexPath :(NSIndexPath *) indexPath;
 {    
@@ -191,6 +203,7 @@
         photo1.position = 1;
         im = (ImageForWorkout *)[photosArray objectAtIndex:startPos];
         photo1.url = im.image_url;
+        photo1.image = [self getImageForURL:photo1.url];
         
         //border
         CALayer *layer1 = [photo1 layer];
@@ -201,7 +214,7 @@
         photo1.frame = CGRectMake(cell.contentView.frame.origin.x + offsetX + 5, cell.contentView.frame.origin.y + topOffset, thumbnailWidth, thumbnailHeight);
         
         //image
-        [photo1 setImage:[self getImageForURL:photo1.url] forState:UIControlStateNormal];
+        [photo1 setImage:photo1.image forState:UIControlStateNormal];
         
         //add tap
         [photo1 addTarget:self action:@selector(photoClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -216,7 +229,7 @@
         photo2.position = 2;
         im = (ImageForWorkout *)[photosArray objectAtIndex:startPos];
         photo2.url = im.image_url;
-        
+        photo2.image = [self getImageForURL:photo2.url];
         //border
         CALayer *layer2 = [photo2 layer];
         [layer2 setBorderWidth:2.0];
@@ -226,7 +239,7 @@
         photo2.frame = CGRectMake(cell.contentView.frame.origin.x + 2*offsetX + thumbnailWidth+ 5, cell.contentView.frame.origin.y + topOffset, thumbnailWidth, thumbnailHeight);
         
         //set image
-        [photo2 setImage:[self getImageForURL:photo2.url] forState:UIControlStateNormal];
+        [photo2 setImage: photo2.image forState:UIControlStateNormal];
         
         [photo2 addTarget:self action:@selector(photoClicked:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -242,6 +255,8 @@
         photo3.position = 3;
         im = (ImageForWorkout *)[photosArray objectAtIndex:startPos];
         photo3.url = im.image_url;
+        photo3.image = [self getImageForURL:photo3.url];
+        
         //border
         CALayer *layer3 = [photo3 layer];
         [layer3 setBorderWidth:2.0];
@@ -251,7 +266,7 @@
         photo3.frame = CGRectMake(cell.contentView.frame.origin.x + 3*offsetX + 2*thumbnailWidth + 5, cell.contentView.frame.origin.y + topOffset, thumbnailWidth, thumbnailHeight);
         
         //set image
-        [photo3 setImage:[self getImageForURL:photo3.url] forState:UIControlStateNormal];
+        [photo3 setImage: photo3.image forState:UIControlStateNormal];
         
         [photo3 addTarget:self action:@selector(photoClicked:) forControlEvents:UIControlEventTouchUpInside];
         

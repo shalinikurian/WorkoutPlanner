@@ -15,7 +15,7 @@
 {
     ImageForWorkout  *obj = nil;
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"ImageForWorkout"];
-    request.predicate = [NSPredicate predicateWithFormat:@"url = %@",url];
+    request.predicate = [NSPredicate predicateWithFormat:@"image_url = %@",url];
     
     NSError *error = nil;
     NSArray *matches = [context executeFetchRequest:request error:&error];
@@ -23,6 +23,7 @@
         NSLog(@"error in image for workout");
         //error
     }else if ([matches count] == 1) {
+        NSLog(@"got image with url");
         //delete image
         obj =[matches lastObject];
         [context deleteObject:obj];

@@ -881,6 +881,97 @@
             <point key="canvasLocation" x="412" y="1671"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="AddNewExerciseViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddNewExerciseViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="addSetTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="exerciseDetailsTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="showSetsTableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="AddNewWorkoutViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddNewWorkoutViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="addExerciseTable" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="workoutDetailsTable" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="ChooseExerciseToViewPerformanceViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ChooseExerciseToViewPerformanceViewController.h"/>
+        </class>
+        <class className="CoreDataTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
+        </class>
+        <class className="GetSetForExerciseFromUserViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GetSetForExerciseFromUserViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="repsPicker" candidateClass="UIPickerView"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="weightPicker" candidateClass="UIPickerView"/>
+            </relationships>
+        </class>
+        <class className="GraphView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphView.h"/>
+        </class>
+        <class className="LogAWorkoutViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LogAWorkoutViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="exercisesTable" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="timerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="workoutDetails" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="PlotPerformance" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlotPerformance.h"/>
+            <relationships>
+                <relationship kind="outlet" name="graphView" candidateClass="GraphView"/>
+                <relationship kind="outlet" name="optionsView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="ShowExerciseInWorkout" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShowExerciseInWorkout.h"/>
+            <relationships>
+                <relationship kind="outlet" name="addSetTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="exerciseDetailsTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="showSetsTableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="ShowExistingExercisesViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShowExistingExercisesViewController.h"/>
+        </class>
+        <class className="ShowExistingWorkout" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShowExistingWorkout.h"/>
+            <relationships>
+                <relationship kind="outlet" name="addExerciseButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="backAndCancelButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="editAndDoneButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="exerciseList" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="workOutDetails" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="ShowImageViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShowImageViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="ShowPhotosViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShowPhotosViewController.h"/>
+        </class>
+        <class className="WorkoutViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WorkoutViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

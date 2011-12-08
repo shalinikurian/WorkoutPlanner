@@ -9,7 +9,7 @@
 #import "AddNewExerciseViewController.h"
 #import "ShowExistingExercisesViewController.h"
 #import "GetSetForExerciseFromUserViewController.h"
-@interface AddNewExerciseViewController() <ShowExistingExercisesViewControllerProtocol, GetSetForExerciseFromUserViewController>
+@interface AddNewExerciseViewController() <ShowExistingExercisesViewControllerProtocol, GetSetForExerciseFromUserViewController, UIGestureRecognizerDelegate>
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UITableView *showSetsTableView;
 @property (strong, nonatomic) IBOutlet UITableView *addSetTableView;
@@ -136,22 +136,6 @@
     [self.weight setDelegate:self];
     [self.exerciseName setDelegate:self];
     }
-- (void) changeAddMinusSetIcon {
-    if (self.expandCell) {
-        self.expandCell = false;
-        UIImage *img = [UIImage imageNamed:@"addImage.png"];
-        [self.addCancelSetButton setImage:img forState:UIControlStateNormal];
-    }
-    else {
-        self.expandCell = true;
-        [self.reps resignFirstResponder];
-        [self.weight resignFirstResponder];
-        UIImage *img = [UIImage imageNamed:@"minusImage.png"];
-        [self.addCancelSetButton setImage:img forState:UIControlStateNormal];
-        [self performSegueWithIdentifier:@"add set" sender:self];
-    }
-
-}
 
 
 - (void) textFieldDidEndEditing:(UITextField *)textField
@@ -160,10 +144,9 @@
 }
 - (void) addSetClicked :(id) sender {
     
-    [self changeAddMinusSetIcon];
     [self.reps resignFirstResponder];
     [self.weight resignFirstResponder];
-    [self.addSetTableView reloadData];
+    [self performSegueWithIdentifier:@"add set" sender:self];
 }
 
 - (void) prePopulateFields
@@ -185,9 +168,33 @@
     
     [self.scrollView addSubview:self.addCancelSetButton];
 }
-- (void) viewWillAppear:(BOOL)animated
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if ([touch.view.subviews isKindOfClass:[UITextView class]]) return NO;
+    if ([touch.view.subviews isKindOfClass:[UITextField class]]) return NO;
+    
+    return YES;
+}
+
+- (void) singleTap : (UIGestureRecognizer *) gesture
+{
+    //resign first responder
+    [self.exerciseDescription resignFirstResponder];
+    [self.exerciseName resignFirstResponder];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+    //add tap
+    UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self 
+                                                                                                 action:@selector(singleTap:)];
+    singleTapGestureRecognizer.numberOfTapsRequired = 1;
+    singleTapGestureRecognizer.enabled = YES;
+    singleTapGestureRecognizer.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:singleTapGestureRecognizer];
+    
     [self addButtonForAddingSetInUI];
     self.addSetTableView.scrollEnabled = NO;
     self.exerciseDetailsTableView.scrollEnabled = NO;
@@ -293,18 +300,7 @@
     return cell;
 }
 
-- (void) doneAddingSetClicked :(id) sender {
-    [self changeAddMinusSetIcon];
-    self.expandCell = NO;
-    NSDictionary *setDictionary =  [NSDictionary dictionaryWithObjectsAndKeys:
-                                    self.reps.text, @"reps",
-                                    self.weight.text, @"weight",
-                                    nil]; 
-    [self.arrayOfSets addObject:setDictionary];
-    [self.addSetTableView reloadData];
-    [self.showSetsTableView reloadData];
-    
-}
+
 
 - (UITextField *) reps {
     if (!_reps){
@@ -320,7 +316,7 @@
     return _weight;
 }
 
-- (UITableViewCell *) configureCellForAddSet: (UITableViewCell*) cell 
+/*- (UITableViewCell *) configureCellForAddSet: (UITableViewCell*) cell 
 {
    
     self.reps.text = @"";
@@ -343,7 +339,7 @@
     [cell.contentView addSubview:self.weight];
     return cell;
     
-}
+}*/
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView == self.exerciseDetailsTableView) {
@@ -367,14 +363,10 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             cell.editing = NO;
         }
-        if(self.expandCell){
-            //set uitextlabels and configure keyboard
-            //cell = [self configureCellForAddSet:cell];
-        }else {
-            cell.textLabel.text = @"Add a set";
-            cell.textLabel.textAlignment = UITextAlignmentCenter;
-            cell.accessoryView = nil;
-        }
+       
+        cell.textLabel.text = @"Add a set";
+        cell.textLabel.textAlignment = UITextAlignmentCenter;
+        cell.accessoryView = nil;
         return cell;
     }
     //sets table view

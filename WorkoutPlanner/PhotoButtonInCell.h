@@ -13,5 +13,6 @@
 @property (nonatomic, weak) NSIndexPath *indexPath;
 @property (nonatomic) int position;
 @property (nonatomic, weak) NSString *url;
+@property (nonatomic, weak) UIImage *image;
 
 @end

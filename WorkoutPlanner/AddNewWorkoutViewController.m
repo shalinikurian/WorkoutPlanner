@@ -10,7 +10,7 @@
 #import "Exercise.h"
 #import "Workout+Create.h"
 
-@interface AddNewWorkoutViewController()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface AddNewWorkoutViewController()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *workoutDetailsTable;
 @property (strong, nonatomic) IBOutlet UITableView *addExerciseTable;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -211,12 +211,37 @@ editingExistingExercise:(bool)flag
     
     // Release any cached data, images, etc that aren't in use.
 }
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if ([touch.view.subviews isKindOfClass:[UITextView class]]) return NO;
+    if ([touch.view.subviews isKindOfClass:[UITextField class]]) return NO;
+    
+    return YES;
+}
+
+- (void) singleTap : (UIGestureRecognizer *) gesture
+{
+    //resign first responder
+    [self.workoutNameTextField resignFirstResponder];
+    [self.workoutDescription resignFirstResponder];
+    
+}
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
     self.scrollView.delegate = self;
     [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width,
                                                self.view.frame.size.height)];
+    
+    //add tap
+    UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self 
+                                                                                                 action:@selector(singleTap:)];
+    singleTapGestureRecognizer.numberOfTapsRequired = 1;
+    singleTapGestureRecognizer.enabled = YES;
+    singleTapGestureRecognizer.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:singleTapGestureRecognizer];
+    
     [self.addExerciseTable reloadData];
     self.workoutDetailsTable.scrollEnabled = NO;
     //resign first responder

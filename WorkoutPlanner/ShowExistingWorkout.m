@@ -14,7 +14,7 @@
 #import "AddNewExerciseViewController.h"
 #import "LogAWorkoutViewController.h"
 
-@interface ShowExistingWorkout ()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate,ShowExistingExercisesInWorkoutProtocol, AddNewExerciseViewController>
+@interface ShowExistingWorkout ()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate,UIGestureRecognizerDelegate ,ShowExistingExercisesInWorkoutProtocol, AddNewExerciseViewController>
 @property (strong, nonatomic) IBOutlet UIButton *addExerciseButton;
 @property (nonatomic) bool editWorkout;
 @property (strong, nonatomic) IBOutlet UITableView *workOutDetails;
@@ -285,10 +285,33 @@ editingExistingExercise:(bool)flag
 }
 
 #pragma mark - View lifecycle
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if ([touch.view.subviews isKindOfClass:[UITextView class]]) return NO;
+    if ([touch.view.subviews isKindOfClass:[UITextField class]]) return NO;
+    
+    return YES;
+}
+
+- (void) singleTap : (UIGestureRecognizer *) gesture
+{
+    //resign first responder
+    [self.workoutNameTextField resignFirstResponder];
+    [self.workoutDescription resignFirstResponder];
+    
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+    //add tap
+    UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self 
+                                                                                                 action:@selector(singleTap:)];
+    singleTapGestureRecognizer.numberOfTapsRequired = 1;
+    singleTapGestureRecognizer.enabled = YES;
+    singleTapGestureRecognizer.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:singleTapGestureRecognizer];
+
     if (!self.editWorkout){
         self.workoutNameTextField.enabled = NO;
         self.workoutDescription.editable = NO;
