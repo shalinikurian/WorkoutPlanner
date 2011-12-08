@@ -64,8 +64,6 @@ inManagedObjectContext:(NSManagedObjectContext *)context{
         date = prevDate;
     }//end of processing all workouts for all days
     
-    
-    NSLog(@"performance %@",performanceByDate);
     return performanceByDate;
 
 }

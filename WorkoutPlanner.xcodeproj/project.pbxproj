@@ -49,9 +49,15 @@
 		79376D0414819E440059579A /* Exercise+Details.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376D0314819E430059579A /* Exercise+Details.m */; };
 		79376D071481B2C50059579A /* Set+Details.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376D061481B2C40059579A /* Set+Details.m */; };
 		79376D2214820C820059579A /* ShowExerciseInWorkout.m in Sources */ = {isa = PBXBuildFile; fileRef = 79376D2114820C820059579A /* ShowExerciseInWorkout.m */; };
+		7938211E1490414D00C55BC5 /* ShowPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7938211D1490414D00C55BC5 /* ShowPhotosViewController.m */; };
+		793821221490423C00C55BC5 /* ActualWorkout+PhotosByDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 793821211490423C00C55BC5 /* ActualWorkout+PhotosByDate.m */; };
+		7938212514904B6D00C55BC5 /* ImageForWorkout+createImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7938212414904B6D00C55BC5 /* ImageForWorkout+createImage.m */; };
 		79459C7B14848E7400722163 /* Workout+Edit.m in Sources */ = {isa = PBXBuildFile; fileRef = 79459C7A14848E7400722163 /* Workout+Edit.m */; };
 		79459C7E14849C1200722163 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79459C7D14849C1200722163 /* MessageUI.framework */; };
 		79459C851484CDB600722163 /* LogAWorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79459C841484CDB600722163 /* LogAWorkoutViewController.m */; };
+		799158D214909DB000BE2430 /* PhotoButtonInCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 799158D114909DB000BE2430 /* PhotoButtonInCell.m */; };
+		799158DA1491611A00BE2430 /* ShowImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 799158D91491611A00BE2430 /* ShowImageViewController.m */; };
+		799158E11491650100BE2430 /* ImageForWorkout+DeleteImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 799158E01491650100BE2430 /* ImageForWorkout+DeleteImage.m */; };
 		79AA808B148317540026B9A2 /* EditExerciseInWorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79AA808A148317540026B9A2 /* EditExerciseInWorkoutViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -128,11 +134,23 @@
 		79376D061481B2C40059579A /* Set+Details.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Set+Details.m"; sourceTree = "<group>"; };
 		79376D2014820C810059579A /* ShowExerciseInWorkout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowExerciseInWorkout.h; sourceTree = "<group>"; };
 		79376D2114820C820059579A /* ShowExerciseInWorkout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowExerciseInWorkout.m; sourceTree = "<group>"; };
+		7938211C1490414D00C55BC5 /* ShowPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowPhotosViewController.h; sourceTree = "<group>"; };
+		7938211D1490414D00C55BC5 /* ShowPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowPhotosViewController.m; sourceTree = "<group>"; };
+		793821201490423C00C55BC5 /* ActualWorkout+PhotosByDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ActualWorkout+PhotosByDate.h"; sourceTree = "<group>"; };
+		793821211490423C00C55BC5 /* ActualWorkout+PhotosByDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ActualWorkout+PhotosByDate.m"; sourceTree = "<group>"; };
+		7938212314904B6C00C55BC5 /* ImageForWorkout+createImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ImageForWorkout+createImage.h"; sourceTree = "<group>"; };
+		7938212414904B6D00C55BC5 /* ImageForWorkout+createImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ImageForWorkout+createImage.m"; sourceTree = "<group>"; };
 		79459C7914848E7400722163 /* Workout+Edit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Workout+Edit.h"; sourceTree = "<group>"; };
 		79459C7A14848E7400722163 /* Workout+Edit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Workout+Edit.m"; sourceTree = "<group>"; };
 		79459C7D14849C1200722163 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		79459C831484CDB600722163 /* LogAWorkoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogAWorkoutViewController.h; sourceTree = "<group>"; };
 		79459C841484CDB600722163 /* LogAWorkoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogAWorkoutViewController.m; sourceTree = "<group>"; };
+		799158D014909DB000BE2430 /* PhotoButtonInCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoButtonInCell.h; sourceTree = "<group>"; };
+		799158D114909DB000BE2430 /* PhotoButtonInCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoButtonInCell.m; sourceTree = "<group>"; };
+		799158D81491611A00BE2430 /* ShowImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowImageViewController.h; sourceTree = "<group>"; };
+		799158D91491611A00BE2430 /* ShowImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowImageViewController.m; sourceTree = "<group>"; };
+		799158DF1491650100BE2430 /* ImageForWorkout+DeleteImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ImageForWorkout+DeleteImage.h"; sourceTree = "<group>"; };
+		799158E01491650100BE2430 /* ImageForWorkout+DeleteImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ImageForWorkout+DeleteImage.m"; sourceTree = "<group>"; };
 		79AA8089148317540026B9A2 /* EditExerciseInWorkoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditExerciseInWorkoutViewController.h; sourceTree = "<group>"; };
 		79AA808A148317540026B9A2 /* EditExerciseInWorkoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditExerciseInWorkoutViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -215,6 +233,10 @@
 		79376BC7147CAF0E0059579A /* workout */ = {
 			isa = PBXGroup;
 			children = (
+				799158D81491611A00BE2430 /* ShowImageViewController.h */,
+				799158D91491611A00BE2430 /* ShowImageViewController.m */,
+				7938211C1490414D00C55BC5 /* ShowPhotosViewController.h */,
+				7938211D1490414D00C55BC5 /* ShowPhotosViewController.m */,
 				79148941148C1C0B000653DC /* GraphView.h */,
 				79148942148C1C0C000653DC /* GraphView.m */,
 				79148934148C18B2000653DC /* PlotPerformance.h */,
@@ -290,6 +312,12 @@
 				791488EB1489642A000653DC /* ActualWorkout+Create.m */,
 				7914894E148D3946000653DC /* ActualWorkout+Performance.h */,
 				7914894F148D3947000653DC /* ActualWorkout+Performance.m */,
+				793821201490423C00C55BC5 /* ActualWorkout+PhotosByDate.h */,
+				793821211490423C00C55BC5 /* ActualWorkout+PhotosByDate.m */,
+				7938212314904B6C00C55BC5 /* ImageForWorkout+createImage.h */,
+				7938212414904B6D00C55BC5 /* ImageForWorkout+createImage.m */,
+				799158DF1491650100BE2430 /* ImageForWorkout+DeleteImage.h */,
+				799158E01491650100BE2430 /* ImageForWorkout+DeleteImage.m */,
 			);
 			name = categories;
 			sourceTree = "<group>";
@@ -307,6 +335,8 @@
 				79376BEA147CB0D50059579A /* WorkoutHelper.m */,
 				79376C8F147F229E0059579A /* create.jpeg */,
 				79376C8B147F1F7B0059579A /* CustomButton.h */,
+				799158D014909DB000BE2430 /* PhotoButtonInCell.h */,
+				799158D114909DB000BE2430 /* PhotoButtonInCell.m */,
 			);
 			name = helperClasses;
 			sourceTree = "<group>";
@@ -412,6 +442,12 @@
 				79148936148C18B4000653DC /* PlotPerformance.m in Sources */,
 				79148943148C1C0D000653DC /* GraphView.m in Sources */,
 				79148950148D3948000653DC /* ActualWorkout+Performance.m in Sources */,
+				7938211E1490414D00C55BC5 /* ShowPhotosViewController.m in Sources */,
+				793821221490423C00C55BC5 /* ActualWorkout+PhotosByDate.m in Sources */,
+				7938212514904B6D00C55BC5 /* ImageForWorkout+createImage.m in Sources */,
+				799158D214909DB000BE2430 /* PhotoButtonInCell.m in Sources */,
+				799158DA1491611A00BE2430 /* ShowImageViewController.m in Sources */,
+				799158E11491650100BE2430 /* ImageForWorkout+DeleteImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

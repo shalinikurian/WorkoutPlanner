@@ -8,7 +8,7 @@
 
 #import "ActualWorkout+Create.h"
 #import "Set+Create.h"
-#import "ImageForWorkout.h"
+#import "ImageForWorkout+createImage.h"
 
 @implementation ActualWorkout (Create)
 + (NSDate *) getPreviousDayFromDate: (NSDate *) currDate
@@ -65,7 +65,6 @@
         }
         cnt ++;
         fakeLog.belongsToWorkout = aw.belongsToWorkout;
-        NSLog(@"entering workout %@",fakeLog);
         [context save:&error];
     }
     
@@ -78,11 +77,7 @@
                   withImages:(NSArray *)imageUrls
       inManagedObjectContext:(NSManagedObjectContext *)context
 {
-    if (context) {
-        NSLog(@"i have context in actual workout");
-    }else {
-        NSLog(@"i dont have context in actual workout");
-    }
+   
     ActualWorkout * aw = nil;
     NSError *error = nil;
     //add the workout to the database
@@ -117,9 +112,11 @@
     }
     aw.belongsToWorkout = workout;
     //add images to actual workout
+    NSLog(@"adding images %@",imageUrls);
     for (NSString *imagePath in imageUrls) {
-        ImageForWorkout *im = [NSEntityDescription insertNewObjectForEntityForName:@"ImageForWorkout" inManagedObjectContext:context];
+        ImageForWorkout *im = [ImageForWorkout createAnImageWithURL:imagePath inManagedObjectContext:context];
         im.belongsToWorkout = aw;
+        
     }
     
     [context save:&error];
@@ -132,7 +129,6 @@
     /*NSFetchRequest *requestExercise = [NSFetchRequest fetchRequestWithEntityName:@"ActualWorkout"];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
     requestExercise.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    NSError *error = nil;
     NSArray *result = [context executeFetchRequest:requestExercise error:&error];
     NSLog(@"workout %@",[result lastObject]);*/
     

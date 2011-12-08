@@ -302,7 +302,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1495" y="884"/>
+            <point key="canvasLocation" x="1763" y="896"/>
         </scene>
         <scene sceneID="XvZ-b1-c2k">
             <objects>
@@ -467,6 +467,74 @@
                 </viewController>
             </objects>
             <point key="canvasLocation" x="1768" y="1511"/>
+        </scene>
+        <scene sceneID="f6X-mP-JnS">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VqP-Dd-f9k" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="SaP-Bo-Sk8" customClass="ShowPhotosViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="mrC-C5-7In">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="photo" id="7ep-JX-GGf">
+                                <rect key="frame" x="0.0" y="46" width="320" height="46"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="SaP-Bo-Sk8" id="TLW-Ih-3qa"/>
+                            <outlet property="delegate" destination="SaP-Bo-Sk8" id="uJt-Zn-cRC"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Photos" id="whb-vn-BD5"/>
+                    <connections>
+                        <segue destination="07D-Ze-deN" kind="push" identifier="show image" id="7vi-iL-sPI"/>
+                    </connections>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="879" y="1671"/>
+        </scene>
+        <scene sceneID="1P1-xK-FsJ">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qsu-f3-HYT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="07D-Ze-deN" customClass="ShowImageViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MeN-jv-gXS">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="J1B-qN-PKH">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="367"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="au1-wp-ExM">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="367"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="v3f-EO-COX">
+                        <barButtonItem key="rightBarButtonItem" title="Delete" id="1qX-Is-1Vs">
+                            <connections>
+                                <action selector="deletePhoto:" destination="07D-Ze-deN" id="mdX-uM-HK7"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="imageView" destination="au1-wp-ExM" id="xyK-sc-3C8"/>
+                        <outlet property="scrollView" destination="J1B-qN-PKH" id="t99-zW-UEX"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1328" y="1671"/>
         </scene>
         <scene sceneID="Xj9-pv-zE5">
             <objects>
@@ -670,6 +738,7 @@
                     <connections>
                         <segue destination="kxf-PX-vPe" kind="relationship" relationship="viewControllers" id="evL-RU-ZGr"/>
                         <segue destination="Hry-ee-axV" kind="relationship" relationship="viewControllers" id="huX-uv-fW3"/>
+                        <segue destination="kqb-RH-vVp" kind="relationship" relationship="viewControllers" id="eC2-iM-JVx"/>
                     </connections>
                 </tabBarController>
             </objects>
@@ -721,7 +790,7 @@
                     <navigationItem key="navigationItem" id="mSe-QG-Lsh"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="663" y="1817"/>
+            <point key="canvasLocation" x="761" y="1017"/>
         </scene>
         <scene sceneID="rOc-CX-pJo">
             <objects>
@@ -773,7 +842,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1032" y="1817"/>
+            <point key="canvasLocation" x="1146" y="1025"/>
         </scene>
         <scene sceneID="xee-mT-eY6">
             <objects>
@@ -791,7 +860,25 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="281" y="1817"/>
+            <point key="canvasLocation" x="427" y="1005"/>
+        </scene>
+        <scene sceneID="vNB-E2-Oho">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8EL-sX-Tra" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="kqb-RH-vVp" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Photos" id="4l1-4Q-hdY"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="SWY-vr-VIw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="SaP-Bo-Sk8" kind="relationship" relationship="rootViewController" id="x5X-Pi-2Lr"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="412" y="1671"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -800,7 +887,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="NhY-SZ-tUs"/>
-        <segue reference="Xzf-BY-q0x"/>
+        <segue reference="gOY-EA-MSp"/>
+        <segue reference="tP5-Zf-XsJ"/>
     </inferredMetricsTieBreakers>
 </document>

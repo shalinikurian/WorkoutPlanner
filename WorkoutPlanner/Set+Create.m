@@ -15,6 +15,7 @@
                     withWeight:(NSInteger) weight
                      withOrder:(NSInteger) order
         inManagedObjectContext:(NSManagedObjectContext *) context{
+    
     Set * set = nil;
     
     NSFetchRequest *requestExercise = [NSFetchRequest fetchRequestWithEntityName:@"Set"];

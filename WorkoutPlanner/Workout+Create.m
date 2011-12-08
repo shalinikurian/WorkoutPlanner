@@ -57,7 +57,6 @@ callBlock:(completion_block_workout)completion_block{
         NSArray *result = [context executeFetchRequest:requestWorkout error:&error];    
         NSLog(@"workout after adding exercise %@",[result lastObject]);
     }
-    //newWorkout.hasExercises = [NSOrderedSet orderedSetWithArray:exercises];    
     
     //store exercisesets
     NSMutableOrderedSet *setForExercises = [newWorkout mutableOrderedSetValueForKey:@"setsForExercises"];
