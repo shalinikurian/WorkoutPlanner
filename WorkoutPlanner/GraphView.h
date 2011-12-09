@@ -22,4 +22,6 @@
 @property (nonatomic, weak) NSArray *performance;
 @property (nonatomic, strong) NSDate *toDate;
 @property (nonatomic) int noOfDays;
+@property (nonatomic) int graphHeight;
+@property (nonatomic) int graphWidth;
 @end

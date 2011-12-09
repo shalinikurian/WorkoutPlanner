@@ -65,7 +65,8 @@
         [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil]; 
     } 
     NSLog(@"in view did load");
-    
+   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+   [self.tableView setSeparatorColor:[UIColor clearColor]];
 }
 
 - (void)viewDidUnload
@@ -207,9 +208,11 @@
         
         //border
         CALayer *layer1 = [photo1 layer];
-        [layer1 setBorderWidth:2.0];
-        [layer1 setCornerRadius:4.0];
-        
+        layer1.shadowColor = [UIColor blackColor].CGColor;
+        layer1.shadowOpacity = 0.7f;
+        layer1.shadowOffset = CGSizeMake(3.0f, 3.0f);
+        layer1.shadowRadius = 5.0f;
+
         //frame
         photo1.frame = CGRectMake(cell.contentView.frame.origin.x + offsetX + 5, cell.contentView.frame.origin.y + topOffset, thumbnailWidth, thumbnailHeight);
         
@@ -232,8 +235,10 @@
         photo2.image = [self getImageForURL:photo2.url];
         //border
         CALayer *layer2 = [photo2 layer];
-        [layer2 setBorderWidth:2.0];
-        [layer2 setCornerRadius:4.0];
+        layer2.shadowColor = [UIColor blackColor].CGColor;
+        layer2.shadowOpacity = 0.7f;
+        layer2.shadowOffset = CGSizeMake(3.0f, 3.0f);
+        layer2.shadowRadius = 5.0f;
         
         //frame
         photo2.frame = CGRectMake(cell.contentView.frame.origin.x + 2*offsetX + thumbnailWidth+ 5, cell.contentView.frame.origin.y + topOffset, thumbnailWidth, thumbnailHeight);
@@ -259,8 +264,11 @@
         
         //border
         CALayer *layer3 = [photo3 layer];
-        [layer3 setBorderWidth:2.0];
-        [layer3 setCornerRadius:4.0];
+        
+        layer3.shadowColor = [UIColor blackColor].CGColor;
+        layer3.shadowOpacity = 0.7f;
+        layer3.shadowOffset = CGSizeMake(3.0f, 3.0f);
+        layer3.shadowRadius = 5.0f;
         
         //frame
         photo3.frame = CGRectMake(cell.contentView.frame.origin.x + 3*offsetX + 2*thumbnailWidth + 5, cell.contentView.frame.origin.y + topOffset, thumbnailWidth, thumbnailHeight);
@@ -287,6 +295,7 @@
     }
     cell = [self addPhotosToCell:cell withIndexPath:indexPath];
     cell.textLabel.text = @"";
+    cell.backgroundColor = [UIColor clearColor];
     return cell;
 }
 

@@ -41,6 +41,7 @@
     }
 }
 - (IBAction)weekOrMonthPlot:(UISegmentedControl *)sender {
+    NSLog(@"segmented");
     if( [[sender titleForSegmentAtIndex:[sender selectedSegmentIndex]] isEqualToString:@"Week"])
     {
        //get performance for week
@@ -120,7 +121,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    //[self.graphView setNeedsDisplay];
+    [self.graphView setNeedsDisplay];
     return YES;
 }
 

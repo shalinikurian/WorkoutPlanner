@@ -26,7 +26,7 @@ inManagedObjectContext:(NSManagedObjectContext *)context
     }else if ([matches count] == 1) {
         //delete workout
         obj =[matches lastObject];
-        //delete sets for exercises , exercise order 
+        //delete sets for exercises         
         [context deleteObject:obj];
         [context save:&error];
     }

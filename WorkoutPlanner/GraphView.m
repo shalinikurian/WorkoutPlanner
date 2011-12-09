@@ -17,6 +17,8 @@
 @synthesize performance = _performance;
 @synthesize toDate = _toDate;
 @synthesize noOfDays = _noOfDays;
+@synthesize graphWidth = _graphWidth;
+@synthesize graphHeight = _graphHeight;
 
 + (NSDate *) getPreviousDayFromDate: (NSDate *) currDate{
     NSDate *prevDate;
@@ -163,6 +165,11 @@
 
 - (void)drawRect:(CGRect)rect
 {
+    //get graph height and width
+    self.graphHeight = self.frame.size.height;
+    self.graphWidth = self.frame.size.width;
+    
+    
     CGContextRef context = UIGraphicsGetCurrentContext();
     /*UIImage *image =[UIImage imageNamed:@"graphBackground.png"];
     CGRect imageFrame = CGRectMake(0, 0, image.size.width, image.size.height);
@@ -178,7 +185,7 @@
     CGContextSetLineDash(context, 0.0, dash, 2);
     
     //for a month 30 , for a week 7
-    int stepX = (kDefaultGraphWidth - kOffsetX) / self.noOfDays+1;
+    int stepX = (kDefaultGraphWidth - kOffsetX) / (self.noOfDays+1);
     
     //draw horizontal lines 
     for (int i = 0 ;i <= noOFHorizontalLines; i++){
@@ -189,7 +196,7 @@
     
     //draw vertical lines
     
-    for (int i =1 ;i <= self.noOfDays ; i++)
+    for (int i =1 ;i <= self.noOfDays+1 ; i++)
     {
         CGContextMoveToPoint(context, kOffsetX + i * stepX, kGraphTop);
         CGContextAddLineToPoint(context, kOffsetX + i * stepX, kGraphBottom - kOffsetY);

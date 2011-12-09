@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		791488D214880FBA000653DC /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 791488D114880FBA000653DC /* camera.png */; };
 		791488D414881061000653DC /* camera.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 791488D314881061000653DC /* camera.jpeg */; };
 		791488DA14882576000653DC /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 791488D914882576000653DC /* MobileCoreServices.framework */; };
 		791488E114888523000653DC /* GetSetForExerciseFromUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 791488E014888523000653DC /* GetSetForExerciseFromUserViewController.m */; };
@@ -51,6 +50,7 @@
 		7938211E1490414D00C55BC5 /* ShowPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7938211D1490414D00C55BC5 /* ShowPhotosViewController.m */; };
 		793821221490423C00C55BC5 /* ActualWorkout+PhotosByDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 793821211490423C00C55BC5 /* ActualWorkout+PhotosByDate.m */; };
 		7938212514904B6D00C55BC5 /* ImageForWorkout+createImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7938212414904B6D00C55BC5 /* ImageForWorkout+createImage.m */; };
+		793CEF571491C3A8007BCE61 /* emailicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 793CEF561491C3A8007BCE61 /* emailicon.png */; };
 		79459C7B14848E7400722163 /* Workout+Edit.m in Sources */ = {isa = PBXBuildFile; fileRef = 79459C7A14848E7400722163 /* Workout+Edit.m */; };
 		79459C7E14849C1200722163 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79459C7D14849C1200722163 /* MessageUI.framework */; };
 		79459C851484CDB600722163 /* LogAWorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79459C841484CDB600722163 /* LogAWorkoutViewController.m */; };
@@ -61,7 +61,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		791488D114880FBA000653DC /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
 		791488D314881061000653DC /* camera.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = camera.jpeg; sourceTree = "<group>"; };
 		791488D914882576000653DC /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		791488DF14888523000653DC /* GetSetForExerciseFromUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetSetForExerciseFromUserViewController.h; sourceTree = "<group>"; };
@@ -138,6 +137,7 @@
 		793821211490423C00C55BC5 /* ActualWorkout+PhotosByDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ActualWorkout+PhotosByDate.m"; sourceTree = "<group>"; };
 		7938212314904B6C00C55BC5 /* ImageForWorkout+createImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ImageForWorkout+createImage.h"; sourceTree = "<group>"; };
 		7938212414904B6D00C55BC5 /* ImageForWorkout+createImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ImageForWorkout+createImage.m"; sourceTree = "<group>"; };
+		793CEF561491C3A8007BCE61 /* emailicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emailicon.png; sourceTree = "<group>"; };
 		79459C7914848E7400722163 /* Workout+Edit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Workout+Edit.h"; sourceTree = "<group>"; };
 		79459C7A14848E7400722163 /* Workout+Edit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Workout+Edit.m"; sourceTree = "<group>"; };
 		79459C7D14849C1200722163 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -325,9 +325,9 @@
 			children = (
 				79376C8C147F1F7B0059579A /* CustomButton.m */,
 				79376CA5148013980059579A /* addImage.png */,
-				791488D114880FBA000653DC /* camera.png */,
 				79148944148C2826000653DC /* graphBackground.png */,
 				791488D314881061000653DC /* camera.jpeg */,
+				793CEF561491C3A8007BCE61 /* emailicon.png */,
 				79376BE9147CB0D50059579A /* WorkoutHelper.h */,
 				79376BEA147CB0D50059579A /* WorkoutHelper.m */,
 				79376C8F147F229E0059579A /* create.jpeg */,
@@ -393,9 +393,9 @@
 				79376BB5147B7E540059579A /* MainStoryboard.storyboard in Resources */,
 				79376C90147F229E0059579A /* create.jpeg in Resources */,
 				79376CA6148013980059579A /* addImage.png in Resources */,
-				791488D214880FBA000653DC /* camera.png in Resources */,
 				791488D414881061000653DC /* camera.jpeg in Resources */,
 				79148945148C2826000653DC /* graphBackground.png in Resources */,
+				793CEF571491C3A8007BCE61 /* emailicon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,8 +13,9 @@
 #import "ShowExerciseInWorkout.h"
 #import "AddNewExerciseViewController.h"
 #import "LogAWorkoutViewController.h"
+#import "MessageUI/MessageUI.h"
 
-@interface ShowExistingWorkout ()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate,UIGestureRecognizerDelegate ,ShowExistingExercisesInWorkoutProtocol, AddNewExerciseViewController>
+@interface ShowExistingWorkout ()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate,MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate ,ShowExistingExercisesInWorkoutProtocol, AddNewExerciseViewController>
 @property (strong, nonatomic) IBOutlet UIButton *addExerciseButton;
 @property (nonatomic) bool editWorkout;
 @property (strong, nonatomic) IBOutlet UITableView *workOutDetails;
@@ -215,18 +216,66 @@ editingExistingExercise:(bool)flag
     return _workoutNameTextField;
 }
 
+- (NSString *) getEmailBody
+{
+    NSString *template =[NSString stringWithFormat:@"<font size='3' face='verdana' color='blue'><i>Workout Name :</i></font> <br/>%@<br/>  <font size='3' face='verdana' color='blue'><i>Workout Description :</i></font></br> %@ <br/> ", self.workoutNameTextField.text,self.workoutDescription.text];
+    NSString *exercises=@"";
+    if ([self.exercises count] == 0 ) {
+        template = [NSString stringWithFormat:@"%@ \n %@No Exercises </br>",template, exercises];
+        return template;
+    }
+    for (Exercise *exercise in self.exercises)
+    {
+        exercises = [NSString stringWithFormat:@"%@ <font size='3' face='verdana' color='blue'><i>Exercise Name :</i></font><br/> %@ <br/> <font size='3' face='verdana' color='blue'><i>Exercise Description :</i><br/></font> %@ <br/>" ,exercises, exercise.name , exercise.exerciseDescription];
+        //add sets
+        for  (int i = 0; i <[self.setsForExercises count]; i++) {
+           
+        }
+    }
+    template = [NSString stringWithFormat:@"%@ \n %@ ", template, exercises];
+    
+    return template;
+}
+- (void) email : (id) sender
+{
+    MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
+    controller.mailComposeDelegate = self;
+    [controller setSubject:@"workout"];
+    
+    [controller setMessageBody:[self getEmailBody] isHTML:YES];
+    [self presentModalViewController:controller animated:YES];
+}
+
+- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    [self becomeFirstResponder];
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 - (UITableViewCell *) configureCellForWorkout: (UITableViewCell *) cell
                                   atIndexPath:(NSIndexPath *)indexPath
 {
+    for (UIView * subview in cell.subviews){
+        if ([subview isKindOfClass:[UIButton class]]) [subview removeFromSuperview];
+        if ([subview isKindOfClass:[UITextView class]]) [subview removeFromSuperview];
+        if ([subview isKindOfClass:[UITextField class]]) [subview removeFromSuperview];
+    }
+    
     if (indexPath.row == 0 && self.workOutDetails) //workoutname field
     {
         self.workoutNameTextField.text = self.workout.name;
+        //add email button
+        UIButton *button = [[UIButton alloc] init];
+        [button setImage:[UIImage imageNamed:@"emailicon.png"] forState:UIControlStateNormal];
+        [button setFrame:CGRectMake(cell.bounds.size.width - 50, 10, 30, 30)];
+        [button addTarget:self action:@selector(email:) forControlEvents:UIControlEventTouchUpInside];
+        [cell addSubview:button];
         [cell addSubview:self.workoutNameTextField];
     }
     
     if (indexPath.row == 1 && self.workOutDetails) //workoutdescription field
     {
-        self.workoutDescription = [[UITextView alloc] initWithFrame:CGRectMake(20,10,cell.bounds.size.width-30,50)];
+        self.workoutDescription = [[UITextView alloc] initWithFrame:CGRectMake(20,10,cell.bounds.size.width-50,50)];
         if (self.editWorkout) self.workoutDescription.editable = YES;
         else self.workoutDescription.editable = NO;
         self.workoutDescription.text = self.workout.workoutDescription;
@@ -290,6 +339,7 @@ editingExistingExercise:(bool)flag
     if ([touch.view.subviews isKindOfClass:[UITextView class]]) return NO;
     if ([touch.view.subviews isKindOfClass:[UITextField class]]) return NO;
     
+    
     return YES;
 }
 
@@ -346,7 +396,7 @@ editingExistingExercise:(bool)flag
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
+    [self.workOutDetails reloadData];
     return YES;
 }
 
