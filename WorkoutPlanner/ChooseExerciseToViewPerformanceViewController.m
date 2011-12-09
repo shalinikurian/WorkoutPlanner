@@ -119,6 +119,7 @@
         [destination setExercise:exercise];
         [destination setExerciseName:exercise.name];
         [destination setDatabase:self.database];
+        destination.hidesBottomBarWhenPushed = YES;
         //[destination setToDate:date];
     }
 }

@@ -98,6 +98,9 @@
     self.navigationItem.title = self.exerciseName;
     [self.optionsView setHidden:YES];    
     
+    
+
+    
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -105,7 +108,9 @@
 {
     [super viewDidLoad];
     [self.scrollView setDelegate:self];
-    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.2 green:0.5 blue:0.2 alpha:1.0] ; 
+    /*UIImageView *background = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"graphBk.jpg"]];
+    background.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    [self.view addSubview:background];*/
     
 }
 
@@ -121,8 +126,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    [self.graphView setNeedsDisplay];
-    return YES;
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end
