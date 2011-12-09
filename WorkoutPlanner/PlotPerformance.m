@@ -33,29 +33,22 @@
 
 }
 
-- (IBAction)showOptions:(id)sender {
-    if (self.optionsView.hidden){
-        [self.optionsView setHidden:NO];
-    } else{
-        [self.optionsView setHidden:YES];
-    }
-}
-- (IBAction)weekOrMonthPlot:(UISegmentedControl *)sender {
-    NSLog(@"segmented");
-    if( [[sender titleForSegmentAtIndex:[sender selectedSegmentIndex]] isEqualToString:@"Week"])
-    {
-       //get performance for week
+- (IBAction)showOptions:(UIBarButtonItem *)sender {
+    if ([sender.title isEqualToString:@"Week"]){
         [self getPerformanceForDays:7];
         self.graphView.noOfDays = 7;
-    }else {
+        self.title = [NSString stringWithFormat:@"%@ -Week",self.exerciseName];
+        sender.title = @"30 Days";
+    } else {
         [self getPerformanceForDays:30];
-       //get performance for month
+        //get performance for month
         self.graphView.noOfDays = 30;
+        self.title = [NSString stringWithFormat:@"%@ - 30 days",self.exerciseName];
+        sender.title = @"Week";
+
     }
     self.graphView.performance = self.performance;
     [self.graphView setNeedsDisplay];
-    
-
 }
 
 - (NSArray *) performance
@@ -87,20 +80,14 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.scrollView.contentSize = CGSizeMake(kDefaultGraphWidth, kGraphHeight + 50);
-    
     //get performance
     self.toDate = [NSDate date];
     [self getPerformanceForDays:7];
     self.graphView.performance = self.performance;
     self.graphView.toDate = self.toDate;
     self.graphView.noOfDays = 7;//by default a week
-    self.navigationItem.title = self.exerciseName;
+    self.navigationItem.title = [NSString stringWithFormat:@"%@ -Week", self.exerciseName];
     [self.optionsView setHidden:YES];    
-    
-    
-
-    
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -126,7 +113,17 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    if (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown){
+        self.graphView.kDefaultGraphWidth = 320;
+        self.graphView.kGraphHeight = 367;
+        //self.graphView.kGraphBottom = 367;
+    } else if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight){
+        /*self.graphView.kDefaultGraphWidth = 480;
+        self.graphView.kGraphHeight = 207;
+        self.graphView.kGraphBottom = 207;*/
+    }
+   [self.graphView setNeedsDisplay];
+    return YES;
 }
 
 @end

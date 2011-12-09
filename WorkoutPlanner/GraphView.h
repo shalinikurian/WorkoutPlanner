@@ -7,12 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#define kGraphHeight 367
-#define kDefaultGraphWidth 320
+//#define kGraphHeight 367
+//#define kDefaultGraphWidth 320
 #define kOffsetX 30
-#define kGraphBottom 367
-//#define kGraphTop 10
-//#define kStepY 30
+//#define kGraphBottom 367
 #define kOffsetY 20
 #define dataPointThickness 3
 #define DRAW_HORIZONTAL_LINE_COLOR [UIColor colorWithRed:0.3 green:0.4 blue:0.4 alpha:0.9]
@@ -23,6 +21,6 @@
 @property (nonatomic, weak) NSArray *performance;
 @property (nonatomic, strong) NSDate *toDate;
 @property (nonatomic) int noOfDays;
-@property (nonatomic) int graphHeight;
-@property (nonatomic) int graphWidth;
+@property (nonatomic) float kGraphHeight;
+@property (nonatomic) float kDefaultGraphWidth;
 @end

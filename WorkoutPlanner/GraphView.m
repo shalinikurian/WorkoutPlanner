@@ -17,8 +17,8 @@
 @synthesize performance = _performance;
 @synthesize toDate = _toDate;
 @synthesize noOfDays = _noOfDays;
-@synthesize graphWidth = _graphWidth;
-@synthesize graphHeight = _graphHeight;
+@synthesize kDefaultGraphWidth = _kDefaultGraphWidth;
+@synthesize kGraphHeight = _kGraphHeight;
 
 + (NSDate *) getPreviousDayFromDate: (NSDate *) currDate{
     NSDate *prevDate;
@@ -73,8 +73,7 @@
     NSArray *dataValues = [self getDataPoints];
     
     int kStepY = (self.frame.size.height - 2*kOffsetY) /(noOFHorizontalLines);
-    int maxGraphHeight = kGraphHeight - kStepY + kOffsetY;
-    //int maxGraphHeight = kGraphHeight - kOffsetY;
+    int maxGraphHeight = self.kGraphHeight - kStepY + kOffsetY;
     int stepX = (self.frame.size.width - 2*kOffsetX) / (self.noOfDays-1);
     float yPlot;
     
@@ -105,8 +104,8 @@
     {
         NSNumber *value = [dataValues objectAtIndex:i];
         NSNumber *value2 = [dataValues objectAtIndex:i+1];
-        yPlot = MIN(kGraphHeight - (float)maxGraphHeight / maxValue * [value floatValue], maxGraphHeight);
-        float yPlot2 = MIN(kGraphHeight - (float)maxGraphHeight / maxValue * [value2 floatValue], maxGraphHeight);
+        yPlot = MIN(self.kGraphHeight - (float)maxGraphHeight / maxValue * [value floatValue], maxGraphHeight);
+        float yPlot2 = MIN(self.kGraphHeight - (float)maxGraphHeight / maxValue * [value2 floatValue], maxGraphHeight);
         CGContextMoveToPoint(context, kOffsetX + (i*stepX), yPlot);
         CGContextAddLineToPoint(context, kOffsetX + (i+1) * stepX, yPlot2);
         CGContextStrokePath(context);
@@ -144,7 +143,7 @@
     for (int i = 0; i <[dataValues count];i ++){
         float x = kOffsetX + i * stepX;
         NSNumber *value = [dataValues objectAtIndex:i];
-        float y = (float)kGraphHeight - (float)maxGraphHeight / (float)maxValue * [value floatValue];
+        float y = (float)self.kGraphHeight - (float)maxGraphHeight / (float)maxValue * [value floatValue];
         CGRect dataPoint = CGRectMake(x - dataPointThickness,y - dataPointThickness , dataPointThickness*2.5, dataPointThickness*2.5);
         CGContextAddEllipseInRect(context, dataPoint);
     }
@@ -156,6 +155,7 @@
 - (void)drawRect:(CGRect)rect
 {
     //get graph height and width
+    float kGraphBottom = self.kGraphHeight;
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     //add background image
@@ -201,7 +201,7 @@
     
     
     NSString * xAxisLabel = @"Date";
-    CGContextShowTextAtPoint(context, kDefaultGraphWidth/2 - kOffsetX , kGraphBottom + 45, [xAxisLabel cStringUsingEncoding:NSUTF8StringEncoding], [xAxisLabel length]);
+    CGContextShowTextAtPoint(context, self.kDefaultGraphWidth/2 - kOffsetX , kGraphBottom + 45, [xAxisLabel cStringUsingEncoding:NSUTF8StringEncoding], [xAxisLabel length]);
     
     
     //y axis markings
@@ -225,7 +225,7 @@
     CGContextSetRGBFillColor(context, 255.0f/255.0f, 255.0f/255.0f, 255.0f/255.0f, 1.0f);
     CGContextSetTextMatrix(context, CGAffineTransformRotate(CGAffineTransformMake(1.0, 0.0, 0.0, -1.0, 0.0, 0.0), M_PI / 2));
     NSString * yAxisLabel = @"lbs/rep";
-    CGContextShowTextAtPoint(context, 15, kGraphHeight/2 + kOffsetY + 5, [yAxisLabel cStringUsingEncoding:NSUTF8StringEncoding], [yAxisLabel length]);
+    CGContextShowTextAtPoint(context, 15, self.kGraphHeight/2 + kOffsetY + 5, [yAxisLabel cStringUsingEncoding:NSUTF8StringEncoding], [yAxisLabel length]);
     
     //x axis markings
     CGContextSelectFont(context, "Helvetica", 12, kCGEncodingMacRoman);

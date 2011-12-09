@@ -267,7 +267,7 @@ editingExistingExercise:(bool)flag
         //add email button
         UIButton *button = [[UIButton alloc] init];
         [button setImage:[UIImage imageNamed:@"emailicon.png"] forState:UIControlStateNormal];
-        [button setFrame:CGRectMake(cell.bounds.size.width - 50, 10, 30, 30)];
+        [button setFrame:CGRectMake(cell.bounds.size.width - 70, 2.5, 50, 50)];
         [button addTarget:self action:@selector(email:) forControlEvents:UIControlEventTouchUpInside];
         [cell addSubview:button];
         [cell addSubview:self.workoutNameTextField];
