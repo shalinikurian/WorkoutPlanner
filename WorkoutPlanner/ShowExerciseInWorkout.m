@@ -131,6 +131,13 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture.png"]];
+    
+    self.exerciseDetailsTableView.backgroundColor = [UIColor clearColor];
+    self.addSetTableView.backgroundColor = [UIColor clearColor];
+    self.showSetsTableView.backgroundColor = [UIColor clearColor];    
+    
     self.exerciseDetailsTableView.scrollEnabled = NO;
     self.addSetTableView.scrollEnabled = NO;
     self.scrollView.delegate = self;
@@ -193,7 +200,9 @@
 - (NSInteger) tableView: (UITableView *) tableView numberOfRowsInSection:(NSInteger)section  
 {
     if (tableView == self.exerciseDetailsTableView) return 2;
-    if (tableView == self.showSetsTableView) return [self.setsForExercise count];
+    if (tableView == self.showSetsTableView) {
+        return MAX([self.setsForExercise count],1);
+    }
     //add set table view. show it only in edit mode
     if (self.editExercise) return 1;
     return 0; //not editing exercise only viewing exercise . add set button not shown.
@@ -307,8 +316,11 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    //Set *set = [self.setsForExercise objectAtIndex:indexPath.row];
-    //cell.textLabel.text = [NSString stringWithFormat:@"%@ reps X %@ lb", set.rep,set.weight];
+    if ([self.setsForExercise count] == 0) //no sets
+    {
+        cell.textLabel.text = @"No sets";
+        return cell;
+    }
     NSDictionary *set = [self.setsForExercise objectAtIndex:indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"%@ reps X %@ lb", [set objectForKey:@"reps"],[set objectForKey:@"weight"]];
     return cell;

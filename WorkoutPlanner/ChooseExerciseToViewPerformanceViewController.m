@@ -57,6 +57,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     [WorkoutHelper openWorkoutPlannerusingBlock:^(UIManagedDocument * workoutPlanner){
         self.database = workoutPlanner; 
         NSFetchRequest *request =[NSFetchRequest   fetchRequestWithEntityName:@"Exercise"];
@@ -69,6 +70,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture.png"]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -102,6 +104,7 @@
     Exercise *exercise = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = exercise.name;
     cell.detailTextLabel.text = exercise.exerciseDescription;
+    cell.detailTextLabel.textColor = [UIColor darkGrayColor];
     return cell;
 }
 

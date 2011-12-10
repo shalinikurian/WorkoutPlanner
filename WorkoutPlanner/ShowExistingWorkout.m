@@ -14,8 +14,9 @@
 #import "AddNewExerciseViewController.h"
 #import "LogAWorkoutViewController.h"
 #import "MessageUI/MessageUI.h"
+#import <QuartzCore/QuartzCore.h>
 
-@interface ShowExistingWorkout ()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate,MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate ,ShowExistingExercisesInWorkoutProtocol, AddNewExerciseViewController>
+@interface ShowExistingWorkout ()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UITextViewDelegate,MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate ,ShowExistingExercisesInWorkoutProtocol, AddNewExerciseViewController>
 @property (strong, nonatomic) IBOutlet UIButton *addExerciseButton;
 @property (nonatomic) bool editWorkout;
 @property (strong, nonatomic) IBOutlet UITableView *workOutDetails;
@@ -26,6 +27,7 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *editAndDoneButton;
 @property (strong, nonatomic) NSMutableArray *exercises;
 @property (strong, nonatomic) NSMutableArray *setsForExercises;
+@property (nonatomic) bool notPlaceHolder;
 @end
 @implementation ShowExistingWorkout
 @synthesize database = _database;
@@ -40,6 +42,15 @@
 @synthesize workout = _workout;
 @synthesize exercises = _exercises;
 @synthesize setsForExercises = _setsForExercises;
+@synthesize notPlaceHolder = _notPlaceHolder;
+
+- (void) textViewDidChange:(UITextView *)textView   
+{
+    if (!self.notPlaceHolder) {
+        self.notPlaceHolder = YES;
+        textView.textColor = [UIColor blackColor];
+    }
+}
 
 - (void) reloadWorkoutDetails
 {
@@ -126,6 +137,9 @@ editingExistingExercise:(bool)flag
              withNewExercises:self.exercises 
                   withNewSets:self.setsForExercises 
        inManagedObjectContext:self.database.managedObjectContext];
+        self.workoutDescription.textColor = [UIColor lightGrayColor];
+        self.workoutNameTextField.textColor = [UIColor lightGrayColor];
+        
         //[self reloadWorkoutDetails];
         
     }else { //change button to have have label done
@@ -211,7 +225,8 @@ editingExistingExercise:(bool)flag
 
 - (UITextField *) workoutNameTextField {
     if(!_workoutNameTextField){
-        _workoutNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(20,10,200,21)];
+        _workoutNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(30,10,200,21)];
+        _workoutNameTextField.delegate = self;
     }
     return _workoutNameTextField;
 }
@@ -252,6 +267,10 @@ editingExistingExercise:(bool)flag
     [self dismissModalViewControllerAnimated:YES];
 }
 
+- (void) textFieldDidBeginEditing:(UITextField *)textField
+{
+    textField.textColor = [UIColor blackColor];
+}
 - (UITableViewCell *) configureCellForWorkout: (UITableViewCell *) cell
                                   atIndexPath:(NSIndexPath *)indexPath
 {
@@ -264,10 +283,12 @@ editingExistingExercise:(bool)flag
     if (indexPath.row == 0 && self.workOutDetails) //workoutname field
     {
         self.workoutNameTextField.text = self.workout.name;
+        self.workoutNameTextField.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
+        self.workoutNameTextField.textColor = [UIColor lightGrayColor];
         //add email button
         UIButton *button = [[UIButton alloc] init];
-        [button setImage:[UIImage imageNamed:@"emailicon.png"] forState:UIControlStateNormal];
-        [button setFrame:CGRectMake(cell.bounds.size.width - 70, 2.5, 50, 50)];
+        [button setImage:[UIImage imageNamed:@"email.png"] forState:UIControlStateNormal];
+        [button setFrame:CGRectMake(cell.bounds.size.width - 70, 10, 30, 30)];
         [button addTarget:self action:@selector(email:) forControlEvents:UIControlEventTouchUpInside];
         [cell addSubview:button];
         [cell addSubview:self.workoutNameTextField];
@@ -278,7 +299,10 @@ editingExistingExercise:(bool)flag
         self.workoutDescription = [[UITextView alloc] initWithFrame:CGRectMake(20,10,cell.bounds.size.width-50,50)];
         if (self.editWorkout) self.workoutDescription.editable = YES;
         else self.workoutDescription.editable = NO;
+        self.workoutDescription.delegate = self;
+        self.workoutDescription.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
         self.workoutDescription.text = self.workout.workoutDescription;
+        self.workoutDescription.textColor = [UIColor lightGrayColor];
         [cell addSubview:self.workoutDescription];
     }
     
@@ -296,6 +320,7 @@ editingExistingExercise:(bool)flag
             cell.editing = NO;
         }
         cell = [self configureCellForWorkout:cell atIndexPath:indexPath];
+        cell.backgroundColor = [UIColor whiteColor];
         return cell;
     }
     //list of exercises table
@@ -349,11 +374,35 @@ editingExistingExercise:(bool)flag
     [self.workoutNameTextField resignFirstResponder];
     [self.workoutDescription resignFirstResponder];
     
+    //set text color
+    self.workoutNameTextField.textColor = [UIColor lightGrayColor];
+    self.workoutDescription.textColor = [UIColor lightGrayColor];
 }
 
+
+- (void) styleButton
+{
+    CALayer *layer = [self.addExerciseButton layer];
+    [layer setMasksToBounds:YES];
+    [layer setCornerRadius:8.0f];
+    [layer setBorderWidth:0.5f];
+    [layer setBorderColor:[[UIColor blackColor] CGColor]];
+    
+    self.addExerciseButton.backgroundColor = [UIColor colorWithPatternImage: [UIImage imageNamed: @"redGloss.png"]];
+    self.addExerciseButton.titleLabel.textColor = [UIColor whiteColor];
+}
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+    //add background color
+
+    self.workOutDetails.backgroundColor = [UIColor clearColor];
+    self.exerciseList.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture.png"]];
+
+    //style log workout button
+    [self styleButton];
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:0.9 green:0.1 blue:0.2 alpha:1.0];
     //add tap
     UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self 
                                                                                                  action:@selector(singleTap:)];
@@ -381,6 +430,7 @@ editingExistingExercise:(bool)flag
     [self.exerciseList setDataSource:self];
     //fetch exercises
     [self reloadWorkoutDetails];
+
 }
 - (void)viewDidUnload
 {

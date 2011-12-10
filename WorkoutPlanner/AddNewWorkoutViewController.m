@@ -9,15 +9,19 @@
 #import "AddNewWorkoutViewController.h"
 #import "Exercise.h"
 #import "Workout+Create.h"
+#import <QuartzCore/QuartzCore.h>
 
-@interface AddNewWorkoutViewController()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate>
+@interface AddNewWorkoutViewController()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, UITextViewDelegate, UITextFieldDelegate>
+@property (strong, nonatomic) IBOutlet UIButton *addExerciseButton;
 @property (strong, nonatomic) IBOutlet UITableView *workoutDetailsTable;
 @property (strong, nonatomic) IBOutlet UITableView *addExerciseTable;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic,strong) NSMutableArray * exercises;
 @property (nonatomic,strong) NSMutableArray *setsForExercises;
+@property (nonatomic) bool notPlaceHolder;
 @end
 @implementation AddNewWorkoutViewController@synthesize database = _database;
+@synthesize addExerciseButton = _addExerciseButton;
 @synthesize workoutDetailsTable = _workoutDetailsTable;
 @synthesize addExerciseTable = _addExerciseTable;
 @synthesize scrollView = _scrollView;
@@ -25,6 +29,7 @@
 @synthesize setsForExercises = _setsForExercises;
 @synthesize workoutNameTextField = _workoutNameTextField;
 @synthesize workoutDescription = _workoutDescription;
+@synthesize notPlaceHolder = _notPlaceHolder;
 
 - (IBAction)saveWorkout:(id)sender {
     [Workout createAWorkoutWithName:self.workoutNameTextField.text 
@@ -73,6 +78,14 @@ editingExistingExercise:(bool)flag
     //reload to show exercises
 }
 
+- (void) textViewDidChange:(UITextView *)textView   
+{
+    if (!self.notPlaceHolder) {
+        self.notPlaceHolder = YES;
+        textView.textColor = [UIColor blackColor];
+        textView.text = @"";
+    }
+}
 #pragma mark - Table view delegate
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -126,19 +139,24 @@ editingExistingExercise:(bool)flag
     return _workoutNameTextField;
 }
 
+
 - (UITableViewCell *) configureCellForWorkout: (UITableViewCell *) cell
                                    atIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0 && self.workoutDetailsTable) //workoutname field
     {
         self.workoutNameTextField.placeholder = @"Workout Name";
+        self.workoutNameTextField.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
         [cell addSubview:self.workoutNameTextField];
     }
     
     if (indexPath.row == 1 && self.workoutDetailsTable) //workoutdescription field
     {
-        self.workoutDescription = [[UITextView alloc] initWithFrame:CGRectMake(20,10,cell.bounds.size.width-30,50)];
-        self.workoutDescription.text = @"Workout Description";
+        self.workoutDescription = [[UITextView alloc] initWithFrame:CGRectMake(10,10,cell.bounds.size.width-30,50)];
+        self.workoutDescription.delegate = self;
+        self.workoutDescription.text = @" Workout Description";
+        self.workoutDescription.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
+        self.workoutDescription.textColor = [UIColor lightGrayColor];
         [cell addSubview:self.workoutDescription];
     }
     
@@ -156,6 +174,7 @@ editingExistingExercise:(bool)flag
             cell.editing = NO;
         }
         cell = [self configureCellForWorkout:cell atIndexPath:indexPath];
+        cell.backgroundColor = [UIColor whiteColor];
         return cell;
     }
     if (tableView == self.addExerciseTable) {
@@ -226,13 +245,36 @@ editingExistingExercise:(bool)flag
     [self.workoutNameTextField resignFirstResponder];
     [self.workoutDescription resignFirstResponder];
     
+    //change text color
+    self.workoutNameTextField.textColor = [UIColor lightGrayColor];
+    self.workoutDescription.textColor = [UIColor lightGrayColor];
+    
+}
+
+- (void) styleAddExerciseButton
+{
+    //self.addExerciseButton
+    CALayer *layer = [self.addExerciseButton layer];
+    [layer setMasksToBounds:YES];
+    [layer setCornerRadius:8.0f];
+    [layer setBorderWidth:0.5f];
+    [layer setBorderColor:[[UIColor blackColor] CGColor]];
+ 
+    self.addExerciseButton.backgroundColor = [UIColor colorWithPatternImage: [UIImage imageNamed: @"redGloss.png"]];
+    self.addExerciseButton.titleLabel.textColor = [UIColor whiteColor];
+
 }
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
     self.scrollView.delegate = self;
+ 
     [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width,
                                                self.view.frame.size.height)];
+    
+    //style add exercise button
+    [self styleAddExerciseButton];
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:0.9 green:0.1 blue:0.2 alpha:1.0];
     
     //add tap
     UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self 
@@ -247,6 +289,10 @@ editingExistingExercise:(bool)flag
     //resign first responder
     [self.workoutNameTextField resignFirstResponder];
     [self.workoutDescription resignFirstResponder];
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture.png"]];
+    self.addExerciseTable.backgroundColor = [UIColor clearColor];
+    self.workoutDetailsTable.backgroundColor = [UIColor clearColor];
 }
 
  -(void) viewDidLoad
@@ -255,12 +301,16 @@ editingExistingExercise:(bool)flag
     [self.workoutDetailsTable setDataSource:self];
     [self.addExerciseTable setDelegate:self];
     [self.addExerciseTable setDataSource:self];
+    
+    self.workoutDescription.delegate = self;
+    self.workoutNameTextField.delegate = self;
 }
 - (void)viewDidUnload
 {
     [self setScrollView:nil];
     [self setWorkoutDetailsTable:nil];
     [self setAddExerciseTable:nil];
+    [self setAddExerciseButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

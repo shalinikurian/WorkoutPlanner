@@ -83,8 +83,8 @@
         self.database = workoutPlanner; 
         //get photos
         self.datesAndPhotos = [[ActualWorkout photosByDateinManagedObjectContext:self.database.managedObjectContext] mutableCopy];
+        self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture.png"]];
         [self.tableView reloadData];
-        //fake data
     }];
     
 }
@@ -92,6 +92,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -139,12 +140,12 @@
         //read the image
         NSArray *pathList = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *dataPath    = [pathList  objectAtIndex:0];
-        dataPath = [NSString stringWithFormat:@"%@/%@",dataPath,@"WorkoutPlannerPhotos"];
+        dataPath = [NSString stringWithFormat:@"%@/%@",dataPath,@"PhotosWorkoutPlanner"];
         UIImage *image;
         if ([self.fileManager fileExistsAtPath:url]) {
             image = [UIImage imageWithContentsOfFile:url];
         } else {
-            NSLog(@"doesnt exist");
+            NSLog(@"didnt get path url %@",url);
         }
     return image;
     //});
@@ -172,6 +173,31 @@
     [destination setImage:button.image];
     //destination.hidesBottomBarWhenPushed = YES;
 }
+
+/*- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *sectionView =[[UIView alloc] init];
+    [sectionView setBackgroundColor:[UIColor blackColor]];
+    
+    NSString *sectionTitle = [self tableView:tableView titleForHeaderInSection:section];
+    UILabel *label = [[UILabel alloc] init];
+    label.frame = CGRectMake(30, 6, 300, 30);
+    label.backgroundColor = [UIColor blackColor];
+    CALayer *layer1 = [label layer];
+    layer1.shadowColor = [[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:0.8] CGColor];
+    layer1.shadowOpacity = 0.7f;
+    layer1.shadowOffset = CGSizeMake(3.0f, 3.0f);
+    layer1.shadowRadius = 5.0f;
+    
+    label.textColor = section_header_text_color;
+    
+    [label setFont:[UIFont fontWithName:@"Helvetica" size:20]];
+    label.text = sectionTitle;
+    
+    [sectionView addSubview:label];
+    return sectionView;
+}*/
+
 - (UITableViewCell *) addPhotosToCell : (UITableViewCell *) cell
                         withIndexPath :(NSIndexPath *) indexPath;
 {    
@@ -203,7 +229,7 @@
         
         //border
         CALayer *layer1 = [photo1 layer];
-        layer1.shadowColor = [UIColor blackColor].CGColor;
+        layer1.shadowColor = [SHADOW_COLOR_FOR_PHOTO CGColor];
         layer1.shadowOpacity = 0.7f;
         layer1.shadowOffset = CGSizeMake(3.0f, 3.0f);
         layer1.shadowRadius = 5.0f;
@@ -230,7 +256,7 @@
         photo2.image = [self getImageForURL:photo2.url];
         //border
         CALayer *layer2 = [photo2 layer];
-        layer2.shadowColor = [UIColor blackColor].CGColor;
+        layer2.shadowColor = [SHADOW_COLOR_FOR_PHOTO CGColor];
         layer2.shadowOpacity = 0.7f;
         layer2.shadowOffset = CGSizeMake(3.0f, 3.0f);
         layer2.shadowRadius = 5.0f;
@@ -260,7 +286,7 @@
         //border
         CALayer *layer3 = [photo3 layer];
         
-        layer3.shadowColor = [UIColor blackColor].CGColor;
+        layer3.shadowColor = [SHADOW_COLOR_FOR_PHOTO CGColor];
         layer3.shadowOpacity = 0.7f;
         layer3.shadowOffset = CGSizeMake(3.0f, 3.0f);
         layer3.shadowRadius = 5.0f;

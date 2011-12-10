@@ -15,7 +15,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setImage:[UIImage imageNamed: @"create.jpeg"]
+        [self setImage:[UIImage imageNamed: @"add.png"]
               forState:UIControlStateNormal];
     }
     return self;

@@ -16,6 +16,7 @@
 
 @end
 @interface ShowExistingExercisesViewController : CoreDataTableViewController<UITextViewDelegate>
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (nonatomic,strong) UIManagedDocument *database;
 @property (nonatomic, weak) id <ShowExistingExercisesViewControllerProtocol> delegate;
 @end

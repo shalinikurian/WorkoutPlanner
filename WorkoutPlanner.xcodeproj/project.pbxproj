@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		791488D414881061000653DC /* camera.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 791488D314881061000653DC /* camera.jpeg */; };
 		791488DA14882576000653DC /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 791488D914882576000653DC /* MobileCoreServices.framework */; };
 		791488E114888523000653DC /* GetSetForExerciseFromUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 791488E014888523000653DC /* GetSetForExerciseFromUserViewController.m */; };
 		791488EC1489642B000653DC /* ActualWorkout+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 791488EB1489642A000653DC /* ActualWorkout+Create.m */; };
@@ -55,15 +54,25 @@
 		799158DA1491611A00BE2430 /* ShowImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 799158D91491611A00BE2430 /* ShowImageViewController.m */; };
 		799158E11491650100BE2430 /* ImageForWorkout+DeleteImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 799158E01491650100BE2430 /* ImageForWorkout+DeleteImage.m */; };
 		79AA808B148317540026B9A2 /* EditExerciseInWorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79AA808A148317540026B9A2 /* EditExerciseInWorkoutViewController.m */; };
+		79CD212B149360A200037708 /* redGloss.png in Resources */ = {isa = PBXBuildFile; fileRef = 79CD212A149360A200037708 /* redGloss.png */; };
+		79CD212E149367D000037708 /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = 79CD212D149367D000037708 /* add.png */; };
+		79CD2130149372DD00037708 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 79CD212F149372DD00037708 /* camera.png */; };
+		79E165AE1493FD1D0044B71E /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E165AD1493FD1D0044B71E /* EventKit.framework */; };
+		79E165B11493FD800044B71E /* calender.png in Resources */ = {isa = PBXBuildFile; fileRef = 79E165B01493FD800044B71E /* calender.png */; };
 		79F9C600149315D700B2B979 /* Workout.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F9C5FF149315D700B2B979 /* Workout.m */; };
 		79F9C603149315D700B2B979 /* Exercise.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F9C602149315D700B2B979 /* Exercise.m */; };
 		79F9C606149315D700B2B979 /* Set.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F9C605149315D700B2B979 /* Set.m */; };
 		79F9C609149315D800B2B979 /* ImageForWorkout.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F9C608149315D800B2B979 /* ImageForWorkout.m */; };
 		79F9C60C149315D800B2B979 /* ActualWorkout.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F9C60B149315D800B2B979 /* ActualWorkout.m */; };
+		79F9C60E1493316200B2B979 /* tableViewBk.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 79F9C60D1493316200B2B979 /* tableViewBk.jpg */; };
+		79F9C6101493323100B2B979 /* light-paper-grunge-texture.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 79F9C60F1493323100B2B979 /* light-paper-grunge-texture.jpg */; };
+		79F9C6121493326D00B2B979 /* 2982207584_338c593bca.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 79F9C6111493326D00B2B979 /* 2982207584_338c593bca.jpg */; };
+		79F9C614149333B300B2B979 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F9C613149333B300B2B979 /* QuartzCore.framework */; };
+		79F9C61614933DB600B2B979 /* texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 79F9C61514933DB600B2B979 /* texture.png */; };
+		79F9C6181493434400B2B979 /* email.png in Resources */ = {isa = PBXBuildFile; fileRef = 79F9C6171493434400B2B979 /* email.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		791488D314881061000653DC /* camera.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = camera.jpeg; sourceTree = "<group>"; };
 		791488D914882576000653DC /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		791488DF14888523000653DC /* GetSetForExerciseFromUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetSetForExerciseFromUserViewController.h; sourceTree = "<group>"; };
 		791488E014888523000653DC /* GetSetForExerciseFromUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSetForExerciseFromUserViewController.m; sourceTree = "<group>"; };
@@ -145,6 +154,11 @@
 		799158E01491650100BE2430 /* ImageForWorkout+DeleteImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ImageForWorkout+DeleteImage.m"; sourceTree = "<group>"; };
 		79AA8089148317540026B9A2 /* EditExerciseInWorkoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditExerciseInWorkoutViewController.h; sourceTree = "<group>"; };
 		79AA808A148317540026B9A2 /* EditExerciseInWorkoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditExerciseInWorkoutViewController.m; sourceTree = "<group>"; };
+		79CD212A149360A200037708 /* redGloss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redGloss.png; sourceTree = "<group>"; };
+		79CD212D149367D000037708 /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
+		79CD212F149372DD00037708 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
+		79E165AD1493FD1D0044B71E /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		79E165B01493FD800044B71E /* calender.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calender.png; sourceTree = "<group>"; };
 		79F9C5FE149315D700B2B979 /* Workout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Workout.h; sourceTree = "<group>"; };
 		79F9C5FF149315D700B2B979 /* Workout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Workout.m; sourceTree = "<group>"; };
 		79F9C601149315D700B2B979 /* Exercise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exercise.h; sourceTree = "<group>"; };
@@ -155,6 +169,12 @@
 		79F9C608149315D800B2B979 /* ImageForWorkout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageForWorkout.m; sourceTree = "<group>"; };
 		79F9C60A149315D800B2B979 /* ActualWorkout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualWorkout.h; sourceTree = "<group>"; };
 		79F9C60B149315D800B2B979 /* ActualWorkout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActualWorkout.m; sourceTree = "<group>"; };
+		79F9C60D1493316200B2B979 /* tableViewBk.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tableViewBk.jpg; sourceTree = "<group>"; };
+		79F9C60F1493323100B2B979 /* light-paper-grunge-texture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "light-paper-grunge-texture.jpg"; sourceTree = "<group>"; };
+		79F9C6111493326D00B2B979 /* 2982207584_338c593bca.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2982207584_338c593bca.jpg; sourceTree = "<group>"; };
+		79F9C613149333B300B2B979 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		79F9C61514933DB600B2B979 /* texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texture.png; sourceTree = "<group>"; };
+		79F9C6171493434400B2B979 /* email.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = email.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +182,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79E165AE1493FD1D0044B71E /* EventKit.framework in Frameworks */,
+				79F9C614149333B300B2B979 /* QuartzCore.framework in Frameworks */,
 				791488DA14882576000653DC /* MobileCoreServices.framework in Frameworks */,
 				79459C7E14849C1200722163 /* MessageUI.framework in Frameworks */,
 				79376BED147CB4190059579A /* CoreData.framework in Frameworks */,
@@ -177,6 +199,8 @@
 		79376B92147B7E540059579A = {
 			isa = PBXGroup;
 			children = (
+				79E165AD1493FD1D0044B71E /* EventKit.framework */,
+				79F9C613149333B300B2B979 /* QuartzCore.framework */,
 				791488D914882576000653DC /* MobileCoreServices.framework */,
 				79459C7D14849C1200722163 /* MessageUI.framework */,
 				79376BEC147CB4190059579A /* CoreData.framework */,
@@ -327,17 +351,25 @@
 		79376C8E147F1FC30059579A /* helperClasses */ = {
 			isa = PBXGroup;
 			children = (
+				79376C8B147F1F7B0059579A /* CustomButton.h */,
 				79376C8C147F1F7B0059579A /* CustomButton.m */,
+				79F9C61514933DB600B2B979 /* texture.png */,
 				79376CA5148013980059579A /* addImage.png */,
+				79CD212D149367D000037708 /* add.png */,
+				79CD212A149360A200037708 /* redGloss.png */,
+				79E165B01493FD800044B71E /* calender.png */,
+				79F9C6171493434400B2B979 /* email.png */,
+				79CD212F149372DD00037708 /* camera.png */,
+				79F9C60F1493323100B2B979 /* light-paper-grunge-texture.jpg */,
+				79F9C6111493326D00B2B979 /* 2982207584_338c593bca.jpg */,
 				79148944148C2826000653DC /* graphBackground.png */,
 				793CEF5B1491EE11007BCE61 /* black_paper.png */,
-				791488D314881061000653DC /* camera.jpeg */,
 				793CEF5D1491EFD8007BCE61 /* graphBk.jpg */,
 				793CEF561491C3A8007BCE61 /* emailicon.png */,
+				79F9C60D1493316200B2B979 /* tableViewBk.jpg */,
 				79376BE9147CB0D50059579A /* WorkoutHelper.h */,
 				79376BEA147CB0D50059579A /* WorkoutHelper.m */,
 				79376C8F147F229E0059579A /* create.jpeg */,
-				79376C8B147F1F7B0059579A /* CustomButton.h */,
 				799158D014909DB000BE2430 /* PhotoButtonInCell.h */,
 				799158D114909DB000BE2430 /* PhotoButtonInCell.m */,
 			);
@@ -399,11 +431,19 @@
 				79376BB5147B7E540059579A /* MainStoryboard.storyboard in Resources */,
 				79376C90147F229E0059579A /* create.jpeg in Resources */,
 				79376CA6148013980059579A /* addImage.png in Resources */,
-				791488D414881061000653DC /* camera.jpeg in Resources */,
 				79148945148C2826000653DC /* graphBackground.png in Resources */,
 				793CEF571491C3A8007BCE61 /* emailicon.png in Resources */,
 				793CEF5C1491EE11007BCE61 /* black_paper.png in Resources */,
 				793CEF5E1491EFD8007BCE61 /* graphBk.jpg in Resources */,
+				79F9C60E1493316200B2B979 /* tableViewBk.jpg in Resources */,
+				79F9C6101493323100B2B979 /* light-paper-grunge-texture.jpg in Resources */,
+				79F9C6121493326D00B2B979 /* 2982207584_338c593bca.jpg in Resources */,
+				79F9C61614933DB600B2B979 /* texture.png in Resources */,
+				79F9C6181493434400B2B979 /* email.png in Resources */,
+				79CD212B149360A200037708 /* redGloss.png in Resources */,
+				79CD212E149367D000037708 /* add.png in Resources */,
+				79CD2130149372DD00037708 /* camera.png in Resources */,
+				79E165B11493FD800044B71E /* calender.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

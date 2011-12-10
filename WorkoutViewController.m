@@ -75,12 +75,17 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    self.searchBar.tintColor = [UIColor colorWithRed:0.7 green:0.1 blue:0.2 alpha:1.0];
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:0.9 green:0.1 blue:0.2 alpha:1.0];
+    
     [WorkoutHelper openWorkoutPlannerusingBlock:^(UIManagedDocument * workoutPlanner){
         self.database = workoutPlanner; 
         NSFetchRequest *request =[NSFetchRequest   fetchRequestWithEntityName:@"Workout"];
         NSSortDescriptor *sortDecriptor = [NSSortDescriptor sortDescriptorWithKey:@"workoutId" ascending:YES];
         request.sortDescriptors = [NSArray arrayWithObject:sortDecriptor];
         self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.database.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+        self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture.png"]];
     }];
 }
 
@@ -130,6 +135,7 @@
     
     Workout *workout = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = workout.name;
+    
     return cell;
 }
 

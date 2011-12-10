@@ -52,8 +52,7 @@
 - (int) imageNo
 {
     if (!_imageNo){
-        _imageNo = 0;
-
+       _imageNo = [ImageForWorkout imageIdAvailableForUseForNewImageInManagedObjectContext:self.database.managedObjectContext] - 1;    
     }
     return  _imageNo;
 }
@@ -143,6 +142,12 @@
 
 - (IBAction)cancelLogClicked:(UIBarButtonItem *)sender
 {
+    //delete photos stored in file manager
+    for (NSString *url in self.imageUrls ) {
+        if ([[NSFileManager defaultManager] removeItemAtPath:url error:nil]){
+            NSLog(@"deleted file at path due to cancelling %@",url);
+        }
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -218,52 +223,47 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
+- (NSMutableString*)getUserDocumentDir {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSMutableString *path = [NSMutableString stringWithString:[paths objectAtIndex:0]];
+    return path;
+}
 
+
+- (BOOL) deleteMyDocsDirectory 
+{
+    NSMutableString *path = [self getUserDocumentDir];
+    [path appendString:@"/PhotosWorkoutPlanner"];
+    return [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+}
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     if (!image) image = [info objectForKey:UIImagePickerControllerOriginalImage];
     if (image) {
         NSLog(@"got the image");
+        /*if ([self deleteMyDocsDirectory]){
+            NSLog(@"deleted directory");
+        }*/
         //store in core data
-        
-        //delete all photos
-       /* NSArray *pathList = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *dataPath    = [pathList  objectAtIndex:0];
-        dataPath = [NSString stringWithFormat:@"%@/%@",dataPath,@"WorkoutPlannerPhotos"];
-        NSFileManager *manager = [NSFileManager defaultManager];
-        NSError *error = nil;
-        NSArray *files = [manager contentsOfDirectoryAtPath:dataPath 
-                                                      error:&error];
-        
-        if(error) {
-            //deal with error and bail.
-        }
-        
-        for(NSString *file in files) {
-            [manager removeItemAtPath:[dataPath stringByAppendingPathComponent:file]
-                                error:&error];
-            if(error) {
-                //an error occurred...
-            }
-        } */
+
         dispatch_queue_t photoQueue = dispatch_queue_create("write picture to file", NULL);
         dispatch_async(photoQueue, ^{
             //save the image 
             NSData * data = UIImagePNGRepresentation(image);
             NSArray *pathList = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
             NSString *dataPath    = [pathList  objectAtIndex:0];
-            dataPath = [NSString stringWithFormat:@"%@/%@",dataPath,@"WorkoutPlannerPhotos"];
+            dataPath = [NSString stringWithFormat:@"%@/%@",dataPath,@"PhotosWorkoutPlanner"];
             //give unique name to image workout_id + autoincrement number
-            self.imageNo = self.imageNo + [ImageForWorkout imageIdAvailableForUseForNewImageInManagedObjectContext:self.database.managedObjectContext];
-            NSString * imageName =  [NSString stringWithFormat:@"%d_%d",self.workout.workoutId,self.imageNo];
+            self.imageNo = self.imageNo + 1;
+            NSString * imageName =  [NSString stringWithFormat:@"%d",self.imageNo];
             NSString *imagePath = [NSString stringWithFormat:@"%@/%@",dataPath,imageName];
             if (![self.fileManager fileExistsAtPath:imagePath]) {
                 [data writeToFile:imagePath atomically:YES];
                 [self.imageUrls addObject:imagePath];
-                NSLog(@"added file");
+                NSLog(@"added file %@",imagePath);
             } else {
-                NSLog(@"exists");
+                NSLog(@"exists file %@",imagePath);
             }
         });
         dispatch_release(photoQueue);
@@ -277,12 +277,19 @@
     //add photo icon
     self.photoButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.photoButton.backgroundColor = [UIColor clearColor];
-    UIImage *img = [UIImage imageNamed:@"camera.jpeg"];
+    UIImage *img = [UIImage imageNamed:@"camera.png"];
     [self.photoButton setImage:img forState:UIControlStateNormal];
     [self.photoButton addTarget:self action:@selector(clickPhoto:) forControlEvents:UIControlEventTouchUpInside];
-    [self.photoButton setFrame:CGRectMake(0, 8, 50, 50)];
+    [self.photoButton setFrame:CGRectMake(0, 5, 50, 50)];
     [self.scrollView addSubview:self.photoButton];
-
+    
+    //set background color
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture.png"]];
+    self.exercisesTable.backgroundColor = [UIColor clearColor];
+    self.workoutDetails.backgroundColor = [UIColor clearColor];
+    
+    //save button
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:0.9 green:0.1 blue:0.2 alpha:1.0];
 }
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {

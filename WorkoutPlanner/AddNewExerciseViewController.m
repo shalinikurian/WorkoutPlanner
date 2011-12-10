@@ -9,7 +9,7 @@
 #import "AddNewExerciseViewController.h"
 #import "ShowExistingExercisesViewController.h"
 #import "GetSetForExerciseFromUserViewController.h"
-@interface AddNewExerciseViewController() <ShowExistingExercisesViewControllerProtocol, GetSetForExerciseFromUserViewController, UIGestureRecognizerDelegate>
+@interface AddNewExerciseViewController() <ShowExistingExercisesViewControllerProtocol, GetSetForExerciseFromUserViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, UITextViewDelegate>
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UITableView *showSetsTableView;
 @property (strong, nonatomic) IBOutlet UITableView *addSetTableView;
@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UITextField * weight;
 @property (nonatomic, strong) UITextField *currentFirstResponder;
 @property (nonatomic, strong) UIButton *addCancelSetButton;
+@property (nonatomic) bool notPlaceHolder;
 @end
 
 @implementation AddNewExerciseViewController 
@@ -41,6 +42,16 @@
 @synthesize currentFirstResponder = _currentFirstResponder;
 @synthesize addCancelSetButton = _addCancelSetButton;
 @synthesize editAddedExercise = _editAddedExercise;
+@synthesize notPlaceHolder = _notPlaceHolder;
+
+- (void) textViewDidChange:(UITextView *)textView   
+{
+    if (!self.notPlaceHolder) {
+        self.notPlaceHolder = YES;
+        textView.textColor = [UIColor blackColor];
+        textView.text = @"";
+    }
+}
 
 - (void) weightForExercise:(NSString *)weight 
             repForExercise:(NSString *)rep 
@@ -122,6 +133,19 @@
     
     // Release any cached data, images, etc that aren't in use.
 }
+- (void) addButtonForAddingSetInUI
+{
+    NSLog(@"adding button");
+    [self.addCancelSetButton removeFromSuperview];
+    CGRect frame = self.addSetTableView.frame;
+    self.addCancelSetButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *img = [UIImage imageNamed:@"add.png"];
+    [self.addCancelSetButton setImage:img forState:UIControlStateNormal];
+    [self.addCancelSetButton addTarget:self action:@selector(addSetClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.addCancelSetButton setFrame:CGRectMake(frame.origin.x-30, frame.origin.y+20, 30, 30)];
+    
+    [self.scrollView addSubview:self.addCancelSetButton];
+}
 
 - (void) viewDidLoad{
     [super viewDidLoad];
@@ -135,7 +159,8 @@
     [self.reps setDelegate:self];
     [self.weight setDelegate:self];
     [self.exerciseName setDelegate:self];
-    }
+    [self addButtonForAddingSetInUI];
+}
 
 
 - (void) textFieldDidEndEditing:(UITextField *)textField
@@ -157,17 +182,7 @@
     self.exerciseDescription.editable = NO;
 }
 
-- (void) addButtonForAddingSetInUI
-{
-    CGRect frame = self.addSetTableView.frame;
-    self.addCancelSetButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *img = [UIImage imageNamed:@"addImage.png"];
-    [self.addCancelSetButton setImage:img forState:UIControlStateNormal];
-    [self.addCancelSetButton addTarget:self action:@selector(addSetClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [self.addCancelSetButton setFrame:CGRectMake(frame.origin.x-30, frame.origin.y+20, 30, 30)];
-    
-    [self.scrollView addSubview:self.addCancelSetButton];
-}
+
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
     if ([touch.view.subviews isKindOfClass:[UITextView class]]) return NO;
@@ -182,6 +197,10 @@
     [self.exerciseDescription resignFirstResponder];
     [self.exerciseName resignFirstResponder];
     
+    //change text color
+    self.exerciseDescription.textColor = [UIColor lightGrayColor];
+    self.exerciseName.textColor = [UIColor lightGrayColor];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -194,13 +213,23 @@
     singleTapGestureRecognizer.enabled = YES;
     singleTapGestureRecognizer.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:singleTapGestureRecognizer];
-    
-    [self addButtonForAddingSetInUI];
+   
+   // [self addButtonForAddingSetInUI];
     self.addSetTableView.scrollEnabled = NO;
     self.exerciseDetailsTableView.scrollEnabled = NO;
     self.scrollView.delegate = self;
     [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width,
                                self.view.frame.size.height)];
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture.png"]];
+    
+    //table color
+    self.exerciseDetailsTableView.backgroundColor = [UIColor clearColor];
+    self.addSetTableView.backgroundColor = [UIColor clearColor];
+    self.showSetsTableView.backgroundColor = [UIColor clearColor];
+    
+    //navigation bar color
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:0.9 green:0.1 blue:0.2 alpha:1.0];
     
 }
 - (void) viewDidAppear:(BOOL)animated
@@ -277,26 +306,43 @@
     if (indexPath.row == 0) //exercisename field
     {
         self.exerciseName = [[UITextField alloc] initWithFrame:CGRectMake(20,10,200,21)];
+        self.exerciseName.delegate = self;
         self.exerciseName.placeholder = @"Exercise Name";
+        self.exerciseName.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
         
         //do not allow to choose from existing exercises if self.editAddedExercise is YES . In that case
         //user is editing already added exercise
         if (!self.editAddedExercise){
-            UIButton *addFromExistingExercise = [UIButton buttonWithType:UIButtonTypeContactAdd];
+            
+            //remove older subviews
+            for (UIView *subview in cell.subviews){
+                if ([subview isKindOfClass:[UIButton class]]){
+                    [subview removeFromSuperview];
+                }
+            }
+            UIButton *addFromExistingExercise = [UIButton buttonWithType:UIButtonTypeCustom];
+            addFromExistingExercise.frame = CGRectMake(0, 0, 50, 50);
+            UIImage *img = [UIImage imageNamed:@"add.png"];
+            [addFromExistingExercise setImage:img forState:UIControlStateNormal];
             [addFromExistingExercise addTarget:self action:@selector(addExercise:) forControlEvents:UIControlEventTouchUpInside];
             [cell setAccessoryView:addFromExistingExercise];
         }
+        cell.backgroundColor = [UIColor whiteColor];
         [cell addSubview:self.exerciseName];
     }
     
     if (indexPath.row == 1) //exercisedescription field
     {
         self.exerciseDescription = [[UITextView alloc] initWithFrame:CGRectMake(20,10,cell.bounds.size.width-30,50)];
+        self.exerciseDescription.delegate = self;
         self.exerciseDescription.text = @"Exercise Description";
+        self.exerciseDescription.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
+        self.exerciseDescription.textColor = [UIColor lightGrayColor];
         [cell addSubview:self.exerciseDescription];
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.backgroundColor = [UIColor whiteColor];
     return cell;
 }
 
@@ -316,30 +362,7 @@
     return _weight;
 }
 
-/*- (UITableViewCell *) configureCellForAddSet: (UITableViewCell*) cell 
-{
-   
-    self.reps.text = @"";
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(60,10,10,21)];     
-    label.backgroundColor =[UIColor clearColor];
-    label.text = @"X";
-    self.weight.text = @"";
-    self.reps.placeholder = @"reps";
-    self.weight.placeholder = @"weight";
-    cell.textLabel.text =@"";
-    self.reps.keyboardType = UIKeyboardTypeNumberPad;
-    self.weight.keyboardType = UIKeyboardTypeNumberPad;
-    UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [doneButton addTarget:self action:@selector(doneAddingSetClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [doneButton setTitle:@"Done" forState:UIControlStateNormal];
-    [doneButton setFrame:CGRectMake(0, 0, 50, 35)];
-    [cell setAccessoryView:doneButton];
-    [cell.contentView addSubview:self.reps];
-    [cell.contentView addSubview:label];
-    [cell.contentView addSubview:self.weight];
-    return cell;
-    
-}*/
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView == self.exerciseDetailsTableView) {
