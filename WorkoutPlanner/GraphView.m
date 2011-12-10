@@ -72,24 +72,10 @@
  
     NSArray *dataValues = [self getDataPoints];
     
-    int kStepY = (self.frame.size.height - 2*kOffsetY) /(noOFHorizontalLines);
-    int maxGraphHeight = self.kGraphHeight - kStepY + kOffsetY;
-    int stepX = (self.frame.size.width - 2*kOffsetX) / (self.noOfDays-1);
+    float kStepY = (self.frame.size.height - 2*kOffsetY) /(noOFHorizontalLines);
+    float yUnit =[self getMaxValueFromData]/(noOFHorizontalLines-1);
+    float stepX = (self.frame.size.width - 2*kOffsetX) / (self.noOfDays-1);
     float yPlot;
-    
-
-    
-    /*//make gradient
-    size_t num_of_locations = 2;
-    CGFloat locations[2] = {0.0 , 1.0};
-    CGFloat components[8] = {0.2, 0.5, 0.7, 0.1 ,0.1 ,0.4 , 0.0, 0.8};
-    CGColorSpaceRef cSpace = CGColorSpaceCreateDeviceRGB();
-    CGGradientRef grad =  CGGradientCreateWithColorComponents(cSpace, components, locations, num_of_locations);
-    CGPoint startAt, endAt;
-    startAt = CGPointMake(kOffsetX +stepX, kGraphHeight);
-    endAt = CGPointMake(kOffsetX + stepX, kOffsetY);*/
-    
-    
     
     //fill in the graph
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -97,53 +83,34 @@
     CGContextSetStrokeColorWithColor(context, [[UIColor colorWithRed:0.2 green:0.5 blue:0.2 alpha:1.0] CGColor]);
     CGContextSetFillColorWithColor(context, [[UIColor colorWithRed:0.2 green:0.5 blue:0.2 alpha:0.2] CGColor]);
     CGContextSetShadowWithColor(context, CGSizeMake(5, 5), 20, [[UIColor colorWithRed:0.2 green:0.7 blue:0.2 alpha:0.8] CGColor]);
-    float maxValue = [self getMaxValueFromData];
     
     //draw line graph
     for (int i = 0; i < [dataValues count] - 1; i++)
     {
         NSNumber *value = [dataValues objectAtIndex:i];
         NSNumber *value2 = [dataValues objectAtIndex:i+1];
-        yPlot = MIN(self.kGraphHeight - (float)maxGraphHeight / maxValue * [value floatValue], maxGraphHeight);
-        float yPlot2 = MIN(self.kGraphHeight - (float)maxGraphHeight / maxValue * [value2 floatValue], maxGraphHeight);
+    
+        yPlot = kStepY / yUnit * [value floatValue];
+        yPlot = self.kGraphHeight - kOffsetY - yPlot;
+        float yPlot2 = kStepY / yUnit * [value2 floatValue];
+        yPlot2 = self.kGraphHeight - kOffsetY - yPlot2;
+        
         CGContextMoveToPoint(context, kOffsetX + (i*stepX), yPlot);
         CGContextAddLineToPoint(context, kOffsetX + (i+1) * stepX, yPlot2);
         CGContextStrokePath(context);
     }
     
-    //draw gradient
-    /*CGContextBeginPath(context);
-    CGContextMoveToPoint(context, kOffsetX, kGraphHeight - kOffsetY);
-    
-    for (int i = 0; i < [dataValues count]; i++)
-    {
-      NSNumber *  value = [dataValues objectAtIndex:i];
-        yPlot = MIN(kGraphHeight - (float)maxGraphHeight / maxValue * [value floatValue], maxGraphHeight);
-        CGContextAddLineToPoint(context, kOffsetX + i * stepX, yPlot);
-    }
-    CGContextAddLineToPoint(context, kOffsetX + (self.noOfDays-1) * stepX, kGraphHeight - kOffsetY);
-    
-    CGContextClosePath(context);
-    CGContextSaveGState(context);
-    CGContextClip(context);
-    CGContextDrawPath(context, kCGPathFill);
-    CGContextDrawLinearGradient(context, grad, startAt, endAt, 0);
-    
-    CGContextRestoreGState(context);
-    CGColorSpaceRelease(cSpace);
-    CGGradientRelease(grad);*/
-    
-    
-    
-    
+       
     
     //draw data points
+        
     CGContextSetShadowWithColor(context, CGSizeMake(5, 5), 15, NULL);
     CGContextSetFillColorWithColor(context, [[UIColor colorWithRed:0.5 green:0.51 blue:0.5 alpha:1.0] CGColor]);
     for (int i = 0; i <[dataValues count];i ++){
         float x = kOffsetX + i * stepX;
         NSNumber *value = [dataValues objectAtIndex:i];
-        float y = (float)self.kGraphHeight - (float)maxGraphHeight / (float)maxValue * [value floatValue];
+        float y = kStepY / yUnit * [value floatValue];
+        y = self.kGraphHeight - kOffsetY - y;
         CGRect dataPoint = CGRectMake(x - dataPointThickness,y - dataPointThickness , dataPointThickness*2.5, dataPointThickness*2.5);
         CGContextAddEllipseInRect(context, dataPoint);
     }
@@ -171,8 +138,8 @@
     CGContextSetLineWidth(context, 0.3);
     
     CGContextSetStrokeColorWithColor(context,[DRAW_HORIZONTAL_LINE_COLOR CGColor] );   //for a month 30 , for a week 7
-    int stepX = (self.frame.size.width - 2*kOffsetX) / (self.noOfDays-1);
-    int kStepY = (self.frame.size.height - 2*kOffsetY) /(noOFHorizontalLines);
+    float stepX = (self.frame.size.width - 2*kOffsetX) / (self.noOfDays-1);
+    float kStepY = (self.frame.size.height - 2*kOffsetY) /(noOFHorizontalLines);
 
     for (int i = 0 ;i < noOFHorizontalLines; i++){
         CGContextMoveToPoint(context, kOffsetX, kGraphBottom - kOffsetY - i * kStepY);
@@ -210,7 +177,7 @@
     CGContextSetRGBFillColor(context, 100.0f/255.0f, 100.0f/255.0f, 100.0f/255.0f, 1.0f);
     float highestDataValue = [self getMaxValueFromData];
     if (highestDataValue == 0) highestDataValue = 1;
-    NSLog(@"highest %f",highestDataValue);
+    NSLog(@"highest %f",kGraphBottom -  kOffsetY - (5*kStepY));
     float yUnit =highestDataValue/(noOFHorizontalLines-1);
     float label = 0;
     for (int i = 0 ; i < noOFHorizontalLines; i++){

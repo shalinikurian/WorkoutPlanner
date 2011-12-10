@@ -11,4 +11,6 @@
 @interface ImageForWorkout (createImage)
 + (ImageForWorkout*) createAnImageWithURL:(NSString *) url
         inManagedObjectContext:(NSManagedObjectContext *) context;
+
++ (int) imageIdAvailableForUseForNewImageInManagedObjectContext : (NSManagedObjectContext *) context;
 @end

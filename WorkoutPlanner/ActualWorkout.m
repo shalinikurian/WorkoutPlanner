@@ -2,7 +2,7 @@
 //  ActualWorkout.m
 //  WorkoutPlanner
 //
-//  Created by Shalini Kurian on 12/2/11.
+//  Created by Shalini Kurian on 12/9/11.
 //  Copyright (c) 2011 Stanford . All rights reserved.
 //
 
@@ -17,7 +17,7 @@
 @dynamic date;
 @dynamic duration;
 @dynamic belongsToWorkout;
-@dynamic setForExercises;
 @dynamic hasImage;
+@dynamic setForExercises;
 
 @end

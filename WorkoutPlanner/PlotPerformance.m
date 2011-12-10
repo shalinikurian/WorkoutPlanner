@@ -118,9 +118,9 @@
         self.graphView.kGraphHeight = 367;
         //self.graphView.kGraphBottom = 367;
     } else if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight){
-        /*self.graphView.kDefaultGraphWidth = 480;
-        self.graphView.kGraphHeight = 207;
-        self.graphView.kGraphBottom = 207;*/
+        self.graphView.kDefaultGraphWidth = 480;
+        self.graphView.kGraphHeight = 220;
+       // self.graphView.kGraphBottom = 207;*/
     }
    [self.graphView setNeedsDisplay];
     return YES;

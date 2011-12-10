@@ -10,6 +10,7 @@
 #import "Exercise.h"
 #import "GetSetForExerciseFromUserViewController.h"
 #import "ActualWorkout+Create.h"
+#import "ImageForWorkout+createImage.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
 @interface LogAWorkoutViewController()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, GetSetForExerciseFromUserViewController>
@@ -51,11 +52,11 @@
 - (int) imageNo
 {
     if (!_imageNo){
-        return 0;
-    }        
-    return _imageNo;
-}
+        _imageNo = 0;
 
+    }
+    return  _imageNo;
+}
 - (NSMutableArray *) imageUrls
 {
     if (!_imageUrls){
@@ -223,8 +224,29 @@
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     if (!image) image = [info objectForKey:UIImagePickerControllerOriginalImage];
     if (image) {
-        //store in core data
         NSLog(@"got the image");
+        //store in core data
+        
+        //delete all photos
+       /* NSArray *pathList = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *dataPath    = [pathList  objectAtIndex:0];
+        dataPath = [NSString stringWithFormat:@"%@/%@",dataPath,@"WorkoutPlannerPhotos"];
+        NSFileManager *manager = [NSFileManager defaultManager];
+        NSError *error = nil;
+        NSArray *files = [manager contentsOfDirectoryAtPath:dataPath 
+                                                      error:&error];
+        
+        if(error) {
+            //deal with error and bail.
+        }
+        
+        for(NSString *file in files) {
+            [manager removeItemAtPath:[dataPath stringByAppendingPathComponent:file]
+                                error:&error];
+            if(error) {
+                //an error occurred...
+            }
+        } */
         dispatch_queue_t photoQueue = dispatch_queue_create("write picture to file", NULL);
         dispatch_async(photoQueue, ^{
             //save the image 
@@ -233,12 +255,13 @@
             NSString *dataPath    = [pathList  objectAtIndex:0];
             dataPath = [NSString stringWithFormat:@"%@/%@",dataPath,@"WorkoutPlannerPhotos"];
             //give unique name to image workout_id + autoincrement number
-            self.imageNo = self.imageNo + 1;
+            self.imageNo = self.imageNo + [ImageForWorkout imageIdAvailableForUseForNewImageInManagedObjectContext:self.database.managedObjectContext];
             NSString * imageName =  [NSString stringWithFormat:@"%d_%d",self.workout.workoutId,self.imageNo];
             NSString *imagePath = [NSString stringWithFormat:@"%@/%@",dataPath,imageName];
             if (![self.fileManager fileExistsAtPath:imagePath]) {
                 [data writeToFile:imagePath atomically:YES];
                 [self.imageUrls addObject:imagePath];
+                NSLog(@"added file");
             } else {
                 NSLog(@"exists");
             }

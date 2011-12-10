@@ -26,6 +26,10 @@
     
     //delete image from core data
     [ImageForWorkout deleteImageWithURL:self.url inManagedObjectContext:self.database.managedObjectContext];
+    //delete image from file system
+    if ([[NSFileManager defaultManager] removeItemAtPath:self.url error:nil]){
+        NSLog(@"deleted file at path %@",self.url);
+    }
     //pop controller
     [self.navigationController popViewControllerAnimated:YES];
 }

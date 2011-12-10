@@ -64,7 +64,7 @@
         //create folder
         [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil]; 
     } 
-    NSLog(@"in view did load");
+
    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
    [self.tableView setSeparatorColor:[UIColor clearColor]];
 }
@@ -84,13 +84,8 @@
         //get photos
         self.datesAndPhotos = [[ActualWorkout photosByDateinManagedObjectContext:self.database.managedObjectContext] mutableCopy];
         [self.tableView reloadData];
-        NSLog(@"i finished reloading data");
         //fake data
-        /*NSDictionary *dict = [NSDictionary dictionaryWithObject:[NSArray arrayWithObjects:@"abc",@"bc",@"a",@"g",nil] forKey:@"Nov 2011"];
-         [self.datesAndPhotos insertObject:dict atIndex:0];
-         NSLog(@"self.dates %@",self.datesAndPhotos);*/
     }];
-    NSLog(@"in view will appear");
     
 }
 

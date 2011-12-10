@@ -11,11 +11,6 @@
 		791488DA14882576000653DC /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 791488D914882576000653DC /* MobileCoreServices.framework */; };
 		791488E114888523000653DC /* GetSetForExerciseFromUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 791488E014888523000653DC /* GetSetForExerciseFromUserViewController.m */; };
 		791488EC1489642B000653DC /* ActualWorkout+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 791488EB1489642A000653DC /* ActualWorkout+Create.m */; };
-		791489191489F340000653DC /* Set.m in Sources */ = {isa = PBXBuildFile; fileRef = 791489181489F340000653DC /* Set.m */; };
-		7914891C1489F341000653DC /* ActualWorkout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7914891B1489F340000653DC /* ActualWorkout.m */; };
-		7914891F1489F341000653DC /* Workout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7914891E1489F341000653DC /* Workout.m */; };
-		791489221489F341000653DC /* ImageForWorkout.m in Sources */ = {isa = PBXBuildFile; fileRef = 791489211489F341000653DC /* ImageForWorkout.m */; };
-		791489251489F341000653DC /* Exercise.m in Sources */ = {isa = PBXBuildFile; fileRef = 791489241489F341000653DC /* Exercise.m */; };
 		79148933148C1703000653DC /* ChooseExerciseToViewPerformanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79148932148C1702000653DC /* ChooseExerciseToViewPerformanceViewController.m */; };
 		79148936148C18B4000653DC /* PlotPerformance.m in Sources */ = {isa = PBXBuildFile; fileRef = 79148935148C18B3000653DC /* PlotPerformance.m */; };
 		79148943148C1C0D000653DC /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79148942148C1C0C000653DC /* GraphView.m */; };
@@ -60,6 +55,11 @@
 		799158DA1491611A00BE2430 /* ShowImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 799158D91491611A00BE2430 /* ShowImageViewController.m */; };
 		799158E11491650100BE2430 /* ImageForWorkout+DeleteImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 799158E01491650100BE2430 /* ImageForWorkout+DeleteImage.m */; };
 		79AA808B148317540026B9A2 /* EditExerciseInWorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79AA808A148317540026B9A2 /* EditExerciseInWorkoutViewController.m */; };
+		79F9C600149315D700B2B979 /* Workout.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F9C5FF149315D700B2B979 /* Workout.m */; };
+		79F9C603149315D700B2B979 /* Exercise.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F9C602149315D700B2B979 /* Exercise.m */; };
+		79F9C606149315D700B2B979 /* Set.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F9C605149315D700B2B979 /* Set.m */; };
+		79F9C609149315D800B2B979 /* ImageForWorkout.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F9C608149315D800B2B979 /* ImageForWorkout.m */; };
+		79F9C60C149315D800B2B979 /* ActualWorkout.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F9C60B149315D800B2B979 /* ActualWorkout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,16 +69,6 @@
 		791488E014888523000653DC /* GetSetForExerciseFromUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSetForExerciseFromUserViewController.m; sourceTree = "<group>"; };
 		791488EA1489642A000653DC /* ActualWorkout+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ActualWorkout+Create.h"; sourceTree = "<group>"; };
 		791488EB1489642A000653DC /* ActualWorkout+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ActualWorkout+Create.m"; sourceTree = "<group>"; };
-		791489171489F340000653DC /* Set.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Set.h; sourceTree = "<group>"; };
-		791489181489F340000653DC /* Set.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Set.m; sourceTree = "<group>"; };
-		7914891A1489F340000653DC /* ActualWorkout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualWorkout.h; sourceTree = "<group>"; };
-		7914891B1489F340000653DC /* ActualWorkout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActualWorkout.m; sourceTree = "<group>"; };
-		7914891D1489F341000653DC /* Workout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Workout.h; sourceTree = "<group>"; };
-		7914891E1489F341000653DC /* Workout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Workout.m; sourceTree = "<group>"; };
-		791489201489F341000653DC /* ImageForWorkout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageForWorkout.h; sourceTree = "<group>"; };
-		791489211489F341000653DC /* ImageForWorkout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageForWorkout.m; sourceTree = "<group>"; };
-		791489231489F341000653DC /* Exercise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exercise.h; sourceTree = "<group>"; };
-		791489241489F341000653DC /* Exercise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exercise.m; sourceTree = "<group>"; };
 		79148931148C1702000653DC /* ChooseExerciseToViewPerformanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseExerciseToViewPerformanceViewController.h; sourceTree = "<group>"; };
 		79148932148C1702000653DC /* ChooseExerciseToViewPerformanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseExerciseToViewPerformanceViewController.m; sourceTree = "<group>"; };
 		79148934148C18B2000653DC /* PlotPerformance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlotPerformance.h; sourceTree = "<group>"; };
@@ -155,6 +145,16 @@
 		799158E01491650100BE2430 /* ImageForWorkout+DeleteImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ImageForWorkout+DeleteImage.m"; sourceTree = "<group>"; };
 		79AA8089148317540026B9A2 /* EditExerciseInWorkoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditExerciseInWorkoutViewController.h; sourceTree = "<group>"; };
 		79AA808A148317540026B9A2 /* EditExerciseInWorkoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditExerciseInWorkoutViewController.m; sourceTree = "<group>"; };
+		79F9C5FE149315D700B2B979 /* Workout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Workout.h; sourceTree = "<group>"; };
+		79F9C5FF149315D700B2B979 /* Workout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Workout.m; sourceTree = "<group>"; };
+		79F9C601149315D700B2B979 /* Exercise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exercise.h; sourceTree = "<group>"; };
+		79F9C602149315D700B2B979 /* Exercise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exercise.m; sourceTree = "<group>"; };
+		79F9C604149315D700B2B979 /* Set.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Set.h; sourceTree = "<group>"; };
+		79F9C605149315D700B2B979 /* Set.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Set.m; sourceTree = "<group>"; };
+		79F9C607149315D800B2B979 /* ImageForWorkout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageForWorkout.h; sourceTree = "<group>"; };
+		79F9C608149315D800B2B979 /* ImageForWorkout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageForWorkout.m; sourceTree = "<group>"; };
+		79F9C60A149315D800B2B979 /* ActualWorkout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualWorkout.h; sourceTree = "<group>"; };
+		79F9C60B149315D800B2B979 /* ActualWorkout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActualWorkout.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -279,16 +279,16 @@
 		79376BE4147CAF960059579A /* models */ = {
 			isa = PBXGroup;
 			children = (
-				791489231489F341000653DC /* Exercise.h */,
-				791489241489F341000653DC /* Exercise.m */,
-				791489201489F341000653DC /* ImageForWorkout.h */,
-				791489211489F341000653DC /* ImageForWorkout.m */,
-				7914891D1489F341000653DC /* Workout.h */,
-				7914891E1489F341000653DC /* Workout.m */,
-				7914891A1489F340000653DC /* ActualWorkout.h */,
-				7914891B1489F340000653DC /* ActualWorkout.m */,
-				791489171489F340000653DC /* Set.h */,
-				791489181489F340000653DC /* Set.m */,
+				79F9C60A149315D800B2B979 /* ActualWorkout.h */,
+				79F9C60B149315D800B2B979 /* ActualWorkout.m */,
+				79F9C607149315D800B2B979 /* ImageForWorkout.h */,
+				79F9C608149315D800B2B979 /* ImageForWorkout.m */,
+				79F9C604149315D700B2B979 /* Set.h */,
+				79F9C605149315D700B2B979 /* Set.m */,
+				79F9C601149315D700B2B979 /* Exercise.h */,
+				79F9C602149315D700B2B979 /* Exercise.m */,
+				79F9C5FE149315D700B2B979 /* Workout.h */,
+				79F9C5FF149315D700B2B979 /* Workout.m */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -437,11 +437,6 @@
 				79459C851484CDB600722163 /* LogAWorkoutViewController.m in Sources */,
 				791488E114888523000653DC /* GetSetForExerciseFromUserViewController.m in Sources */,
 				791488EC1489642B000653DC /* ActualWorkout+Create.m in Sources */,
-				791489191489F340000653DC /* Set.m in Sources */,
-				7914891C1489F341000653DC /* ActualWorkout.m in Sources */,
-				7914891F1489F341000653DC /* Workout.m in Sources */,
-				791489221489F341000653DC /* ImageForWorkout.m in Sources */,
-				791489251489F341000653DC /* Exercise.m in Sources */,
 				79148933148C1703000653DC /* ChooseExerciseToViewPerformanceViewController.m in Sources */,
 				79148936148C18B4000653DC /* PlotPerformance.m in Sources */,
 				79148943148C1C0D000653DC /* GraphView.m in Sources */,
@@ -452,6 +447,11 @@
 				799158D214909DB000BE2430 /* PhotoButtonInCell.m in Sources */,
 				799158DA1491611A00BE2430 /* ShowImageViewController.m in Sources */,
 				799158E11491650100BE2430 /* ImageForWorkout+DeleteImage.m in Sources */,
+				79F9C600149315D700B2B979 /* Workout.m in Sources */,
+				79F9C603149315D700B2B979 /* Exercise.m in Sources */,
+				79F9C606149315D700B2B979 /* Set.m in Sources */,
+				79F9C609149315D800B2B979 /* ImageForWorkout.m in Sources */,
+				79F9C60C149315D800B2B979 /* ActualWorkout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
