@@ -9,7 +9,7 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mw6-w8-lUf" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="kxf-PX-vPe" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Workouts" id="xvG-kh-nCq"/>
+                    <tabBarItem key="tabBarItem" title="Workouts" image="30.png" id="xvG-kh-nCq"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Bql-Vo-dqg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -55,8 +55,7 @@
                             <outlet property="delegate" destination="Ubm-Gu-NmP" id="Ex8-tT-Q0w"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="QAa-3W-nUL">
-                        <nil key="title"/>
+                    <navigationItem key="navigationItem" title="Workouts" id="QAa-3W-nUL">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="KDn-zK-pWP">
                             <connections>
                                 <segue destination="F3L-cb-pdZ" kind="push" identifier="add workout" id="8vV-Ke-R3e"/>
@@ -277,10 +276,11 @@
                         <segue destination="2GA-sl-mvg" kind="push" identifier="view exercise" id="3l4-tO-Pdq"/>
                         <segue destination="DJp-52-jSH" kind="push" identifier="add new exercise" id="gOY-EA-MSp"/>
                         <segue destination="86b-sq-tD1" kind="push" identifier="log a workout" id="nqD-TG-P9h"/>
+                        <segue destination="wCu-pE-O6n" kind="push" identifier="add event" id="EVu-ff-9Cx"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1763" y="896"/>
+            <point key="canvasLocation" x="1747" y="884"/>
         </scene>
         <scene sceneID="XvZ-b1-c2k">
             <objects>
@@ -447,6 +447,73 @@
             </objects>
             <point key="canvasLocation" x="1768" y="1511"/>
         </scene>
+        <scene sceneID="Z1u-FX-t0M">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bjn-id-cBg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="wCu-pE-O6n" customClass="AddEventViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SLE-lD-9hZ">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Start Time" lineBreakMode="tailTruncation" minimumFontSize="10" id="jjE-Na-mmj">
+                                <rect key="frame" x="20" y="40" width="79" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="a2N-ma-aYV">
+                                <rect key="frame" x="130" y="30" width="184" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="End Time" lineBreakMode="tailTruncation" minimumFontSize="10" id="Bfm-vu-EO9">
+                                <rect key="frame" x="20" y="91" width="73" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="5JQ-mk-z8d">
+                                <rect key="frame" x="130" y="81" width="184" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="l8M-cg-Yon">
+                                <rect key="frame" x="130" y="132" width="184" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Event Name" lineBreakMode="tailTruncation" minimumFontSize="10" id="H8s-zH-61D">
+                                <rect key="frame" x="20" y="142" width="94" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="i6T-Lj-YXb">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="o7G-tR-o8I">
+                            <connections>
+                                <action selector="saveEvent:" destination="wCu-pE-O6n" id="hse-pI-GdA"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="endTime" destination="5JQ-mk-z8d" id="T8T-AV-wGY"/>
+                        <outlet property="eventName" destination="l8M-cg-Yon" id="Le1-gY-Y3d"/>
+                        <outlet property="startTime" destination="a2N-ma-aYV" id="tIX-qX-HEK"/>
+                        <segue destination="4XH-12-od2" kind="modal" identifier="add date" id="aGR-0e-1Af"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="2237" y="1511"/>
+        </scene>
         <scene sceneID="f6X-mP-JnS">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VqP-Dd-f9k" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -576,6 +643,70 @@
                 </viewController>
             </objects>
             <point key="canvasLocation" x="2606" y="884"/>
+        </scene>
+        <scene sceneID="3tt-d0-R3K">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jBg-e9-rnH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="4XH-12-od2" customClass="GetDateViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3xX-A4-P4V">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" id="n18-Zg-rka">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <date key="date" timeIntervalSinceReferenceDate="345292853.76503998">
+                                    <!--2011-12-11 10:40:53 +0000-->
+                                </date>
+                                <locale key="locale" localeIdentifier="en_US"/>
+                                <timeZone key="timeZone" name="America/Los_Angeles">
+                                    <mutableData key="data">
+VFppZgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAC5AAAABAAAABCepkign7sVkKCGKqChmveQ
+y4kaoNIj9HDSYSYQ1v50INiArZDa/tGg28CQENzes6DdqayQ3r6VoN+JjpDgnneg4WlwkOJ+WaDjSVKQ
+5F47oOUpNJDmR1gg5xJREOgnOiDo8jMQ6gccIOrSFRDr5v4g7LH3EO3G4CDukdkQ76/8oPBxuxDxj96g
+8n/BkPNvwKD0X6OQ9U+ioPY/hZD3L4Sg+CiiEPkPZqD6CIQQ+viDIPvoZhD82GUg/chIEP64RyD/qCoQ
+AJgpIAGIDBACeAsgA3EokARhJ6AFUQqQBkEJoAcw7JAHjUOgCRDOkAmtvyAK8LCQC+CvoAzZzRANwJGg
+DrmvEA+priAQmZEQEYmQIBJ5cxATaXIgFFlVEBVJVCAWOTcQFyk2IBgiU5AZCRggGgI1kBryNKAb4heQ
+HNIWoB3B+ZAesfigH6HbkCB2KyAhgb2QIlYNICNq2hAkNe8gJUq8ECYV0SAnKp4QJ/7toCkKgBAp3s+g
+KupiECu+saAs036QLZ6ToC6zYJAvfnWgMJNCkDFnkiAycySQM0d0IDRTBpA1J1YgNjLokDcHOCA4HAUQ
+OOcaIDn75xA6xvwgO9vJEDywGKA9u6sQPo/6oD+bjRBAb9ygQYSpkEJPvqBDZIuQRC+goEVEbZBF89Mg
+Ry2KEEfTtSBJDWwQSbOXIErtThBLnLOgTNZqkE18laBOtkyQT1x3oFCWLpBRPFmgUnYQkFMcO6BUVfKQ
+VPwdoFY11JBW5TogWB7xEFjFHCBZ/tMQWqT+IFvetRBchOAgXb6XEF5kwiBfnnkQYE3eoGGHlZBiLcCg
+Y2d3kGQNoqBlR1mQZe2EoGcnO5BnzWagaQcdkGmtSKBq5v+Qa5ZlIGzQHBBtdkcgbq/+EG9WKSBwj+AQ
+cTYLIHJvwhBzFe0gdE+kEHT/CaB2OMCQdt7roHgYopB4vs2gefiEkHqer6B72GaQfH6RoH24SJB+XnOg
+f5gqkAABAAECAwEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
+AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
+AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
+AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
+</mutableData>
+                                </timeZone>
+                            </datePicker>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="SXg-n1-tde">
+                                <rect key="frame" x="118" y="259" width="72" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="doneButtonClicked:" destination="4XH-12-od2" eventType="touchUpInside" id="OCI-FR-EfI"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="EZ3-Ao-ZTD"/>
+                    <connections>
+                        <outlet property="datePicker" destination="n18-Zg-rka" id="Ano-H3-axE"/>
+                        <outlet property="doneButton" destination="SXg-n1-tde" id="OKy-vd-Gkg"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="2695" y="1502"/>
         </scene>
         <scene sceneID="TFb-8f-JsT">
             <objects>
@@ -774,7 +905,7 @@
                             <outlet property="delegate" destination="aWn-2g-TYt" id="nCk-36-XL4"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="mSe-QG-Lsh"/>
+                    <navigationItem key="navigationItem" title="Performance" id="mSe-QG-Lsh"/>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="761" y="1017"/>
@@ -813,7 +944,7 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="69x-8i-mwv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="Hry-ee-axV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Performance" id="Az6-CL-1Cz"/>
+                    <tabBarItem key="tabBarItem" title="Performance" image="73.png" id="Az6-CL-1Cz"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="39y-BV-3GU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -844,7 +975,7 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8EL-sX-Tra" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="kqb-RH-vVp" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Photos" id="4l1-4Q-hdY"/>
+                    <tabBarItem key="tabBarItem" title="Photos" image="18.png" id="4l1-4Q-hdY"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="SWY-vr-VIw">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -859,13 +990,18 @@
             <point key="canvasLocation" x="412" y="1671"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="18.png" width="16" height="16"/>
+        <image name="30.png" width="16" height="16"/>
+        <image name="73.png" width="16" height="16"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="NhY-SZ-tUs"/>
+        <segue reference="gOY-EA-MSp"/>
         <segue reference="UwG-cp-Zy4"/>
     </inferredMetricsTieBreakers>
 </document>

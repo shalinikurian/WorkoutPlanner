@@ -15,6 +15,7 @@
 #import "LogAWorkoutViewController.h"
 #import "MessageUI/MessageUI.h"
 #import <QuartzCore/QuartzCore.h>
+#import "AddEventViewController.h"
 
 @interface ShowExistingWorkout ()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UITextViewDelegate,MFMailComposeViewControllerDelegate, UIGestureRecognizerDelegate ,ShowExistingExercisesInWorkoutProtocol, AddNewExerciseViewController>
 @property (strong, nonatomic) IBOutlet UIButton *addExerciseButton;
@@ -188,6 +189,11 @@ editingExistingExercise:(bool)flag
         [segue.destinationViewController setExercises:self.exercises];
         [segue.destinationViewController setSetsInExercises:self.setsForExercises];
     }
+    if([segue.identifier isEqualToString:@"add event"]){
+        AddEventViewController *addevent = (AddEventViewController *) segue.destinationViewController;
+        [addevent setEventNameText: self.workout.name];
+        
+    }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -251,6 +257,12 @@ editingExistingExercise:(bool)flag
     
     return template;
 }
+
+- (void) addEventToCalender: (id) sender
+{
+    [self performSegueWithIdentifier:@"add event" sender:self];
+}
+
 - (void) email : (id) sender
 {
     MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
@@ -287,8 +299,8 @@ editingExistingExercise:(bool)flag
         self.workoutNameTextField.textColor = [UIColor lightGrayColor];
         //add email button
         UIButton *button = [[UIButton alloc] init];
-        [button setImage:[UIImage imageNamed:@"email.png"] forState:UIControlStateNormal];
-        [button setFrame:CGRectMake(cell.bounds.size.width - 70, 10, 30, 30)];
+        [button setImage:[UIImage imageNamed:@"emailSmall.png"] forState:UIControlStateNormal];
+        [button setFrame:CGRectMake(cell.bounds.size.width - 40, 10, 30, 30)];
         [button addTarget:self action:@selector(email:) forControlEvents:UIControlEventTouchUpInside];
         [cell addSubview:button];
         [cell addSubview:self.workoutNameTextField];
@@ -296,13 +308,22 @@ editingExistingExercise:(bool)flag
     
     if (indexPath.row == 1 && self.workOutDetails) //workoutdescription field
     {
-        self.workoutDescription = [[UITextView alloc] initWithFrame:CGRectMake(20,10,cell.bounds.size.width-50,50)];
+        self.workoutDescription = [[UITextView alloc] initWithFrame:CGRectMake(20,10,200,50)];
         if (self.editWorkout) self.workoutDescription.editable = YES;
         else self.workoutDescription.editable = NO;
         self.workoutDescription.delegate = self;
         self.workoutDescription.font = [UIFont fontWithName:@"Helvetica" size:15.0f];
         self.workoutDescription.text = self.workout.workoutDescription;
         self.workoutDescription.textColor = [UIColor lightGrayColor];
+        
+        //add event button
+        UIButton *eventButton = [[UIButton alloc] init];
+        [eventButton setImage:[UIImage imageNamed:@"calender.png"] forState:UIControlStateNormal];
+        [eventButton setFrame:CGRectMake(cell.bounds.size.width - 40, 10, 30, 30)];
+        [eventButton addTarget:self action:@selector(addEventToCalender:) forControlEvents:UIControlEventTouchUpInside];
+        [cell addSubview:eventButton];
+        
+
         [cell addSubview:self.workoutDescription];
     }
     
