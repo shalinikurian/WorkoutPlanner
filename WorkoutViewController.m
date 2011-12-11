@@ -57,6 +57,7 @@
     [super viewDidLoad];
     [self.searchBar setDelegate:self];
     self.searchBar.showsCancelButton = YES;
+    NSLog(@"view did load");
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -74,10 +75,12 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    NSLog(@"view will appear");
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     self.searchBar.tintColor = [UIColor colorWithRed:0.7 green:0.1 blue:0.2 alpha:1.0];
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:0.9 green:0.1 blue:0.2 alpha:1.0];
+    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture.png"]];
     
     [WorkoutHelper openWorkoutPlannerusingBlock:^(UIManagedDocument * workoutPlanner){
         self.database = workoutPlanner; 
@@ -85,7 +88,6 @@
         NSSortDescriptor *sortDecriptor = [NSSortDescriptor sortDescriptorWithKey:@"workoutId" ascending:YES];
         request.sortDescriptors = [NSArray arrayWithObject:sortDecriptor];
         self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.database.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
-        self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture.png"]];
     }];
 }
 

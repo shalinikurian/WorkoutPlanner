@@ -115,11 +115,6 @@
         PlotPerformance *destination = (PlotPerformance *) segue.destinationViewController;
         Exercise *exercise = [self.fetchedResultsController objectAtIndexPath:indexPath]
         ;
-        /*NSDate *date = [NSDate date];
-        NSArray * performance = [ActualWorkout perfomanceOfExercise:  exercise                                                                                                                                      forDays:7
-            toDate:(NSDate *) date
-            inManagedObjectContext:self.database.managedObjectContext];
-        [destination setPerformance:performance];*/
         [destination setExercise:exercise];
         [destination setExerciseName:exercise.name];
         [destination setDatabase:self.database];

@@ -11,17 +11,37 @@
 #import "WorkoutHelper.h"
 #import "PhotoButtonInCell.h"
 #import <QuartzCore/QuartzCore.h>
-#import "ImageForWorkout.h"
+#import "ImageForWorkout+DeleteImage.h"
 #import "ShowImageViewController.h"
 
 
-@interface ShowPhotosViewController()
+@interface ShowPhotosViewController()<ShowImageViewController>
 @property (nonatomic, strong) NSFileManager *fileManager;
 @end
 @implementation ShowPhotosViewController
 @synthesize database = _database;
 @synthesize datesAndPhotos = _datesAndPhotos;
 @synthesize fileManager = _fileManager;
+
+- (void) deletePictureWithURL:(NSString *)url
+atIndexPath:(NSIndexPath *)indexPath 
+                   atPosition:(int)position
+{
+    //delete image from core data
+    [ImageForWorkout deleteImageWithURL:url inManagedObjectContext:self.database.managedObjectContext];
+    //delete image from file system
+    dispatch_queue_t photoQueue = dispatch_queue_create("delete file", NULL);
+    dispatch_async(photoQueue, ^{
+        if ([[NSFileManager defaultManager] removeItemAtPath:url error:nil]){
+            NSLog(@"deleted file at path %@",url);
+        }
+    });
+    NSLog(@"before delete");
+    self.datesAndPhotos = [[ActualWorkout photosByDateinManagedObjectContext:self.database.managedObjectContext] mutableCopy];
+    NSLog(@"self.datesAndPhotos %@", self.datesAndPhotos);
+    [self.tableView reloadData];
+}
+
 - (NSMutableArray *) datesAndPhotos 
 {
     if (!_datesAndPhotos){
@@ -59,7 +79,7 @@
     self.fileManager = [NSFileManager defaultManager];
     NSArray *pathList = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *dataPath    = [pathList  objectAtIndex:0];
-    dataPath = [NSString stringWithFormat:@"%@/%@",dataPath,@"WorkoutPlannerPhotos"];
+    dataPath = [NSString stringWithFormat:@"%@/%@",dataPath,@"myPhotos"];
     if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath]){
         //create folder
         [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil]; 
@@ -67,6 +87,8 @@
 
    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
    [self.tableView setSeparatorColor:[UIColor clearColor]];
+    
+
 }
 
 - (void)viewDidUnload
@@ -79,11 +101,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture.png"]];
     [WorkoutHelper openWorkoutPlannerusingBlock:^(UIManagedDocument * workoutPlanner){
         self.database = workoutPlanner; 
         //get photos
         self.datesAndPhotos = [[ActualWorkout photosByDateinManagedObjectContext:self.database.managedObjectContext] mutableCopy];
-        self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture.png"]];
         [self.tableView reloadData];
     }];
     
@@ -123,40 +145,29 @@
     NSDictionary *dict = [self.datesAndPhotos objectAtIndex:section];
     NSArray *allKeys = [dict allKeys];
     NSArray *photos = (NSArray *) [dict objectForKey:[allKeys objectAtIndex:0]];
-    
+
     int mod = [photos count] % noOfPhotosPerRow ;
     if (mod == 0){
         return [photos count] / noOfPhotosPerRow;
     } 
-    if ([photos count] < noOfPhotosPerRow) return 1;
+    if ([photos count] < noOfPhotosPerRow) {
+        return 1;
+    }
     return [photos count] / noOfPhotosPerRow + 1;
+    
 }
 
 
 - (UIImage *) getImageForURL : (NSString *) url
 {
-    //dispatch_queue_t photoQueue = dispatch_queue_create("read picture from file", NULL);
-    //dispatch_async(photoQueue, ^{
-        //read the image
-        NSArray *pathList = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *dataPath    = [pathList  objectAtIndex:0];
-        dataPath = [NSString stringWithFormat:@"%@/%@",dataPath,@"PhotosWorkoutPlanner"];
+   
         UIImage *image;
         if ([self.fileManager fileExistsAtPath:url]) {
             image = [UIImage imageWithContentsOfFile:url];
-        } else {
-            NSLog(@"didnt get path url %@",url);
-        }
-    return image;
-    //});
-    //dispatch_release(photoQueue);
+        } 
+        return image;
 }
-- (NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    NSDictionary *photoForSection = [self.datesAndPhotos objectAtIndex:section];
-    NSArray *keys = [photoForSection allKeys];
-    return [keys objectAtIndex:0];
-}
+
 - (void) photoClicked: (id) sender
 {
     PhotoButtonInCell * button = (PhotoButtonInCell *) sender;
@@ -171,32 +182,11 @@
     [destination setUrl:button.url];
     [destination setDatabase:self.database];
     [destination setImage:button.image];
-    //destination.hidesBottomBarWhenPushed = YES;
+    [destination setDelegate:self];
+    [destination setIndexPath:button.indexPath];
+    [destination setPosition:button.position];
 }
 
-/*- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UIView *sectionView =[[UIView alloc] init];
-    [sectionView setBackgroundColor:[UIColor blackColor]];
-    
-    NSString *sectionTitle = [self tableView:tableView titleForHeaderInSection:section];
-    UILabel *label = [[UILabel alloc] init];
-    label.frame = CGRectMake(30, 6, 300, 30);
-    label.backgroundColor = [UIColor blackColor];
-    CALayer *layer1 = [label layer];
-    layer1.shadowColor = [[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:0.8] CGColor];
-    layer1.shadowOpacity = 0.7f;
-    layer1.shadowOffset = CGSizeMake(3.0f, 3.0f);
-    layer1.shadowRadius = 5.0f;
-    
-    label.textColor = section_header_text_color;
-    
-    [label setFont:[UIFont fontWithName:@"Helvetica" size:20]];
-    label.text = sectionTitle;
-    
-    [sectionView addSubview:label];
-    return sectionView;
-}*/
 
 - (UITableViewCell *) addPhotosToCell : (UITableViewCell *) cell
                         withIndexPath :(NSIndexPath *) indexPath;
@@ -320,6 +310,31 @@
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 30;
+}
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView* customView = [[UIView alloc] initWithFrame:CGRectMake(10.0, 0.0, 300.0, 44.0)];
+    customView.backgroundColor = [UIColor clearColor];
+    
+    UILabel * headerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    headerLabel.backgroundColor = [UIColor clearColor];
+    headerLabel.opaque = NO;
+    headerLabel.textColor = [UIColor whiteColor];
+    headerLabel.font = [UIFont boldSystemFontOfSize:18];
+    headerLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    headerLabel.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
+    headerLabel.frame = CGRectMake(11,-11, 320.0, 44.0);
+    headerLabel.textAlignment = UITextAlignmentLeft;
+    
+    
+    NSDictionary *photoForSection = [self.datesAndPhotos objectAtIndex:section];
+    NSArray *keys = [photoForSection allKeys];
+    headerLabel.text =[keys objectAtIndex:0];
+    [customView addSubview:headerLabel];
+    return customView;
+}
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return tableCellHeight;

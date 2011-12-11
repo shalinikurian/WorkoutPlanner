@@ -54,6 +54,7 @@
     if (!_imageNo){
        _imageNo = [ImageForWorkout imageIdAvailableForUseForNewImageInManagedObjectContext:self.database.managedObjectContext] - 1;    
     }
+    NSLog(@"url image no %d",_imageNo);
     return  _imageNo;
 }
 - (NSMutableArray *) imageUrls
@@ -127,6 +128,7 @@
     NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
     [timeFormat setDateFormat:@"yy/mm/dd hh:mm:ss"];
     NSTimeInterval diff = [currDateTime timeIntervalSinceDate:self.startDate]; //duration for current workout
+    NSLog(@"saving array %@",self.imageUrls);
     NSInteger secs = (NSInteger) diff;
     [ActualWorkout createLogForWorkout:self.workout
                   withSetsForExercises:self.logForSets
@@ -168,10 +170,13 @@
     self.fileManager = [NSFileManager defaultManager];
     NSArray *pathList = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *dataPath    = [pathList  objectAtIndex:0];
-    dataPath = [NSString stringWithFormat:@"%@/%@",dataPath,@"WorkoutPlannerPhotos"];
+    dataPath = [NSString stringWithFormat:@"%@/%@",dataPath,@"myPhotos"];
     if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath]){
         //create folder
         [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil]; 
+    } 
+    if ([[NSFileManager defaultManager] fileExistsAtPath:dataPath]){
+        NSLog(@"created folder");
     } 
 
 }
@@ -204,6 +209,51 @@
     [runLoop run];
 }
 
+
+- (NSMutableString*)getUserDocumentDir {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSMutableString *path = [NSMutableString stringWithString:[paths objectAtIndex:0]];
+    return path;
+}
+
+
+- (BOOL) deleteMyDocsDirectory 
+{
+    NSMutableString *path = [self getUserDocumentDir];
+    [path appendString:@"/myPhotos"];
+    return [self.fileManager removeItemAtPath:path error:nil];
+}
+
+
+- (void) saveImage : (UIImage *) image
+{
+    NSArray *pathList = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *dataPath    = [pathList  objectAtIndex:0];
+    dataPath = [NSString stringWithFormat:@"%@/%@",dataPath,@"myPhotos"];
+    self.imageNo = self.imageNo  + 1;
+    NSString *imagePath = [NSString stringWithFormat:@"%@/%d",dataPath,self.imageNo]; 
+    NSLog(@"image Path %@",imagePath);
+
+    [self.imageUrls addObject:imagePath];
+    dispatch_queue_t photoQueue = dispatch_queue_create("save pic file", NULL);
+    dispatch_async(photoQueue, ^{
+
+        NSData *data = UIImagePNGRepresentation(image); //convert image into .png format.
+        
+        if (![self.fileManager fileExistsAtPath:imagePath]) {
+            //store file in cache
+            NSLog(@"can create file");
+            [self.fileManager createFileAtPath:imagePath contents:nil attributes:nil];
+            NSLog(@"images after adding image %@",self.imageUrls);
+            [data writeToFile:imagePath atomically:YES];
+        } 
+        if ([self.fileManager fileExistsAtPath:imagePath]) {
+            //store file in cache
+            NSLog(@"created file");
+        } 
+    });
+        
+}
 - (void) clickPhoto: (id) sender
 {
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -223,50 +273,14 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
-- (NSMutableString*)getUserDocumentDir {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSMutableString *path = [NSMutableString stringWithString:[paths objectAtIndex:0]];
-    return path;
-}
 
-
-- (BOOL) deleteMyDocsDirectory 
-{
-    NSMutableString *path = [self getUserDocumentDir];
-    [path appendString:@"/PhotosWorkoutPlanner"];
-    return [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
-}
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     if (!image) image = [info objectForKey:UIImagePickerControllerOriginalImage];
     if (image) {
         NSLog(@"got the image");
-        /*if ([self deleteMyDocsDirectory]){
-            NSLog(@"deleted directory");
-        }*/
-        //store in core data
-
-        dispatch_queue_t photoQueue = dispatch_queue_create("write picture to file", NULL);
-        dispatch_async(photoQueue, ^{
-            //save the image 
-            NSData * data = UIImagePNGRepresentation(image);
-            NSArray *pathList = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-            NSString *dataPath    = [pathList  objectAtIndex:0];
-            dataPath = [NSString stringWithFormat:@"%@/%@",dataPath,@"PhotosWorkoutPlanner"];
-            //give unique name to image workout_id + autoincrement number
-            self.imageNo = self.imageNo + 1;
-            NSString * imageName =  [NSString stringWithFormat:@"%d",self.imageNo];
-            NSString *imagePath = [NSString stringWithFormat:@"%@/%@",dataPath,imageName];
-            if (![self.fileManager fileExistsAtPath:imagePath]) {
-                [data writeToFile:imagePath atomically:YES];
-                [self.imageUrls addObject:imagePath];
-                NSLog(@"added file %@",imagePath);
-            } else {
-                NSLog(@"exists file %@",imagePath);
-            }
-        });
-        dispatch_release(photoQueue);
+        [self saveImage:image];
     }
     [self dismissImagePicker];
 }
@@ -344,19 +358,38 @@
     }
     return _workoutNameTextField;
 }
-
-- (NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 30;
+}
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    UIView* customView = [[UIView alloc] initWithFrame:CGRectMake(10.0, -5.0, 300.0, 44.0)];
+    customView.backgroundColor = [UIColor clearColor];
+    
+    UILabel * headerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    headerLabel.backgroundColor = [UIColor clearColor];
+    headerLabel.opaque = NO;
+    headerLabel.textColor = [UIColor whiteColor];
+    headerLabel.font = [UIFont boldSystemFontOfSize:18];
+    headerLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    headerLabel.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
+    headerLabel.frame = CGRectMake(11,-11, 320.0, 44.0);
+    headerLabel.textAlignment = UITextAlignmentLeft;
     if (tableView == self.workoutDetails){
         //show date for workout log
         NSDate *date = [NSDate date];
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc]init];
         [dateFormat setDateFormat:@"MM/dd/yyyy"];
-        return [dateFormat stringFromDate:date];  
+        headerLabel.text = [dateFormat stringFromDate:date];  
+    } else if (tableView == self.exercisesTable){
+        Exercise *exercise = (Exercise *)[self.exercises objectAtIndex:section];
+        headerLabel.text = exercise.name;
     }
-    Exercise *exercise = (Exercise *)[self.exercises objectAtIndex:section];
-    return exercise.name;
+
+    [customView addSubview:headerLabel];
+    return customView;
 }
+
 - (UITableViewCell *) configureCellForWorkout: (UITableViewCell *) cell
                                    atIndexPath:(NSIndexPath *)indexPath{
     self.workoutNameTextField.text = self.workout.name;

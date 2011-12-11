@@ -8,7 +8,8 @@
 
 #import "ShowExerciseInWorkout.h"
 #import "Set.h"
-@interface ShowExerciseInWorkout()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
+#import "GetSetForExerciseFromUserViewController.h"
+@interface ShowExerciseInWorkout()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,GetSetForExerciseFromUserViewController>
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UITableView *exerciseDetailsTableView;
 @property (strong, nonatomic) IBOutlet UITableView *showSetsTableView;
@@ -36,6 +37,22 @@
 @synthesize expandCell = _expandCell;
 @synthesize addCancelSetButton = _addCancelSetButton;
 @synthesize delegate = _delegate;
+
+- (void) weightForExercise:(NSString *)weight 
+            repForExercise:(NSString *)rep 
+                  forSetNo:(NSInteger)setNo 
+             forExerciseNo:(NSInteger)exerciseNo
+{
+    NSDictionary *setDictionary =  [NSDictionary dictionaryWithObjectsAndKeys:
+                                    rep, @"reps",
+                                    weight, @"weight",
+                                    nil]; 
+    [self.setsForExercise addObject:setDictionary];
+    [self.addSetTableView reloadData];
+    [self.showSetsTableView reloadData];
+    
+}
+
 
 - (NSMutableArray *) setsForExercise
 {
@@ -82,7 +99,7 @@
 - (void) changeAddMinusSetIcon {
     if (self.expandCell) {
         self.expandCell = false;
-        UIImage *img = [UIImage imageNamed:@"addImage.png"];
+        UIImage *img = [UIImage imageNamed:@"add.png"];
         [self.addCancelSetButton setImage:img forState:UIControlStateNormal];
     }
     else {
@@ -110,17 +127,26 @@
 }
 - (void) addSetClicked :(id) sender {
     
-    [self changeAddMinusSetIcon];
     [self.reps resignFirstResponder];
     [self.weight resignFirstResponder];
+    [self performSegueWithIdentifier:@"add set" sender:self];
     [self.addSetTableView reloadData];
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"add set"]){
+        
+        GetSetForExerciseFromUserViewController *destination = (GetSetForExerciseFromUserViewController *)segue.destinationViewController;
+        [destination setDelegate:self];
+    }
 }
 
 - (void) addButtonForAddingSetInUI
 {
     CGRect frame = self.addSetTableView.frame;
     self.addCancelSetButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *img = [UIImage imageNamed:@"addImage.png"];
+    UIImage *img = [UIImage imageNamed:@"add.png"];
     [self.addCancelSetButton setImage:img forState:UIControlStateNormal];
     [self.addCancelSetButton addTarget:self action:@selector(addSetClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.addCancelSetButton setFrame:CGRectMake(frame.origin.x-30, frame.origin.y+20, 30, 30)];
@@ -275,6 +301,34 @@
     return cell;
     
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (tableView == self.showSetsTableView) return 30;
+    return 0;
+}
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView* customView = [[UIView alloc] initWithFrame:CGRectMake(10.0, -5.0, 300.0, 44.0)];
+    customView.backgroundColor = [UIColor clearColor];
+    
+    UILabel * headerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    headerLabel.backgroundColor = [UIColor clearColor];
+    headerLabel.opaque = NO;
+    headerLabel.textColor = [UIColor whiteColor];
+    headerLabel.font = [UIFont boldSystemFontOfSize:18];
+    headerLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    headerLabel.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
+    headerLabel.frame = CGRectMake(11,-11, 320.0, 44.0);
+    headerLabel.textAlignment = UITextAlignmentLeft;
+    headerLabel.text = @"";
+    if (tableView == self.showSetsTableView){
+        headerLabel.text = @"Sets";
+    }
+    
+    [customView addSubview:headerLabel];
+    return customView;
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

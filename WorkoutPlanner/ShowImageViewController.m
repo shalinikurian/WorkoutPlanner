@@ -21,15 +21,13 @@
 @synthesize image = _image;
 @synthesize url = _url;
 @synthesize database = _database;
+@synthesize delegate = _delegate;
+@synthesize position = _position;
+@synthesize indexPath = _indexPath;
 
 - (IBAction)deletePhoto:(UIBarButtonItem *)sender {
     
-    //delete image from core data
-    [ImageForWorkout deleteImageWithURL:self.url inManagedObjectContext:self.database.managedObjectContext];
-    //delete image from file system
-    if ([[NSFileManager defaultManager] removeItemAtPath:self.url error:nil]){
-        NSLog(@"deleted file at path %@",self.url);
-    }
+    [self.delegate deletePictureWithURL:self.url atIndexPath:self.indexPath atPosition:self.position];
     //pop controller
     [self.navigationController popViewControllerAnimated:YES];
 }
